@@ -6,6 +6,7 @@ class RegisterForm extends Component {
   state = {
     first_name: '',
     last_name: '',
+    username: '',
     email: '',
     password: '',
   };
@@ -18,6 +19,7 @@ class RegisterForm extends Component {
       payload: {
         first_name: this.state.first_name,
         last_name: this.state.last_name,
+        username: this.state.username,
         email: this.state.email,
         password: this.state.password,
       },
@@ -39,6 +41,18 @@ class RegisterForm extends Component {
             {this.props.store.errors.registrationMessage}
           </h3>
         )}
+        <div>
+          <label htmlFor="username">
+            Username:
+            <input
+              type="text"
+              name="username"
+              value={this.state.username}
+              required
+              onChange={this.handleInputChangeFor('username')}
+            />
+          </label>
+        </div>
          <div>
           <label htmlFor="first_name">
             First Name:
