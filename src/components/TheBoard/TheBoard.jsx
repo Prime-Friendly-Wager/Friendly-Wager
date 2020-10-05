@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import LogOutButton from '../LogOutButton/LogOutButton';
+import LogOutButton from '../BottomNavBar/LogOutButton';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
-class UserPage extends Component {
+class TheBoard extends Component {
   // this component doesn't do much to start, just renders some user info to the DOM
   render() {
     return (
@@ -17,4 +17,4 @@ class UserPage extends Component {
 }
 
 // this allows us to use <App /> in index.js
-export default connect(mapStoreToProps)(UserPage);
+export default connect(mapStoreToProps)(TheBoard);
