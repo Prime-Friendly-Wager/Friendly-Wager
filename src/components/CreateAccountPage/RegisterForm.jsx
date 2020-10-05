@@ -4,17 +4,21 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 
 class RegisterForm extends Component {
   state = {
-    username: '',
+    first_name: '',
+    last_name: '',
+    email: '',
     password: '',
   };
 
   registerUser = (event) => {
     event.preventDefault();
-
+    console.log(this.state);
     this.props.dispatch({
       type: 'REGISTER',
       payload: {
-        username: this.state.username,
+        first_name: this.state.first_name,
+        last_name: this.state.last_name,
+        email: this.state.email,
         password: this.state.password,
       },
     });
@@ -35,15 +39,39 @@ class RegisterForm extends Component {
             {this.props.store.errors.registrationMessage}
           </h3>
         )}
-        <div>
-          <label htmlFor="username">
-            Username:
+         <div>
+          <label htmlFor="first_name">
+            First Name:
             <input
               type="text"
-              name="username"
-              value={this.state.username}
+              name="first_name"
+              value={this.state.first_name}
               required
-              onChange={this.handleInputChangeFor('username')}
+              onChange={this.handleInputChangeFor('first_name')}
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="last_name">
+            Last Name:
+            <input
+              type="text"
+              name="last_name"
+              value={this.state.last_name}
+              required
+              onChange={this.handleInputChangeFor('last_name')}
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="email">
+            Email:
+            <input
+              type="text"
+              name="email"
+              value={this.state.email}
+              required
+              onChange={this.handleInputChangeFor('email')}
             />
           </label>
         </div>
