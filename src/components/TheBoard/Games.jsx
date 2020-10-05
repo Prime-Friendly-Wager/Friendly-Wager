@@ -12,7 +12,7 @@ function Games(props) {
 
   return (
     <div>
-      <h2>{heading}</h2>
+      <h2>All Games go here</h2>
     </div>
   );
 }
