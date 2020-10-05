@@ -13,7 +13,7 @@ class RegisterForm extends Component {
 
   registerUser = (event) => {
     event.preventDefault();
-    console.log(this.state);
+
     this.props.dispatch({
       type: 'REGISTER',
       payload: {
