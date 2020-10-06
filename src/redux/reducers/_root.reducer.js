@@ -5,6 +5,8 @@ import user from './user.reducer';
 import memberReducer from './member.reducer'
 import games from './games.reducer';
 import nav from './nav.reducer';
+import gameDetails from './gameDetails.reducer';
+
 
 
 // rootReducer is the primary reducer for our entire project
@@ -19,6 +21,7 @@ const rootReducer = combineReducers({
   memberReducer,
   games,
   nav,
+  gameDetails,
 });
 
 export default rootReducer;

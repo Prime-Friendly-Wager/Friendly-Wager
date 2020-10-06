@@ -11,10 +11,15 @@ class IndividualGame extends Component {
     heading: 'Class Component',
   };
 
+  componentDidMount() {
+    this.props.dispatch({type: 'FETCH_GAME_DETAILS', payload: this.props.match.params.id })
+  }
+
   render() {
     return (
       <div>
         <h2>{this.state.heading}</h2>
+        {JSON.stringify(this.props.store.gameDetails)}
       </div>
     );
   }
