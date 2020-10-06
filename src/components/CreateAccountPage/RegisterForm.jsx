@@ -8,6 +8,13 @@ class RegisterForm extends Component {
     password: '',
   };
 
+  componentDidMount(){
+    this.props.dispatch({type: 'TOGGLE_NAV'});
+  }
+  componentWillUnmount(){
+    this.props.dispatch({type: 'TOGGLE_NAV'})
+  }
+
   registerUser = (event) => {
     event.preventDefault();
 
