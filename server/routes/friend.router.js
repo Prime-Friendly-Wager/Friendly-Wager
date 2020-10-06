@@ -7,7 +7,8 @@ const {
 
   // route to get all of app users i
 router.get('/:search', rejectUnauthenticated, (req, res) => {
-    if(req.body.payload = 'All') {
+    console.log(req.params.search)
+    if(req.params.search ==='All') {
         let queryText = `SELECT id, username, first_name, last_name FROM "user";`;
     pool.query(queryText)
     .then(result => {
@@ -17,7 +18,16 @@ router.get('/:search', rejectUnauthenticated, (req, res) => {
         res.sendStatus(500)
     })
     } else{
-
+        let name = `%${req.params.search}%`;
+        let queryText = `SELECT id, username, first_name, last_name FROM "user"
+        WHERE "first_name" ILIKE $1;`;
+        pool.query(queryText, [name])
+        .then(result => {
+            res.send(result.rows);
+        })
+        .catch(error => {
+            res.sendStatus(500);
+        })
     }
 })
 
