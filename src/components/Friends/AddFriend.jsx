@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import {TextField} from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
 
 
 class AddFriend extends Component {
@@ -15,9 +16,13 @@ class AddFriend extends Component {
     if(nameSearch !== ''){
       this.props.dispatch({type: "GET_MEMBERS", payload: {search: nameSearch}})
     }
+    if(nameSearch === ''){
+      this.props.dispatch({type: "GET_MEMBERS", payload: {search: 'All'}})
+    }
   }
 
-  render() {
+  render()
+  {
     return (
       <div>
         <h2>Add Friends</h2>

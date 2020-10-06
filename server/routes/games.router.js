@@ -1,6 +1,12 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+require('dotenv').config();
+const convertTeamName = require('../modules/api-functions');
+const convertDate = require('../modules/check-week');
+const {
+    rejectUnauthenticated,
+  } = require('../modules/authentication-middleware');
 
 //the querytext in this route will need to be changed
 //as of now it's not getting the team names or logos, just displaying team id
@@ -22,16 +28,6 @@ router.get('/', (req, res) => {
         })
 });
 
-
-const {
-    rejectUnauthenticated,
-  } = require('../modules/authentication-middleware');
-const axios = require('axios');
-const pool = require('../modules/pool');
-const router = express.Router();
-require('dotenv').config();
-const convertTeamName = require('../modules/api-functions');
-const convertDate = require('../modules/check-week');
 
 router.get('/fromNflApi',  async (req, res) => {
     const client = await pool.connect();
