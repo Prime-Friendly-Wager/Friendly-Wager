@@ -26,7 +26,7 @@ function getWeek(convertedDate){
   else if ((mm == 9 && dd >= 29) || (mm == 10 && dd < 6)) {
     currentWeek = 4;
   }
-  else if (mm == 10 && (dd >= 13 && dd < 20)){
+  else if (mm == 10 && (dd >= 7 && dd < 20)){
     currentWeek = 5;
   }
   else if (mm == 10 && (dd >= 20 && dd < 27)){
