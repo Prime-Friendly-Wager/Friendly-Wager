@@ -16,6 +16,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import CreateAccountPage from '../CreateAccountPage/CreateAccountPage';
 import AddFriend from '../Friends/AddFriend'
 import BottomNavBar from '../BottomNavBar/BottomNavBar'
+import FriendsList from '../Friends/FriendsList'
 
 
 import './App.css';
@@ -67,8 +68,20 @@ class App extends Component {
               component={CreateAccountPage}
               authRedirect="the-board"
             />
-            // DELETE THIS ROUTE WHEN FINISHED
-            <ProtectedRoute exactpath="/addfriends" component={AddFriend} /> 
+
+            <ProtectedRoute
+              // with authRedirect:
+              // - if logged in, redirects to "the-board"
+              // - else shows RegisterPage at "/registration"
+              exact
+              path="/create-account"
+              component={FriendsList}
+              authRedirect="/friends"
+            />
+
+            <ProtectedRoute exact path="/friends" component={FriendsList} />
+
+            <Route exact path="/friends/add" component={AddFriend} />
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
