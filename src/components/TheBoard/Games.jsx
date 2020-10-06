@@ -1,20 +1,54 @@
-import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import React, { useEffect } from 'react';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
-// Basic functional component structure for React with default state
-// value setup. When making a new component be sure to replace the
-// component name Games with the name for the new component.
-function Games(props) {
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
-  const [heading, setHeading] = useState('Functional Component');
+const useStyles = makeStyles({
+  table: {
+    width: '100%',
+  },
+});
+
+function SimpleTable(props) {
+
+  //using hook to dispatch on componentDidMount
+  // useEffect(() => {
+  //   props.dispatch({ type: 'FETCH_GAMES' })
+  // }, [])
+
+  const classes = useStyles();
 
   return (
-    <div>
-      <h2>{heading}</h2>
-    </div>
+    <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="right">Game</TableCell>
+            <TableCell align="right">Time</TableCell>
+            <TableCell align="right">Spread</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {props.store.games.map((game, i) => {
+            return (
+              <TableRow>
+                <TableCell align="right">{game.away_team} @ {game.home_team}</TableCell>
+                <TableCell align="right">{game.date}</TableCell>
+                <TableCell align="right">{game.home_team} {game.home_team_spread}</TableCell>
+              </TableRow>
+            )
+          })}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
 
-export default connect(mapStoreToProps)(Games);
+export default connect(mapStoreToProps)(SimpleTable);

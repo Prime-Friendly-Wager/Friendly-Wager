@@ -9,7 +9,6 @@ import {
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import TheBoard from '../TheBoard/TheBoard';
@@ -38,7 +37,7 @@ class App extends Component {
             Visiting localhost:3000the-board will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000the-board */}
-            <ProtectedRoute
+            <Route
               // logged in shows UserPage else shows LoginPage
               exact
               path="/the-board"
