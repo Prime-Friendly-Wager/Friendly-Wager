@@ -7,7 +7,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 require('dotenv').config();
 const convertTeamName = require('../modules/api-functions');
-
+const convertDate = require('../modules/check-week');
 
 router.get('/fromNflApi',  async (req, res) => {
     const client = await pool.connect();
@@ -30,7 +30,9 @@ router.get('/fromNflApi',  async (req, res) => {
         const base = 'https://api.nfl.com/v1/games?';
 
         //we'll need the weekconverter function here
-        const weekNumber = 5;
+        const weekNumber =  await convertDate();
+        console.log('week number is', weekNumber);
+        
         const params = `s={"$query":{"week.season":2020,"week.seasonType":"REG","week.week":${weekNumber}}}&fs={week{season,seasonType,week},id,gameTime,gameStatus,homeTeam{id,abbr},visitorTeam{id,abbr},homeTeamScore,visitorTeamScore}`
         const url = encodeURI(`${base}${params}`)
         const getGameInfo = {
