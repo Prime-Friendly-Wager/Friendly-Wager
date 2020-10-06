@@ -9,7 +9,6 @@ import {
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import TheBoard from '../TheBoard/TheBoard';
