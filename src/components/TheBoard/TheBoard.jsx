@@ -24,7 +24,6 @@ class TheBoard extends Component {
     this.props.dispatch({ type: 'FETCH_GAMES', payload: currentWeek });
   }
 
-
   render() {
 
     const { classes } = this.props;
