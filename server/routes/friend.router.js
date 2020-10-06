@@ -30,15 +30,17 @@ router.get('/:search', rejectUnauthenticated, (req, res) => {
     }
 })
 
+// route to get the current logged in user's friends
 router.get('/', rejectUnauthenticated, (req, res) => {
-    console.log(req.user.id)
         let queryText = `
         SELECT "user".id, "user".username, "user".first_name, "user".last_name FROM "user"
         JOIN "friends" ON "user".id = "friends".user2_id OR "user".id = "friends".user1_id
-        WHERE "friends".user1_id = $1 OR "friends".user2_id = $1;`;
+        WHERE "friends".user1_id = $1 OR "friends".user2_id = $1;
+      `;
+      
     pool.query(queryText, [req.user.id])
     .then(result => {
-        let newFriendsList = []
+        let newFriendsList = [];
         console.log(result.rows)
         for(let i = 0; i < result.rows.length; i++){
             if(result.rows[i].id !== req.user.id){
@@ -46,6 +48,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
             }
         }
         res.send(newFriendsList)
+        
     })
     .catch(error => {
         res.sendStatus(500)

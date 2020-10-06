@@ -8,7 +8,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import {withRouter} from 'react-router'
+import { withRouter } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -96,4 +96,4 @@ function FriendsListHeading(props) {
   );
 }
 
-export default withRouter(connect(mapStoreToProps)(FriendsListHeading));
+export default connect(mapStoreToProps)(withRouter(FriendsListHeading));
