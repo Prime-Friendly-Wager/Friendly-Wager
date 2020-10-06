@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import React, { useEffect } from 'react';
 import moment from 'moment';
+import { withRouter } from 'react-router-dom';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -25,6 +26,7 @@ function SimpleTable(props) {
   //   props.dispatch({ type: 'FETCH_GAMES' })
   // }, [])
 
+
   const classes = useStyles();
 
   return (
@@ -40,7 +42,7 @@ function SimpleTable(props) {
         <TableBody>
           {props.store.games.map((game, i) => {
             return (
-              <TableRow key={game.id}>
+              <TableRow key={game.id} onClick={() => props.history.push(`/game-details/${game.id}`)}>
                 <TableCell align="right">{game.away_team} @ {game.home_team}</TableCell>
                 <TableCell align="right">{moment(game.date).format("ddd MMM D, h:mm a")}</TableCell>
                 <TableCell align="right">{game.home_team} {game.home_team_spread}</TableCell>
@@ -53,4 +55,5 @@ function SimpleTable(props) {
   );
 }
 
-export default connect(mapStoreToProps)(SimpleTable);
+
+export default connect(mapStoreToProps)(withRouter(SimpleTable));

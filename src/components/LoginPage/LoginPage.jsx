@@ -4,7 +4,6 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 import LoginForm from './LoginForm';
 
 
-
 class LoginPage extends Component {
   componentDidMount(){
     this.props.dispatch({type: 'TOGGLE_NAV'});
