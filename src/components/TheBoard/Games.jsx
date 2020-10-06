@@ -19,31 +19,35 @@ const useStyles = makeStyles({
 function SimpleTable(props) {
 
   //using hook to dispatch on componentDidMount
-  useEffect(() => {
-    props.dispatch({ type: 'FETCH_GAMES' })
-  }, [])
+  // useEffect(() => {
+  //   props.dispatch({ type: 'FETCH_GAMES' })
+  // }, [])
 
   const classes = useStyles();
 
   return (
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="right">Game</TableCell>
-              <TableCell align="right">Time</TableCell>
-              <TableCell align="right">Spread</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <TableRow>
-              <TableCell align="right">Game Test</TableCell>
-              <TableCell align="right">Time Test</TableCell>
-              <TableCell align="right">Spread Test</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </TableContainer>
+    <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="right">Game</TableCell>
+            <TableCell align="right">Time</TableCell>
+            <TableCell align="right">Spread</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {props.store.games.map((game, i) => {
+            return (
+              <TableRow>
+                <TableCell align="right">{game.away_team} @ {game.home_team}</TableCell>
+                <TableCell align="right">{game.date}</TableCell>
+                <TableCell align="right">{game.home_team} {game.home_team_spread}</TableCell>
+              </TableRow>
+            )
+          })}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
 

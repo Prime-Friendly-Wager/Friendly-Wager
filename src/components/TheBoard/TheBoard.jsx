@@ -15,7 +15,11 @@ const styles = theme => ({
 });
 
 class TheBoard extends Component {
-  // this component doesn't do much to start, just renders some user info to the DOM
+
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_GAMES' });
+  }
+
   render() {
 
     const { classes } = this.props;
@@ -23,7 +27,7 @@ class TheBoard extends Component {
     return (
       <div>
         <div className={classes.container}>
-          <h1>The Board<span className={classes.weekSpan}>week 1</span></h1>
+          <h1>The Board<span className={classes.weekSpan}>Week 3</span></h1>
         </div>
         <TabPanel />
       </div>
