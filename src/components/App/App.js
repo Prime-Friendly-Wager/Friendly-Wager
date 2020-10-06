@@ -17,6 +17,7 @@ import CreateAccountPage from '../CreateAccountPage/CreateAccountPage';
 import AddFriend from '../Friends/AddFriend';
 import BottomNavBar from '../BottomNavBar/BottomNavBar';
 import IndividualGame from '../IndividualGame/IndividualGame';
+import FriendsList from '../Friends/FriendsList'
 
 import './App.css';
 
@@ -74,6 +75,17 @@ class App extends Component {
               component={CreateAccountPage}
               authRedirect="the-board"
             />
+
+            <ProtectedRoute
+              // with authRedirect:
+              // - if logged in, redirects to "the-board"
+              // - else shows RegisterPage at "/registration"
+              exact
+              path="/create-account"
+              component={FriendsList}
+              authRedirect="/friends"
+            />
+             <ProtectedRoute exactpath="/friends" component={FriendsList} />
             <ProtectedRoute exactpath="/addfriends" component={AddFriend} />
 
             {/* If none of the other routes matched, we will show a 404. */}

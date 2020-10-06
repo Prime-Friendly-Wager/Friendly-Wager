@@ -51,18 +51,13 @@ function FriendsListHeading(props) {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
   const [heading, setHeading] = useState('My Friends');
-
-  const top100Films = [
-    { title: 'The Shawshank Redemption', year: 1994 },
-   
-  ];
   
   return (
       <>
       <center>
     <div className={classes.headingContainer}>
       <h2 className={classes.heading}>{heading}</h2>
-      <Fab color="primary" aria-label="add">
+      <Fab color="primary" className={classes.addButton} aria-label="add">
         <AddIcon />
       </Fab>
     </div>
@@ -74,7 +69,7 @@ function FriendsListHeading(props) {
       id="free-solo-demo"
       freeSolo
       //Change mapping for friends 
-      options={top100Films.map((option) => option.title)}
+      options={props.store.friendsList.map((option) => option.first_name)}
       renderInput={(params) => (
         <TextField
         {...params} 
