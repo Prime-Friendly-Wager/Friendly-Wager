@@ -5,9 +5,8 @@ const {
     rejectUnauthenticated,
   } = require('../modules/authentication-middleware');
 
-  // route to get all of app users i
+  // route to get all of app users
 router.get('/:search', rejectUnauthenticated, (req, res) => {
-    console.log(req.params.search)
     if(req.params.search ==='All') {
         let queryText = `SELECT id, username, first_name, last_name FROM "user";`;
     pool.query(queryText)
