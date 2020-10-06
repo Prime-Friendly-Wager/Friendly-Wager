@@ -7,12 +7,16 @@ import {
 } from 'react-router-dom';
 
 import { connect } from 'react-redux';
+import mapStoreToProps from '../../redux/mapStoreToProps';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import TheBoard from '../TheBoard/TheBoard';
 import LoginPage from '../LoginPage/LoginPage';
 import CreateAccountPage from '../CreateAccountPage/CreateAccountPage';
+import AddFriend from '../Friends/AddFriend'
+import BottomNavBar from '../BottomNavBar/BottomNavBar'
+
 
 import './App.css';
 
@@ -45,7 +49,7 @@ class App extends Component {
             {/* When a value is supplied for the authRedirect prop the user will
             be redirected to the path supplied when logged in, otherwise they will
             be taken to the component and path supplied. */}
-            <ProtectedRoute
+            <Route
               // with authRedirect:
               // - if logged in, redirects to "the-board"
               // - else shows LoginPage at /login
@@ -63,14 +67,19 @@ class App extends Component {
               component={CreateAccountPage}
               authRedirect="the-board"
             />
+            <ProtectedRoute exactpath="/addfriends" component={AddFriend} />
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
         </div>
+        {this.props.store.nav && (
+        <BottomNavBar />
+         )} 
       </Router>
+      
     );
   }
 }
 
-export default connect()(App);
+export default connect(mapStoreToProps)(App);

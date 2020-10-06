@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import React, { useEffect } from 'react';
+import moment from 'moment';
+
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -38,9 +40,9 @@ function SimpleTable(props) {
         <TableBody>
           {props.store.games.map((game, i) => {
             return (
-              <TableRow>
+              <TableRow key={game.id}>
                 <TableCell align="right">{game.away_team} @ {game.home_team}</TableCell>
-                <TableCell align="right">{game.date}</TableCell>
+                <TableCell align="right">{moment(game.date).format("ddd MMM D, h:mm a")}</TableCell>
                 <TableCell align="right">{game.home_team} {game.home_team_spread}</TableCell>
               </TableRow>
             )
