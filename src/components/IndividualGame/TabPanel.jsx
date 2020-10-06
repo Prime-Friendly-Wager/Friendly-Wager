@@ -69,7 +69,7 @@ export default function SimpleTabs() {
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="Open Bets" {...a11yProps(0)} className={classes.tabs}/>
-          <Tab label="MyBets" {...a11yProps(1)} className={classes.tabs}/>
+          <Tab label="My Bets" {...a11yProps(1)} className={classes.tabs}/>
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
