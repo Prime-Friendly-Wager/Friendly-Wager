@@ -1,4 +1,4 @@
-// import moment from 'moment'
+
 const moment = require('moment');
 //creates new date in mm-dd-yyyy format
 function convertDate(){
@@ -72,7 +72,7 @@ function getWeek(convertedDate){
   console.log(currentWeek)
   return currentWeek
   // getSchedule(currentWeek)
-  //Doesn't include playoffs.
+
 }
 
 //can use for loops to write logic for schedule for weeks outside of current week and
@@ -89,6 +89,7 @@ function getSchedule(currentWeek){
     //before current week
 //   }
 // }
+
   console.log(currentWeek);
   return currentWeek
 }
