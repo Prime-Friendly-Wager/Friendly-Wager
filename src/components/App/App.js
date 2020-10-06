@@ -67,7 +67,8 @@ class App extends Component {
               component={CreateAccountPage}
               authRedirect="the-board"
             />
-            <ProtectedRoute exactpath="/addfriends" component={AddFriend} />
+            // DELETE THIS ROUTE WHEN FINISHED
+            <ProtectedRoute exactpath="/addfriends" component={AddFriend} /> 
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />

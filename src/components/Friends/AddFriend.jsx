@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import {TextField} from '@material-ui/core';
+import {withStyles, TextField} from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
-
+const styles = theme => ({
+  mainDiv: {
+    margin: 10
+  }
+})
 class AddFriend extends Component {
 
   componentDidMount(){
     this.props.dispatch({type: "GET_MEMBERS", payload: {search: 'All'}});
   }
 
+  // function to handle searching for a member by name
   handleSearch = () => {
     let nameSearch = document.getElementById('friendSearch').value;
     if(nameSearch !== ''){
@@ -23,10 +28,11 @@ class AddFriend extends Component {
 
   render()
   {
+    const {classes} = this.props;
     return (
-      <div>
+      <div className={classes.mainDiv}>
         <h2>Add Friends</h2>
-        <TextField id="friendSearch" label="Search" variant="outlined" onChange={this.handleSearch}/>
+        <SearchIcon fontSize="large"/><TextField id="friendSearch" label="Search" variant="outlined" onChange={this.handleSearch}/>
         {this.props.store.memberReducer.map(member => (
           <h3>{member.first_name}</h3>
         ))}
@@ -35,4 +41,4 @@ class AddFriend extends Component {
   }
 }
 
-export default connect(mapStoreToProps)(AddFriend);
+export default connect(mapStoreToProps)(withStyles(styles)(AddFriend));

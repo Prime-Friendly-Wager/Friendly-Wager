@@ -7,7 +7,7 @@ const {
 
   // route to get all of app users
 router.get('/:search', rejectUnauthenticated, (req, res) => {
-    if(req.params.search ==='All') {
+    if(req.params.search ==='All') { // gets all of the members of the app
         let queryText = `SELECT id, username, first_name, last_name FROM "user";`;
     pool.query(queryText)
     .then(result => {
@@ -16,7 +16,7 @@ router.get('/:search', rejectUnauthenticated, (req, res) => {
     .catch(error => {
         res.sendStatus(500)
     })
-    } else{
+    } else{  // gets the members who fix the search criteria
         let name = `%${req.params.search}%`;
         let queryText = `SELECT id, username, first_name, last_name FROM "user"
         WHERE "first_name" ILIKE $1;`;
