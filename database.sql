@@ -38,7 +38,7 @@ CREATE TABLE "games" (
 	"away_team_id" int NOT NULL REFERENCES "teams",
 	"home_team_spread" DECIMAL NOT NULL,
 	"away_team_spread" DECIMAL NOT NULL,
-	"date" DATE NOT NULL,
+	"date" TIMESTAMP WITH TIME ZONE NOT NULL,
 	"week" int NOT NULL,
 	"home_team_score" int,
 	"away_team_score" int,

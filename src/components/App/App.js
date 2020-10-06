@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-
+import mapStoreToProps from '../../redux/mapStoreToProps';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
@@ -15,6 +15,8 @@ import TheBoard from '../TheBoard/TheBoard';
 import LoginPage from '../LoginPage/LoginPage';
 import CreateAccountPage from '../CreateAccountPage/CreateAccountPage';
 import AddFriend from '../Friends/AddFriend'
+import BottomNavBar from '../BottomNavBar/BottomNavBar'
+
 
 import './App.css';
 
@@ -37,7 +39,7 @@ class App extends Component {
             Visiting localhost:3000the-board will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000the-board */}
-            <ProtectedRoute
+            <Route
               // logged in shows UserPage else shows LoginPage
               exact
               path="/the-board"
@@ -47,7 +49,7 @@ class App extends Component {
             {/* When a value is supplied for the authRedirect prop the user will
             be redirected to the path supplied when logged in, otherwise they will
             be taken to the component and path supplied. */}
-            <ProtectedRoute
+            <Route
               // with authRedirect:
               // - if logged in, redirects to "the-board"
               // - else shows LoginPage at /login
@@ -71,9 +73,13 @@ class App extends Component {
             <Route render={() => <h1>404</h1>} />
           </Switch>
         </div>
+        {this.props.store.nav && (
+        <BottomNavBar />
+         )} 
       </Router>
+      
     );
   }
 }
 
-export default connect()(App);
+export default connect(mapStoreToProps)(App);
