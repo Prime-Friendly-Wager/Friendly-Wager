@@ -9,7 +9,7 @@ require('dotenv').config();
 const convertTeamName = require('../modules/api-functions');
 
 
-router.get('/currentWeek',  async (req, res) => {
+router.get('/fromNflApi',  async (req, res) => {
     const client = await pool.connect();
 
     try {

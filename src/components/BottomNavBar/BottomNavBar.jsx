@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import mapStoreToProps from '../../redux/mapStoreToProps';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import FolderIcon from '@material-ui/icons/Folder';
-import RestoreIcon from '@material-ui/icons/Restore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+
+
+
 const useStyles = makeStyles({
   root: {
     width: '100%',
@@ -13,18 +18,55 @@ const useStyles = makeStyles({
     bottom: 0,
   },
 });
-export default function LabelBottomNavigation() {
+function BottomNavBar(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState('recents');
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+  
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const handleLogout = () => {
+    props.dispatch({ type: 'LOGOUT' })
+    setMobileMoreAnchorEl(null);
+  }
+
+  
   return (
+    
     <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
-      <BottomNavigationAction label="Recents" value="recents" icon={<RestoreIcon />} />
-      <BottomNavigationAction label="Favorites" value="favorites" icon={<FavoriteIcon />} />
-      <BottomNavigationAction label="Nearby" value="nearby" icon={<LocationOnIcon />} />
-      <BottomNavigationAction label="Folder" value="folder" icon={<FolderIcon />} />
+      <BottomNavigationAction label="Board" value="recents" icon={<DashboardIcon />} />
+      <BottomNavigationAction label="Friends" value="favorites" icon={ <img src={process.env.PUBLIC_URL + '/Images/friends.svg'} />} />
+      <BottomNavigationAction label="My Bets" value="nearby" icon={ <img src={process.env.PUBLIC_URL + '/Images/Ticket.svg'} />} />
+      <BottomNavigationAction value="folder" onClick={handleMobileMenuOpen} icon={<AccountCircleIcon />} />
+      <Menu
+                id="menu-appbar"
+                anchorEl={mobileMoreAnchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={isMobileMenuOpen}
+                onClose={handleMobileMenuClose}
+              >
+              <MenuItem onClick={handleLogout}>Log Out</MenuItem>
+              </Menu>
     </BottomNavigation>
   );
 }
+export default connect(mapStoreToProps)(BottomNavBar);

@@ -7,18 +7,12 @@ import axios from 'axios';
 class TheBoard extends Component {
   // this component doesn't do much to start, just renders some user info to the DOM
 
-
-  apiCall = () => {
-    console.log('testing nfl data');
-    axios.get('/api/games/currentWeek')
-  }
-
   render() {
     return (
       <div>
         <h1 id="welcome">Welcome, {this.props.store.user.username}!</h1>
         <p>Your ID is: {this.props.store.user.id}</p>
-        <button onClick={() => this.apiCall()}>API CALL - USE WITH CAUTION</button>
+        <button onClick={() => axios.get('/api/games/fromNflApi')}>API CALL - USE WITH CAUTION</button>
         <LogOutButton className="log-in" />
       </div>
     );
