@@ -78,8 +78,9 @@ class App extends Component {
               component={FriendsList}
               authRedirect="/friends"
             />
-             <ProtectedRoute exactpath="/friends" component={FriendsList} />
-            <ProtectedRoute exactpath="/addfriends" component={AddFriend} />
+
+            <ProtectedRoute exact path="/friends" component={FriendsList} />
+            <ProtectedRoute exact path="/addfriends" component={AddFriend} />
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
