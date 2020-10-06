@@ -28,11 +28,14 @@ class TheBoard extends Component {
   render() {
 
     const { classes } = this.props;
+    const currentWeek = this.props.store.games[0];
 
     return (
       <div>
         <div className={classes.container}>
-          <h1>The Board<span className={classes.weekSpan}>Week 5</span></h1>
+          <h1>The Board<span className={classes.weekSpan}>
+            Week {currentWeek && currentWeek.week}
+          </span></h1>
         </div>
         <TabPanel />
         <button onClick={() => axios.get('/api/games/fromNflApi')}>API CALL - USE WITH CAUTION</button>

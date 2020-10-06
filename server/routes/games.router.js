@@ -13,7 +13,6 @@ const convertDate = require('../modules/check-week');
 //as of now it's not getting the team names or logos, just displaying team id
 //need to change date column data type to time, time currently not displaying correctly
 router.get('/:week', (req, res) => {
-    console.log('ROUTER WEEK', req.params)
     const queryText = `SELECT games.*, home_team."name" as home_team, away_team."name" as away_team
                     FROM "games"
                     LEFT JOIN "teams" as home_team ON "games".home_team_id = "home_team".id
@@ -21,7 +20,6 @@ router.get('/:week', (req, res) => {
                     WHERE "games".week = $1;`
     pool.query(queryText, [req.params.week])
         .then((result) => {
-            // console.log('ROUTER GAMES', result.rows);
             res.send(result.rows);
         })
         .catch((error) => {
