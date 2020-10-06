@@ -4,7 +4,9 @@ import axios from 'axios';
 function* fetchGames() {
   try {
     let response = yield axios.get('/api/games');
-    console.log(response);
+    console.log(response.data);
+    //sending games to reducer
+    yield put({ type: 'SET_GAMES', payload: response.data })
   } catch (error) {
     console.log('ERROR FETCHING GAMES', error);
   }
