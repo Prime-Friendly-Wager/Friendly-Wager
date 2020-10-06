@@ -8,6 +8,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import { withRouter } from "react-router";
 
 
 
@@ -45,8 +46,8 @@ function BottomNavBar(props) {
   return (
     
     <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
-      <BottomNavigationAction label="Board" value="recents" icon={<DashboardIcon />} />
-      <BottomNavigationAction label="Friends" value="favorites" icon={ <img src={process.env.PUBLIC_URL + '/Images/friends.svg'} />} />
+      <BottomNavigationAction label="Board" onClick={() => {props.history.push('/the-board')}} value="recents" icon={<DashboardIcon />} />
+      <BottomNavigationAction label="Friends" onClick={() => {props.history.push('/friends')}} value="favorites" icon={ <img src={process.env.PUBLIC_URL + '/Images/friends.svg'} />} />
       <BottomNavigationAction label="My Bets" value="nearby" icon={ <img src={process.env.PUBLIC_URL + '/Images/Ticket.svg'} />} />
       <BottomNavigationAction value="folder" onClick={handleMobileMenuOpen} icon={<AccountCircleIcon />} />
       <Menu
@@ -69,4 +70,4 @@ function BottomNavBar(props) {
     </BottomNavigation>
   );
 }
-export default connect(mapStoreToProps)(BottomNavBar);
+export default connect(mapStoreToProps)(withRouter(BottomNavBar));

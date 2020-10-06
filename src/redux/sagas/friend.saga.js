@@ -12,7 +12,7 @@ function* getMembers(action){
 
 function* getFriends(){
     try{
-        let response = yield axios.get(`/api/friend/getfriends`);
+        let response = yield axios.get(`/api/friend/`);
         console.log(response.data)
         yield put({type: 'SET_FRIENDS', payload: response.data})
     }catch(error){
