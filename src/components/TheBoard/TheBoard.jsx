@@ -4,6 +4,7 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 import axios from 'axios';
 import { withStyles } from '@material-ui/core';
 import TabPanel from './TabPanel';
+import LogOutButton from '../BottomNavBar/LogOutButton';
 
 const styles = theme => ({
   container: {
