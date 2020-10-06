@@ -30,5 +30,25 @@ router.get('/:search', rejectUnauthenticated, (req, res) => {
     }
 })
 
+router.get('/getfriends', rejectUnauthenticated, (req, res) => {
+        values = [req.user.id]
+        console.log(values)
+        let queryText = `
+        SELECT * FROM "user"
+        JOIN "friends" 
+        ON "friends".user1_id = "user".id
+        WHERE "friends".user1_id = $1 OR "friends".user2_id = $1
+        
+      `;
+    pool.query(queryText, values)
+    .then(result => {
+        console.log(result.rows)
+        res.send(result.rows)
+    })
+    .catch(error => {
+        res.sendStatus(500)
+    })
+})
+
 
 module.exports = router;

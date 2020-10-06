@@ -12,11 +12,16 @@ class FriendsList extends Component {
    
   };
 
+  componentDidMount(){
+    this.props.dispatch({type: 'GET_FRIENDS'});
+  }
+
   render() {
+    
     return (
       <div>
         <FriendsListHeading />
-        
+
       </div>
     );
   }
