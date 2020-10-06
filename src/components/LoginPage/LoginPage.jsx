@@ -2,9 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import LoginForm from './LoginForm';
+import BottomNavBar from '../BottomNavBar/BottomNavBar'
+
 
 class LoginPage extends Component {
+  componentDidMount(){
+    this.props.dispatch({type: 'TOGGLE_NAV'});
+  }
+  componentWillUnmount(){
+    this.props.dispatch({type: 'TOGGLE_NAV'})
+  }
   render() {
+    
     return (
       <div>
         <LoginForm />
