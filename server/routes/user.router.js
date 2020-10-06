@@ -5,7 +5,6 @@ const {
 const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
-const nodemailer = require("nodemailer");
 
 const router = express.Router();
 

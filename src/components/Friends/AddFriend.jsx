@@ -2,19 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
-// Basic class component structure for React with default state
-// value setup. When making a new component be sure to replace
-// the component name AddFriend with the name for the new
-// component.
+
 class AddFriend extends Component {
+
+  componentDidMount(){
+    this.props.dispatch({type: "GET_USERS", payload: 'All'});
+  }
   state = {
-    heading: 'Class Component',
+    search: '',
   };
 
   render() {
     return (
       <div>
-        <h2>{this.state.heading}</h2>
+        <h2>Add Friends</h2>
       </div>
     );
   }
