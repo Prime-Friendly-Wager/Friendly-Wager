@@ -51,6 +51,9 @@ const useStyles = makeStyles((theme) => ({
   tabs: {
     width: '50%',
   },
+  games: {
+    width: '100%',
+  },
 }));
 
 export default function SimpleTabs() {
