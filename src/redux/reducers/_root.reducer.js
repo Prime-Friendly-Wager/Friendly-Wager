@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
+
+import memberReducer from './member.reducer'
 import games from './games.reducer';
 import nav from './nav.reducer';
 
@@ -14,6 +16,7 @@ import nav from './nav.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
+  memberReducer,
   games,
   nav,
 });
