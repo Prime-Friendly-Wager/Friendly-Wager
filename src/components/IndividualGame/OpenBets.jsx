@@ -12,7 +12,7 @@ function OpenBets(props) {
 
   return (
     <div>
-      <h2>{heading}</h2>
+      <h2>Open Bets go here</h2>
     </div>
   );
 }

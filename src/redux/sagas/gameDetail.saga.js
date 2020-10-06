@@ -4,7 +4,6 @@ import axios from 'axios';
 function* fetchGameDetails(action) {
   try {
     let response = yield axios.get(`/api/games/details/${action.payload}`);
-    console.log(response.data);
     //sending games to reducer
     yield put({ type: 'SET_GAME_DETAILS', payload: response.data })
 
