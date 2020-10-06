@@ -14,10 +14,10 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import TheBoard from '../TheBoard/TheBoard';
 import LoginPage from '../LoginPage/LoginPage';
 import CreateAccountPage from '../CreateAccountPage/CreateAccountPage';
-import AddFriend from '../Friends/AddFriend'
-import BottomNavBar from '../BottomNavBar/BottomNavBar'
+import AddFriend from '../Friends/AddFriend';
+import BottomNavBar from '../BottomNavBar/BottomNavBar';
+import IndividualGame from '../IndividualGame/IndividualGame';
 import FriendsList from '../Friends/FriendsList'
-
 
 import './App.css';
 
@@ -59,6 +59,13 @@ class App extends Component {
               component={LoginPage}
               authRedirect="the-board"
             />
+
+            <Route
+              exact
+              path='/game-details/:id'
+              component={IndividualGame}
+            />
+
             <ProtectedRoute
               // with authRedirect:
               // - if logged in, redirects to "the-board"
