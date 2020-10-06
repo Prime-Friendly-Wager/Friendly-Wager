@@ -14,7 +14,9 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import TheBoard from '../TheBoard/TheBoard';
 import LoginPage from '../LoginPage/LoginPage';
 import CreateAccountPage from '../CreateAccountPage/CreateAccountPage';
+import AddFriend from '../Friends/AddFriend'
 import BottomNavBar from '../BottomNavBar/BottomNavBar'
+
 
 import './App.css';
 
@@ -65,6 +67,7 @@ class App extends Component {
               component={CreateAccountPage}
               authRedirect="the-board"
             />
+            <ProtectedRoute exactpath="/addfriends" component={AddFriend} />
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
