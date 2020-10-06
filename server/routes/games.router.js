@@ -1,10 +1,10 @@
 const express = require('express');
-const pool = require('../modules/pool');
-const router = express.Router();
 const {
     rejectUnauthenticated,
   } = require('../modules/authentication-middleware');
 const axios = require('axios');
+const pool = require('../modules/pool');
+const router = express.Router();
 require('dotenv').config();
 const convertTeamName = require('../modules/api-functions');
 const convertDate = require('../modules/check-week');

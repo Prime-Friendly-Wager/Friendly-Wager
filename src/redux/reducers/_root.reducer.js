@@ -5,6 +5,7 @@ import user from './user.reducer';
 import memberReducer from './member.reducer'
 import games from './games.reducer';
 import nav from './nav.reducer';
+import friendsList from './friends.reducer'
 
 
 // rootReducer is the primary reducer for our entire project
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   memberReducer,
   games,
+  friendsList,
   nav,
 });
 
