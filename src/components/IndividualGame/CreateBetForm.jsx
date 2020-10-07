@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { Button } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -10,9 +10,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
     createBetBtn: {
-      width: '50%',
-      marginLeft: '25%',
-      marginRight: '25%',
+      width: '60%',
+      marginLeft: '20%',
+      marginRight: '20%',
       marginTop: '2em',
     },
   });
@@ -21,6 +21,8 @@ function CreateBetForm(props) {
 
     const classes = useStyles();
     const gameDetails = props.store.gameDetails
+
+    
 
   return (
     <FormControl component="fieldset">
@@ -38,6 +40,8 @@ function CreateBetForm(props) {
           labelPlacement="top"
         />
       </RadioGroup>
+      <TextField placeholder="0" variant="outlined"/>
+      <p>Units</p>
       <Button variant="contained" color="primary" className={classes.createBetBtn}>
           Create Bet
       </Button>
