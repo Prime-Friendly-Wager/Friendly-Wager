@@ -11,7 +11,7 @@
 
 CREATE TABLE "user" (
 	"id" SERIAL PRIMARY KEY NOT NULL,
-	"email" varchar(255) UNIQUE NOT NULL,
+	"username" varchar(255) UNIQUE NOT NULL,
 	"first_name" varchar(30) NOT NULL,
 	"last_name" varchar(30) NOT NULL,
 	"is_admin" BOOLEAN NOT NULL DEFAULT 'false',
