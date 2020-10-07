@@ -20,10 +20,16 @@ function* getFriends(){
     }
 }
 
+//fetches information for friends statistics page
+function* getStatistics(){
+    console.log('in get statistics')
+}
+
 
 function* friendSaga(){
     yield takeEvery('GET_MEMBERS', getMembers)
     yield takeEvery('GET_FRIENDS', getFriends)
+    yield takeEvery('FETCH_FRIEND_DETAILS', getStatistics)
 }
 
 export default friendSaga;

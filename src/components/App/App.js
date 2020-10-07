@@ -18,6 +18,7 @@ import AddFriend from '../Friends/AddFriend';
 import BottomNavBar from '../BottomNavBar/BottomNavBar';
 import IndividualGame from '../IndividualGame/IndividualGame';
 import FriendsList from '../Friends/FriendsList'
+import FriendStatistics from '../Friends/FriendStatistics'
 
 import './App.css';
 
@@ -88,6 +89,12 @@ class App extends Component {
               exact 
               path="/friends" 
               component={FriendsList} 
+            />
+
+            <ProtectedRoute 
+              exact 
+              path='/friends/statistics/:id'
+              component={FriendStatistics} 
             />
 
             <ProtectedRoute 
