@@ -29,13 +29,23 @@ class AddFriend extends Component {
   render()
   {
     const {classes} = this.props;
+    let nonFriendMembers = [];
+    for(let i = 0; i < this.props.store.memberReducer.length; i++){
+      for(let j = 0; j < this.props.store.friendsList.length; i++){
+        if(this.props.store.memberReducer[i] !== this.props.store.friendsList[i]){
+          nonFriendMembers.push(this.props.store.memberReducer[i])
+        }
+      }
+    }
+    console.log(nonFriendMembers)
     return (
       <div className={classes.mainDiv}>
         <h2>Add Friends</h2>
-        <SearchIcon fontSize="large"/><TextField id="friendSearch" label="Search" variant="outlined" onChange={this.handleSearch}/>
-        {this.props.store.memberReducer.map(member => (
-          <h3>{member.first_name}</h3>
-        ))}
+        <SearchIcon fontSize="large"/><TextField id="friendSearch" label="Search" variant="outlined"/>
+        {this.props.store.memberReducer &&
+          nonFriendMembers.map(member => (
+            <h3>{member.first_name}</h3>
+          ))}
       </div>
     );
   }
