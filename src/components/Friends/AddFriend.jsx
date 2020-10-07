@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import {withStyles, TextField} from '@material-ui/core';
+import {withStyles, TextField, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton} from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import AddIcon from '@material-ui/icons/Add';
 
 const styles = theme => ({
   mainDiv: {
@@ -26,26 +27,27 @@ class AddFriend extends Component {
     }
   }
 
+  // function to add a friend
+  addFriend = (id) => {
+    this.props.dispatch({type: "ADD_FRIEND", payload: {friendId: id}})
+  }
+
   render()
   {
     const {classes} = this.props;
-    let nonFriendMembers = [];
-    for(let i = 0; i < this.props.store.memberReducer.length; i++){
-      for(let j = 0; j < this.props.store.friendsList.length; i++){
-        if(this.props.store.memberReducer[i] !== this.props.store.friendsList[i]){
-          nonFriendMembers.push(this.props.store.memberReducer[i])
-        }
-      }
-    }
-    console.log(nonFriendMembers)
     return (
       <div className={classes.mainDiv}>
         <h2>Add Friends</h2>
         <SearchIcon fontSize="large"/><TextField id="friendSearch" label="Search" variant="outlined"/>
-        {this.props.store.memberReducer &&
-          nonFriendMembers.map(member => (
-            <h3>{member.first_name}</h3>
+        <List>
+          {this.props.store.memberReducer.map(member => (
+            <ListItem key={member.id}>
+              <ListItemAvatar><Avatar/></ListItemAvatar>
+              <ListItemText primary={`${member.first_name} ${member.last_name}`}/>
+              <ListItemSecondaryAction><IconButton onClick={()=>this.addFriend(member.id)}><AddIcon/></IconButton></ListItemSecondaryAction>
+            </ListItem>
           ))}
+        </List>
       </div>
     );
   }

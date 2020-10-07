@@ -12,25 +12,26 @@ router.get('/:search', rejectUnauthenticated, async (req, res) => {
     if(req.params.search ==='All') { // gets all of the members of the app
         try{
             await client.query('BEGIN');
-            const firstQuery = `SELECT "user".id, "user".username, "user".first_name, "user".last_name FROM "user"
+            const firstQuery = `SELECT "friends".user1_id, "friends".user2_id FROM "user"
             JOIN "friends" ON "friends".user2_id = "user".id
             WHERE "friends".user1_id = $1
             UNION
-            SELECT "user".id, "user".username, "user".first_name, "user".last_name FROM "user"
+            SELECT "friends".user1_id, "friends".user2_id FROM "user"
             JOIN "friends" ON "friends".user1_id = "user".id
             WHERE "friends".user2_id = $1;`;
             let friends =  await client.query(firstQuery, [req.user.id]);
             let secondQuery = `SELECT id, username, first_name, last_name FROM "user";`;
             let members = await client.query(secondQuery);
             await client.query('COMMIT');
-            for(let i = 0; i < members.rows.length; i++){
-                for(let j = 0; j < friends.rows.length; j++){
-                    if(members.rows[i].id === friends.rows[j].id){
-                        members.rows.splice(i, 1);
-                        i++;
+            members.rows.forEach((member, i)=>{
+                friends.rows.forEach(friend=>{
+                    if(member.id === friend.user1_id || member.id === friend.user2_id){
+                        members.rows.splice(i, 1)
+                        return;
                     }
-                }
-            }
+                })
+            })
+            console.log(friends.rows)
             res.send(members.rows)
         }catch(error){
             await client.query('ROLLBACK');
@@ -58,6 +59,18 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     })
     .catch(error => {
         res.sendStatus(500)
+    })
+})
+
+router.post('/', rejectUnauthenticated, (req, res) => {
+    let queryText = `INSERT INTO "friends" (user1_id, user2_id)
+    VALUES ($1, $2);`;
+    pool.query(queryText, [req.user.id, req.body.friendId])
+    .then(result => {
+        res.sendStatus(201)
+    })
+    .catch(error =>{
+        res.sendStatus(500);
     })
 })
 
