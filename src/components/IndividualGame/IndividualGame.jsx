@@ -2,13 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import TabPanel from './TabPanel';
-import { Button } from '@material-ui/core';
+import { Button, withStyles } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
-// Basic class component structure for React with default state
-// value setup. When making a new component be sure to replace
-// the component name IndividualGame with the name for the new
-// component.
+const styles = theme => ({
+  atLogo: {
+    display: 'inline',
+    fontSize: '3em',
+  },
+  header: {
+    textAlign: 'center',
+    marginBottom: '1.5em',
+  },
+});
+
 class IndividualGame extends Component {
 
   componentDidMount() {
@@ -21,15 +28,19 @@ class IndividualGame extends Component {
 
   render() {
 
+    const { classes } = this.props;
     const game = this.props.store.gameDetails;
-    console.log(game);
 
     return (
       <div>
         <Button onClick={this.handleBack}>
           <ArrowBackIcon />
         </Button>
-        <h2>{game.away_team} @ {game.home_team}</h2>
+        <div className={classes.header}>
+          <img src={game.away_team_logo} alt={game.away_team} width="100" height="100"/>
+          <h1 className={classes.atLogo}>@</h1>
+          <img src={game.home_team_logo} alt={game.home_team} width="100" height="100"/>
+        </div>
         {/* {JSON.stringify(this.props.store.gameDetails)} */}
         <TabPanel />
       </div>
@@ -37,4 +48,5 @@ class IndividualGame extends Component {
   }
 }
 
-export default connect(mapStoreToProps)(IndividualGame);
+const IndividualGameStyled = withStyles(styles)(IndividualGame);
+export default connect(mapStoreToProps)(IndividualGameStyled);
