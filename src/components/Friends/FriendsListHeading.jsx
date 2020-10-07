@@ -70,7 +70,7 @@ function FriendsListHeading(props) {
       id="free-solo-demo"
       freeSolo
       //Change mapping for friends 
-      options={props.store.friendsList.map((option) => option.first_name)}
+      options={props.store.friendsList.map((option) => option.first_name + " " + option.last_name)}
       renderInput={(params) => (
         <TextField
         {...params} 
