@@ -58,8 +58,8 @@ function FriendsListHeading(props) {
       <center>
     <div className={classes.headingContainer}>
       <h2 className={classes.heading}>{heading}</h2>
-      <Fab color="primary" className={classes.addButton} onClick={() => {props.history.push('/addfriends')}} aria-label="add">
-        <AddIcon />
+      <Fab color="primary" className={classes.addButton} aria-label="add">
+        <AddIcon onClick={()=>props.history.push("/friends/add")}/>
       </Fab>
     </div>
     </center>
