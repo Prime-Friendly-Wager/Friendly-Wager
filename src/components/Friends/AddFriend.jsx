@@ -38,7 +38,7 @@ class AddFriend extends Component {
     return (
       <div className={classes.mainDiv}>
         <h2>Add Friends</h2>
-        <SearchIcon fontSize="large"/><TextField id="friendSearch" label="Search" variant="outlined"/>
+        <SearchIcon fontSize="large"/><TextField id="friendSearch" label="Search" variant="outlined" onChange={this.handleSearch}/>
         <List>
           {this.props.store.memberReducer.map(member => (
             <ListItem key={member.id}>
