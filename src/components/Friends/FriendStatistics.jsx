@@ -1,23 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import FriendStatisticsHeader from './FriendStatisticsHeader';
 
-// Basic class component structure for React with default state
-// value setup. When making a new component be sure to replace
-// the component name FriendStatistics with the name for the new
-// component.
-class FriendStatistics extends Component {
-  state = {
-    heading: 'Class Component',
-  };
 
-  render() {
+
+function FriendStatistics(props) {
+
+  useEffect(() => {
+    props.dispatch({type: 'FETCH_FRIEND_DETAILS',
+     payload: props.match.params.id })
+  }, []);
+
     return (
       <div>
-        <h2>{this.state.heading}</h2>
+        <FriendStatisticsHeader/>
       </div>
     );
-  }
+
 }
 
 export default connect(mapStoreToProps)(FriendStatistics);

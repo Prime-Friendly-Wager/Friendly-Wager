@@ -45,7 +45,7 @@ function BottomNavBar(props) {
   
   return (
     
-    <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
+    <BottomNavigation position="fixed" value={value} onChange={handleChange} className={classes.root}>
       <BottomNavigationAction label="Board" onClick={() => {props.history.push('/the-board')}} value="recents" icon={<DashboardIcon />} />
       <BottomNavigationAction label="Friends" onClick={() => {props.history.push('/friends')}} value="favorites" icon={ <img src={process.env.PUBLIC_URL + '/Images/friends.svg'} />} />
       <BottomNavigationAction label="My Bets" value="nearby" icon={ <img src={process.env.PUBLIC_URL + '/Images/Ticket.svg'} />} />

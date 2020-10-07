@@ -2,21 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import IconButton from '@material-ui/core/IconButton';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withRouter } from "react-router";
-import FolderIcon from '@material-ui/icons/Folder';
-import DeleteIcon from '@material-ui/icons/Delete';
 import Avatar from '@material-ui/core/Avatar';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 
@@ -60,7 +51,7 @@ function FriendsListItem(props) {
           </Typography>
           <div className={classes.demo}>
               {props.store.friendsList.map((friend) =>
-                <ListItem key={friend.id}>
+                <ListItem key={friend.id} onClick={() => {props.history.push(`/friends/statistics/${friend.id}`)}}>
                   <ListItemAvatar>
                     <Avatar
                     className={classes.orange}>{friend.first_name[0].toUpperCase()}</Avatar>
