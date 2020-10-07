@@ -12,7 +12,11 @@ function MyBets(props) {
 
   return (
     <div>
-      <h2>My Bets go here</h2>
+      <h2>Open Bets</h2>
+      <p>Your open bets</p>
+      <h2>Active Bets</h2>
+      <p>Your active bets</p>
+      <h2>Create Bet</h2>
     </div>
   );
 }
