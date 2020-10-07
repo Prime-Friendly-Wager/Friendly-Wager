@@ -6,50 +6,103 @@ const {
   } = require('../modules/authentication-middleware');
 
   // route to get all of app users
-router.get('/:search', rejectUnauthenticated, (req, res) => {
-    if(req.params.search ==='All') {
-        let queryText = `SELECT id, username, first_name, last_name FROM "user";`;
-    pool.query(queryText)
-    .then(result => {
-        res.send(result.rows)
-    })
-    .catch(error => {
-        res.sendStatus(500)
-    })
-    } else{
-        let name = `%${req.params.search}%`;
-        let queryText = `SELECT id, username, first_name, last_name FROM "user"
-        WHERE "first_name" ILIKE $1;`;
-        pool.query(queryText, [name])
-        .then(result => {
-            res.send(result.rows);
-        })
-        .catch(error => {
-            res.sendStatus(500);
-        })
+router.get('/:search', rejectUnauthenticated, async (req, res) => {
+    let nonFriendMembersList = [];
+    const client = await pool.connect();
+    if(req.params.search ==='All') { // gets all of the members of the app
+        try{
+            await client.query('BEGIN');
+            const firstQuery = `SELECT "user".id FROM "user"
+            JOIN "friends" ON "friends".user2_id = "user".id
+            WHERE "friends".user1_id = $1
+            UNION
+            SELECT "user".id FROM "user"
+            JOIN "friends" ON "friends".user1_id = "user".id
+            WHERE "friends".user2_id = $1;`;
+            let friends =  await client.query(firstQuery, [req.user.id]);
+            let secondQuery = `SELECT id, username, first_name, last_name FROM "user"
+            WHERE "id" != $1
+            ORDER BY "first_name" ASC;`;
+            let members = await client.query(secondQuery, [req.user.id]);
+            await client.query('COMMIT');
+            // nonFriendMembersList = members.rows.filter( ( id) => !friends.rows.includes( id ) )
+            nonFriendMembersList = members.rows.filter( (memberObj) => {
+                return !friends.rows.find( (friendObj) => {
+                  return memberObj.id === friendObj.id
+                })
+              })
+            res.send(nonFriendMembersList)
+        }catch(error){
+            await client.query('ROLLBACK');
+            throw error;
+        }finally{
+            client.release()
+        }
+    }else{
+        try{
+            // let search = `%${req.params.search}%`;
+            await client.query('BEGIN');
+            const firstQuery = `SELECT "user".id FROM "user"
+            JOIN "friends" ON "friends".user2_id = "user".id
+            WHERE "friends".user1_id = $1
+            UNION
+            SELECT "user".id FROM "user"
+            JOIN "friends" ON "friends".user1_id = "user".id
+            WHERE "friends".user2_id = $1;`;
+            let friends =  await client.query(firstQuery, [req.user.id]);
+            let secondQuery = `SELECT id, username, first_name, last_name FROM "user"
+            WHERE ("first_name" ILIKE '%' || $1 || '%'
+            OR "last_name" ILIKE '%' || $1 || '%')
+            AND "id" != $2
+            ORDER BY "first_name" ASC`;
+            let members = await client.query(secondQuery, [req.params.search, req.user.id]);
+            console.log(members.rows)
+            await client.query('COMMIT');
+            nonFriendMembersList = members.rows.filter( (memberObj) => {
+                return !friends.rows.find( (friendObj) => {
+                  return memberObj.id === friendObj.id
+                })
+            })
+            res.send(nonFriendMembersList)
+        }catch(error){
+            await client.query('ROLLBACK');
+            throw error;
+        }finally{
+            client.release()
+        }
     }
 })
 
+// route to get the current logged in user's friends
 router.get('/', rejectUnauthenticated, (req, res) => {
-    let queryText = `
-    SELECT "user".id, "user".username, "user".first_name, "user".last_name FROM "user"
-    JOIN "friends" ON "user".id = "friends".user2_id OR "user".id = "friends".user1_id
-    WHERE "friends".user1_id = $1 OR "friends".user2_id = $1;
-  `;
+        let queryText = `
+        SELECT "user".id, "user".username, "user".first_name, "user".last_name FROM "user"
+        JOIN "friends" ON "friends".user2_id = "user".id
+        WHERE "friends".user1_id = $1
+        UNION
+        SELECT "user".id, "user".username, "user".first_name, "user".last_name FROM "user"
+        JOIN "friends" ON "friends".user1_id = "user".id
+        WHERE "friends".user2_id = $1;
+      `;
     pool.query(queryText, [req.user.id])
     .then(result => {
-        let newFriendsList = [];
-        console.log(result.rows)
-        for(let i = 0; i < result.rows.length; i++){
-            if(result.rows[i].id !== req.user.id){
-                newFriendsList.push(result.rows[i])
-            }
-        }
-        res.send(newFriendsList)
-        
+        res.send(result.rows) 
+
     })
     .catch(error => {
         res.sendStatus(500)
+    })
+})
+
+router.post('/', rejectUnauthenticated, (req, res) => {
+    let queryText = `INSERT INTO "friends" (user1_id, user2_id)
+    VALUES ($1, $2);`;
+    pool.query(queryText, [req.user.id, req.body.friendId])
+    .then(result => {
+        res.sendStatus(201)
+    })
+    .catch(error =>{
+        res.sendStatus(500);
     })
 })
 

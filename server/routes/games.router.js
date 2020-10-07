@@ -45,6 +45,7 @@ router.get('/details/:id', rejectUnauthenticated, (req, res) => {
         })
 });
 
+
 //How do we protect this route!?!?
 router.get('/fromNflApi', async (req, res) => {
     const client = await pool.connect();

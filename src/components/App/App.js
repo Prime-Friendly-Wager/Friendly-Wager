@@ -93,15 +93,17 @@ class App extends Component {
 
             <ProtectedRoute 
               exact 
+              path="/friends/add" 
+              component={AddFriend} 
+             />
+
+            <ProtectedRoute 
+              exact 
               path='/friends/statistics/:id'
               component={FriendStatistics} 
             />
 
-            <ProtectedRoute 
-              exact 
-              path="/addfriends" 
-              component={AddFriend} 
-            />
+
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
