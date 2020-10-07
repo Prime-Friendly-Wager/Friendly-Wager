@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom';
 
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -20,12 +20,6 @@ const useStyles = makeStyles({
 });
 
 function SimpleTable(props) {
-
-  //using hook to dispatch on componentDidMount
-  // useEffect(() => {
-  //   props.dispatch({ type: 'FETCH_GAMES' })
-  // }, [])
-
 
   const classes = useStyles();
 
