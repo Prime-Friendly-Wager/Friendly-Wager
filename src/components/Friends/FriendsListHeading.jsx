@@ -8,6 +8,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import { withRouter } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -57,7 +58,7 @@ function FriendsListHeading(props) {
       <center>
     <div className={classes.headingContainer}>
       <h2 className={classes.heading}>{heading}</h2>
-      <Fab color="primary" className={classes.addButton} aria-label="add">
+      <Fab color="primary" className={classes.addButton} onClick={() => {props.history.push('/addfriends')}} aria-label="add">
         <AddIcon />
       </Fab>
     </div>
@@ -69,7 +70,7 @@ function FriendsListHeading(props) {
       id="free-solo-demo"
       freeSolo
       //Change mapping for friends 
-      options={props.store.friendsList.map((option) => option.first_name)}
+      options={props.store.friendsList.map((option) => option.first_name + " " + option.last_name)}
       renderInput={(params) => (
         <TextField
         {...params} 
@@ -95,4 +96,4 @@ function FriendsListHeading(props) {
   );
 }
 
-export default connect(mapStoreToProps)(FriendsListHeading);
+export default connect(mapStoreToProps)(withRouter(FriendsListHeading));

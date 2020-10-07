@@ -6,7 +6,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 //3.1 open bets on individual game
-router.get('/details/:id', async (req, res) => {
+router.get('/details/:id', rejectUnauthenticated, async (req, res) => {
     const client = await pool.connect();
 
     try {
@@ -34,7 +34,6 @@ router.get('/details/:id', async (req, res) => {
         
         await client.query('COMMIT');
         res.send(bets)
-
 
     } catch (error) {
         await client.query('ROLLBACK');

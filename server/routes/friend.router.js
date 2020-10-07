@@ -30,20 +30,23 @@ router.get('/:search', rejectUnauthenticated, (req, res) => {
     }
 })
 
-router.get('/getfriends', rejectUnauthenticated, (req, res) => {
-        values = [req.user.id]
-        console.log(values)
-        let queryText = `
-        SELECT * FROM "user"
-        JOIN "friends" 
-        ON "friends".user1_id = "user".id
-        WHERE "friends".user1_id = $1 OR "friends".user2_id = $1
-        
-      `;
-    pool.query(queryText, values)
+router.get('/', rejectUnauthenticated, (req, res) => {
+    let queryText = `
+    SELECT "user".id, "user".username, "user".first_name, "user".last_name FROM "user"
+    JOIN "friends" ON "user".id = "friends".user2_id OR "user".id = "friends".user1_id
+    WHERE "friends".user1_id = $1 OR "friends".user2_id = $1;
+  `;
+    pool.query(queryText, [req.user.id])
     .then(result => {
+        let newFriendsList = [];
         console.log(result.rows)
-        res.send(result.rows)
+        for(let i = 0; i < result.rows.length; i++){
+            if(result.rows[i].id !== req.user.id){
+                newFriendsList.push(result.rows[i])
+            }
+        }
+        res.send(newFriendsList)
+        
     })
     .catch(error => {
         res.sendStatus(500)
