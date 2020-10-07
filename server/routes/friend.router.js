@@ -87,6 +87,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     pool.query(queryText, [req.user.id])
     .then(result => {
         res.send(result.rows) 
+
     })
     .catch(error => {
         res.sendStatus(500)

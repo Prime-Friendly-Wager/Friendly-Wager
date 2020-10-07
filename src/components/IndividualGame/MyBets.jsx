@@ -12,7 +12,7 @@ function MyBets(props) {
 
   return (
     <div>
-      <h2>{heading}</h2>
+      <h2>My Bets go here</h2>
     </div>
   );
 }

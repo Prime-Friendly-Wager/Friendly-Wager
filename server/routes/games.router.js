@@ -12,7 +12,7 @@ const convertDate = require('../modules/check-week');
 //the querytext in this route will need to be changed
 //as of now it's not getting the team names or logos, just displaying team id
 //need to change date column data type to time, time currently not displaying correctly
-router.get('/:week', (req, res) => {
+router.get('/:week', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT games.*, home_team."name" as home_team, away_team."name" as away_team
                     FROM "games"
                     LEFT JOIN "teams" as home_team ON "games".home_team_id = "home_team".id
@@ -29,7 +29,7 @@ router.get('/:week', (req, res) => {
 });
 
 //goes to get individual game details
-router.get('/details/:id', (req, res) => {
+router.get('/details/:id', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT games.*, home_team."name" as home_team, away_team."name" as away_team
             FROM "games"
             LEFT JOIN "teams" as home_team ON "games".home_team_id = "home_team".id
@@ -45,7 +45,9 @@ router.get('/details/:id', (req, res) => {
         })
 });
 
-router.get('/fromNflApi',  async (req, res) => {
+
+//How do we protect this route!?!?
+router.get('/fromNflApi', async (req, res) => {
     const client = await pool.connect();
 
     try {
@@ -148,29 +150,15 @@ router.get('/fromNflApi',  async (req, res) => {
                 game.away_team_id = nested_away_team_id.rows[0].id;
                 console.log(`Away team id is ${game.away_team_id} and abbr is ${game.awayTeamAbbr}`);
 
-            }
-        }))
-        console.log(nflGames);
-        
-        await Promise.all(nflGames.map(game => {
-            //checks to make sure that the game has a spread
-            if( game.hasOwnProperty('home_team_spread') ){
-
-                // //gets database ids for away and home teams
-                // const idQuery = `SELECT id FROM teams WHERE nfl_api_ref = $1`
-                // const home_team_id = client.query(idQuery, [game.homeTeamAbbr]);
-                // console.log(`Home team id is ${home_team_id} and abbr is ${game.homeTeamAbbr}`);
-                // const away_team_id = client.query(idQuery, [game.awayTeamAbbr]);
-                // console.log(`Away team id is ${away_team_id} and abbr is ${game.awayTeamAbbr}`);
-
                 //posts games to database
                 const postQuery = `INSERT INTO games 
-                    ("home_team_id", "away_team_id", "home_team_spread", "away_team_spread", "date", "week")
-                    VALUES ($1, $2, $3, $4, $5, $6)`
+                ("home_team_id", "away_team_id", "home_team_spread", "away_team_spread", "date", "week")
+                VALUES ($1, $2, $3, $4, $5, $6)`
                 const postValues = [game.home_team_id, game.away_team_id, game.home_team_spread, game.away_team_spread, game.gameTime, game.week];
                 client.query(postQuery, postValues);
             }
         }))
+        console.log(nflGames);
         
         await client.query('COMMIT');
         res.sendStatus(201);
