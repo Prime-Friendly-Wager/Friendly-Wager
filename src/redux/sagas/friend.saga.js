@@ -26,6 +26,7 @@ function* addFriend(action){
     }catch(error){
         console.log('ERROR IN ADD FRIEND SAGA: ', error)
     }
+}
 
 //fetches information for friends statistics page
 function* getStatistics(){
@@ -42,4 +43,3 @@ function* friendSaga(){
 }
 
 export default friendSaga;
-
