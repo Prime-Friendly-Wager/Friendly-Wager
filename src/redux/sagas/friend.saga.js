@@ -26,8 +26,9 @@ function* addFriend(action){
     }catch(error){
         console.log('ERROR IN ADD FRIEND SAGA: ', error)
     }
+}
 
-//fetches information for friends statistics page
+// fetches information for friends statistics page
 function* getStatistics(){
     console.log('in get statistics')
 
@@ -35,11 +36,10 @@ function* getStatistics(){
 
 
 function* friendSaga(){
-    yield takeEvery('GET_MEMBERS', getMembers)
-    yield takeEvery('GET_FRIENDS', getFriends)
-    yield takeEvery('ADD_FRIEND', addFriend)
-    yield takeEvery('FETCH_FRIEND_DETAILS', getStatistics)
+    yield takeEvery('GET_MEMBERS', getMembers);
+    yield takeEvery('GET_FRIENDS', getFriends);
+    yield takeEvery('ADD_FRIEND', addFriend);
+    yield takeEvery('FETCH_FRIEND_DETAILS', getStatistics);
 }
 
 export default friendSaga;
-
