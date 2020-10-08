@@ -12,7 +12,7 @@ const convertDate = require('../modules/check-week');
 //the querytext in this route will need to be changed
 //as of now it's not getting the team names or logos, just displaying team id
 //need to change date column data type to time, time currently not displaying correctly
-router.get('/:week', rejectUnauthenticated, (req, res) => {
+router.get('/week/:week', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT games.*, home_team."name" as home_team, away_team."name" as away_team
                     FROM "games"
                     LEFT JOIN "teams" as home_team ON "games".home_team_id = "home_team".id
@@ -46,7 +46,7 @@ router.get('/details/:id', rejectUnauthenticated, (req, res) => {
 });
 
 
-//How do we protect this route!?!?
+//How do we protect this route!?!? we move it!
 router.get('/fromNflApi', async (req, res) => {
     const client = await pool.connect();
 
@@ -67,7 +67,6 @@ router.get('/fromNflApi', async (req, res) => {
         const authResponse = await axios(getAccessToken);
         const base = 'https://api.nfl.com/v1/games?';
 
-        //we'll need the weekconverter function here
         const weekNumber =  await convertDate();
         console.log('week number is', weekNumber);
         
@@ -86,10 +85,10 @@ router.get('/fromNflApi', async (req, res) => {
         let nflGames = []
         gameResponse.data.data.map(game => {
             let nflGame = {
+                nflId: game.id,
                 homeTeamAbbr: game.homeTeam.abbr,
                 awayTeamAbbr: game.visitorTeam.abbr,
                 week: game.week.week,
-                //this should be converted to moment time
                 gameTime: game.gameTime
             };
             nflGames.push(nflGame);
@@ -122,8 +121,8 @@ router.get('/fromNflApi', async (req, res) => {
             }
 
             //assigns appropriate spread based on index
-            newGame.home_team_spread = game.sites[0].odds.spreads.points[homeTeamIndex] || 0;
-            newGame.away_team_spread = game.sites[0].odds.spreads.points[awayTeamIndex] || 0;
+            newGame.home_team_spread = game.sites[0].odds.spreads.points[homeTeamIndex];
+            newGame.away_team_spread = game.sites[0].odds.spreads.points[awayTeamIndex];
 
             //matchs odds games with nfl games
             nflGames.map(nflGame => {
@@ -152,9 +151,9 @@ router.get('/fromNflApi', async (req, res) => {
 
                 //posts games to database
                 const postQuery = `INSERT INTO games 
-                ("home_team_id", "away_team_id", "home_team_spread", "away_team_spread", "date", "week")
-                VALUES ($1, $2, $3, $4, $5, $6)`
-                const postValues = [game.home_team_id, game.away_team_id, game.home_team_spread, game.away_team_spread, game.gameTime, game.week];
+                ("nfl_id", "home_team_id", "away_team_id", "home_team_spread", "away_team_spread", "date", "week")
+                VALUES ($1, $2, $3, $4, $5, $6, $7)`
+                const postValues = [game.nflId, game.home_team_id, game.away_team_id, game.home_team_spread, game.away_team_spread, game.gameTime, game.week];
                 client.query(postQuery, postValues);
             }
         }))
@@ -172,7 +171,103 @@ router.get('/fromNflApi', async (req, res) => {
     }
 });
 
+router.put('/theJudge', async (req, res) => {
+    const client = await pool.connect();
 
+    try {
+        const authParams = {
+            grant_type: "client_credentials",
+            client_id: process.env.CLIENT_ID,
+            client_secret: process.env.CLIENT_SECRET
+        }
+        const getAccessToken = {
+            method: 'post',
+            headers: {
+                'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            data: Object.entries(authParams).map(e => e.join('=')).join('&'),
+            url: 'https://api.nfl.com/v1/oauth/token'
+        }
+        const authResponse = await axios(getAccessToken);
+        const base = 'https://api.nfl.com/v1/games?';
+
+        //gets current week
+        const weekNumber =  await convertDate();
+        console.log('pulling games for last week', weekNumber - 1);
+        
+        const params = `s={"$query":{"week.season":2020,"week.seasonType":"REG","week.week":${weekNumber - 1}}}&fs={week{season,seasonType,week},id,gameTime,gameStatus,homeTeam{id,abbr},visitorTeam{id,abbr},homeTeamScore,visitorTeamScore}`
+        const url = encodeURI(`${base}${params}`)
+        const getGameInfo = {
+            method: 'get',
+            headers: {
+                authorization: `Bearer ${authResponse.data.access_token}`
+            },
+            url: url
+        }
+        const gameResponse = await axios(getGameInfo)
+
+        const completedGamesArray = gameResponse.data.data
+        console.log(completedGamesArray);
+        
+        await client.query('BEGIN');
+
+        await Promise.all(completedGamesArray.map(game => {
+                
+                //updates scores in database
+                const scoreUpdateQuery = `UPDATE games 
+                    SET home_team_score = $1, away_team_score = $2, game_completed = true
+                    WHERE nfl_id = $3;`
+                const scoreUpdateValues = [game.homeTeamScore.pointsTotal, game.visitorTeamScore.pointsTotal, game.id];
+                
+                client.query(scoreUpdateQuery, scoreUpdateValues);
+
+                //updates winners in database
+                const winnerUpdateQuery = `UPDATE games 
+                    SET 
+                    bet_winning_team_id = (SELECT 
+                        CASE
+                            WHEN (home_team_score + home_team_spread > away_team_score)
+                            THEN home_team_id
+                            WHEN (home_team_score + home_team_spread < away_team_score)
+                            THEN away_team_id
+                        END FROM games WHERE nfl_id = $1)
+                    WHERE nfl_id = $1;`
+                const winnerUpdateValues = [game.id];
+                
+                client.query(winnerUpdateQuery, winnerUpdateValues);
+            }
+        ))
+        
+        //adjudicates bets
+        const adjudicationQuery = `UPDATE bets 
+                SET winners_id = CASE 
+                    WHEN bets.proposers_team_id = games.bet_winning_team_id 
+                        THEN proposers_id
+                    WHEN bets.acceptors_team_id = games.bet_winning_team_id 
+                        THEN acceptors_id
+                    END, completed = true
+                FROM games WHERE bets.game_id = games.id AND games.week = $1;`
+        const adjudicationWeekValue = [weekNumber - 1];
+        console.log(weekNumber);
+        
+        await client.query(adjudicationQuery, adjudicationWeekValue)
+        
+        //delete unaccepted bets
+        await client.query(`DELETE FROM bets WHERE accepted = false;`)
+        
+        await client.query('COMMIT');
+        res.sendStatus(201);
+
+        
+
+    } catch (error) {
+        await client.query('ROLLBACK');
+        console.log('ERROR NFL ROUTER', error);
+        res.sendStatus(500)
+    } finally {
+        client.release();
+    }
+});
 
 module.exports = router;
 
