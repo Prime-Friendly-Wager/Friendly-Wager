@@ -40,6 +40,8 @@ function* friendSaga(){
     yield takeEvery('GET_FRIENDS', getFriends);
     yield takeEvery('ADD_FRIEND', addFriend);
     yield takeEvery('FETCH_FRIEND_DETAILS', getStatistics);
+
 }
 
 export default friendSaga;
+

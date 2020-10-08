@@ -12,26 +12,26 @@ router.get('/:search', rejectUnauthenticated, async (req, res) => {
     if(req.params.search ==='All') { // gets all of the members of the app
         try{
             await client.query('BEGIN');
-            const firstQuery = `SELECT "friends".user1_id, "friends".user2_id FROM "user"
+            const firstQuery = `SELECT "user".id FROM "user"
             JOIN "friends" ON "friends".user2_id = "user".id
             WHERE "friends".user1_id = $1
             UNION
-            SELECT "friends".user1_id, "friends".user2_id FROM "user"
+            SELECT "user".id FROM "user"
             JOIN "friends" ON "friends".user1_id = "user".id
             WHERE "friends".user2_id = $1;`;
             let friends =  await client.query(firstQuery, [req.user.id]);
-            let secondQuery = `SELECT id, username, first_name, last_name FROM "user";`;
-            let members = await client.query(secondQuery);
+            let secondQuery = `SELECT id, username, first_name, last_name FROM "user"
+            WHERE "id" != $1
+            ORDER BY "first_name" ASC;`;
+            let members = await client.query(secondQuery, [req.user.id]);
             await client.query('COMMIT');
-            members.rows.forEach((member, i)=>{
-                friends.rows.forEach(friend=>{
-                    if(member.id === friend.user1_id || member.id === friend.user2_id){
-                        members.rows.splice(i, 1)
-                        return;
-                    }
+            // nonFriendMembersList = members.rows.filter( ( id) => !friends.rows.includes( id ) )
+            nonFriendMembersList = members.rows.filter( (memberObj) => {
+                return !friends.rows.find( (friendObj) => {
+                  return memberObj.id === friendObj.id
                 })
-            })
-            res.send(members.rows)
+              })
+            res.send(nonFriendMembersList)
         }catch(error){
             await client.query('ROLLBACK');
             throw error;
@@ -40,30 +40,29 @@ router.get('/:search', rejectUnauthenticated, async (req, res) => {
         }
     }else{
         try{
-            let search = `%${req.params.search}%`;
             await client.query('BEGIN');
-            const firstQuery = `SELECT "friends".user1_id, "friends".user2_id FROM "user"
+            const firstQuery = `SELECT "user".id FROM "user"
             JOIN "friends" ON "friends".user2_id = "user".id
             WHERE "friends".user1_id = $1
             UNION
-            SELECT "friends".user1_id, "friends".user2_id FROM "user"
+            SELECT "user".id FROM "user"
             JOIN "friends" ON "friends".user1_id = "user".id
             WHERE "friends".user2_id = $1;`;
             let friends =  await client.query(firstQuery, [req.user.id]);
             let secondQuery = `SELECT id, username, first_name, last_name FROM "user"
-            WHERE "first_name" ILIKE $1
-            OR "last_name" ILIKE $1;`;
-            let members = await client.query(secondQuery, [search]);
+            WHERE ("first_name" ILIKE '%' || $1 || '%'
+            OR "last_name" ILIKE '%' || $1 || '%')
+            AND "id" != $2
+            ORDER BY "first_name" ASC`;
+            let members = await client.query(secondQuery, [req.params.search, req.user.id]);
+            console.log(members.rows)
             await client.query('COMMIT');
-            members.rows.forEach((member, i)=>{
-                friends.rows.forEach(friend=>{
-                    if(member.id === friend.user1_id || member.id === friend.user2_id){
-                        members.rows.splice(i, 1)
-                        return;
-                    }
+            nonFriendMembersList = members.rows.filter( (memberObj) => {
+                return !friends.rows.find( (friendObj) => {
+                  return memberObj.id === friendObj.id
                 })
             })
-            res.send(members.rows)
+            res.send(nonFriendMembersList)
         }catch(error){
             await client.query('ROLLBACK');
             throw error;

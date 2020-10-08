@@ -19,6 +19,9 @@ import BottomNavBar from '../BottomNavBar/BottomNavBar';
 import IndividualGame from '../IndividualGame/IndividualGame';
 import FriendsList from '../Friends/FriendsList'
 import FriendStatistics from '../Friends/FriendStatistics'
+import Active from '../MyBets/Active'
+import History from '../MyBets/History'
+import Open from '../MyBets/Open'
 
 import './App.css';
 
@@ -103,7 +106,23 @@ class App extends Component {
               component={FriendStatistics} 
             />
 
+            <ProtectedRoute
+              exact 
+              path='/mybets/active' 
+              component={Active}
+            />
 
+            <ProtectedRoute
+              exact 
+              path='/mybets/history' 
+              component={History}
+            />
+
+            <ProtectedRoute
+              exact 
+              path='/mybets/open' 
+              component={Open}
+            />
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />

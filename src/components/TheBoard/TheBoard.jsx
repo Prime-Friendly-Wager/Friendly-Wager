@@ -34,7 +34,8 @@ class TheBoard extends Component {
         <div className={classes.container}>
           <h1>The Board<span className={classes.weekSpan}>
             Week {currentWeek && currentWeek.week}
-          </span></h1>
+            </span>
+          </h1>
         </div>
         <TabPanel />
         <button onClick={() => axios.get('/api/games/fromNflApi')}>API CALL - USE WITH CAUTION</button>
@@ -46,6 +47,5 @@ class TheBoard extends Component {
   }
 }
 
-// this allows us to use <App /> in index.js
 const TheBoardStyled = withStyles(styles)(TheBoard);
 export default connect(mapStoreToProps)(TheBoardStyled);

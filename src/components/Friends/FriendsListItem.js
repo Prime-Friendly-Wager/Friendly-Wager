@@ -57,7 +57,7 @@ function FriendsListItem(props) {
                     className={classes.orange}>{friend.first_name[0].toUpperCase()}</Avatar>
                   </ListItemAvatar>
                   <ListItemText
-                    primary={friend.first_name}
+                    primary={`${friend.first_name} ${friend.last_name}`}
                     secondary={friend.username}
                   />
                 </ListItem>,
