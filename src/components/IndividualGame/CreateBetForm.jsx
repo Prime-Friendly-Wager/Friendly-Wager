@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from 'react-redux';
 import { Button, TextField } from '@material-ui/core';
 import mapStoreToProps from '../../redux/mapStoreToProps';
@@ -10,43 +10,78 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
     createBetBtn: {
-      width: '60%',
-      marginLeft: '20%',
-      marginRight: '20%',
-      marginTop: '2em',
+        width: '60%',
+        marginLeft: '20%',
+        marginRight: '20%',
+        marginTop: '2em',
     },
-  });
+});
 
 function CreateBetForm(props) {
 
     const classes = useStyles();
-    const gameDetails = props.store.gameDetails
+    const gameDetails = props.store.gameDetails;
+    const user = props.store.user;
 
-    
+    // state hook to package up bet
+    const [bet, setBet] = useState({
+        proposers_id: user.id,
+        wager: '',
+        game_id: gameDetails.id,
+        proposers_team_id: '',
+    });
 
-  return (
-    <FormControl component="fieldset">
-      <RadioGroup row aria-label="position" name="position" defaultValue="top">
-        <FormControlLabel
-          value={gameDetails.away_team}
-          control={<Radio color="primary" />}
-          label={gameDetails.away_team + ' ' + gameDetails.away_team_spread}
-          labelPlacement="top"
-        />
-        <FormControlLabel
-          value={gameDetails.home_team}
-          control={<Radio color="primary" />}
-          label={gameDetails.home_team + ' ' + gameDetails.home_team_spread}
-          labelPlacement="top"
-        />
-      </RadioGroup>
-      <TextField placeholder="0" variant="outlined"/>
-      <p>Units</p>
-      <Button variant="contained" color="primary" className={classes.createBetBtn}>
-          Create Bet
+    //handling input change for state hook
+    const handleInputChange = (property, event) => {
+        setBet({
+            ...bet,
+            [property]: Number(event.target.value)
+        });
+    }
+
+    //sending packaged bet to saga
+    const handleCreateBet = () => {
+        console.log('NEW BET IS:', bet);
+        //dispatch goes here
+        setBet({
+            ...bet,
+            wager: '',
+            proposers_team_id: '',
+        })
+    }
+
+    //test
+
+    return (
+        <FormControl component="fieldset">
+            <RadioGroup row aria-label="position" name="position" onChange={(event) => handleInputChange('proposers_team_id', event)}>
+                <FormControlLabel
+                    value={gameDetails.away_team_id}
+                    control={<Radio color="primary" />}
+                    label={gameDetails.away_team + ' ' + gameDetails.away_team_spread}
+                    labelPlacement="top"
+                    checked={bet.proposers_team_id == gameDetails.away_team_id}
+                />
+                <FormControlLabel
+                    value={gameDetails.home_team_id}
+                    control={<Radio color="primary" />}
+                    label={gameDetails.home_team + ' ' + gameDetails.home_team_spread}
+                    labelPlacement="top"
+                    checked={bet.proposers_team_id == gameDetails.home_team_id}
+                />
+            </RadioGroup>
+            <TextField value={bet.wager} placeholder="0" variant="outlined" onChange={(event) => handleInputChange('wager', event)}/>
+            <p>Units</p>
+            <Button
+                variant="contained"
+                color="primary"
+                className={classes.createBetBtn}
+                onClick={handleCreateBet}
+            >
+                Create Bet
       </Button>
-    </FormControl>
-  );
+        </FormControl>
+    );
 }
 
 export default connect(mapStoreToProps)(CreateBetForm);
