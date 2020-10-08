@@ -42,13 +42,15 @@ function CreateBetForm(props) {
     //sending packaged bet to saga
     const handleCreateBet = () => {
         console.log('NEW BET IS:', bet);
-        //dispatch goes here
+
+        
+
         setBet({
             ...bet,
             wager: '',
             proposers_team_id: '',
         })
-    }
+    };
 
     //test
 
