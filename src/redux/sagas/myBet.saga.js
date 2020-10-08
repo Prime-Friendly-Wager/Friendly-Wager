@@ -1,4 +1,4 @@
-import { put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* getMyActiveBets(){
@@ -10,9 +10,18 @@ function* getMyActiveBets(){
     }
 }
 
+function* getMyCompletedBets(){
+    try{
+        let response = yield axios.get('/api/bets/my-bets/history')
+        yield put({type: 'SAVE_COMPLETED_BETS', payload: response.data})
+    }catch(error){
+        console.log("ERROR IN GET COMPLETED BETS SAGA: ", error)
+    }
+}
+
 function* myBetSaga(){
     yield takeEvery('GET_MY_ACTIVE_BETS', getMyActiveBets);
-    
+    yield takeEvery('GET_MY_COMPLETED_BETS', getMyCompletedBets);
 }
 
 export default myBetSaga;

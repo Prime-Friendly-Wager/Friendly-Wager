@@ -20,6 +20,7 @@ import IndividualGame from '../IndividualGame/IndividualGame';
 import FriendsList from '../Friends/FriendsList'
 import FriendStatistics from '../Friends/FriendStatistics'
 import Active from '../MyBets/Active'
+import History from '../MyBets/History'
 
 import './App.css';
 
@@ -108,6 +109,12 @@ class App extends Component {
               exact 
               path='/mybets/active' 
               component={Active}
+            />
+
+            <ProtectedRoute
+              exact 
+              path='/mybets/history' 
+              component={History}
             />
 
 
