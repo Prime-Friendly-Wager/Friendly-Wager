@@ -28,7 +28,7 @@ function* addFriend(action){
     }
 }
 
-//fetches information for friends statistics page
+// fetches information for friends statistics page
 function* getStatistics(){
     console.log('in get statistics')
 
@@ -39,7 +39,9 @@ function* friendSaga(){
     yield takeEvery('GET_MEMBERS', getMembers);
     yield takeEvery('GET_FRIENDS', getFriends);
     yield takeEvery('ADD_FRIEND', addFriend);
-    yield takeEvery('FETCH_FRIEND_DETAILS', getStatistics)
+    yield takeEvery('FETCH_FRIEND_DETAILS', getStatistics);
+
 }
 
 export default friendSaga;
+
