@@ -7,6 +7,7 @@ import nav from './nav.reducer';
 import gameDetails from './gameDetails.reducer';
 import friendsList from './friends.reducer'
 import friendStatistics from './friendStatistics.reducer'
+import betReducer from './bet.reducer'
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   nav,
   gameDetails,
   friendStatistics,
+  betReducer,
 });
 
 export default rootReducer;
