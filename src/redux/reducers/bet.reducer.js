@@ -18,9 +18,19 @@ const completedBetReducer = (state = [], action) => {
     }
 }
 
+const openBetReducer = (state = [], action) => {
+    switch(action.type){
+        case 'SAVE_OPEN_BETS':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 const betReducer = combineReducers({
     activeBetReducer,
-    completedBetReducer
+    completedBetReducer,
+    openBetReducer
 })
 
 export default betReducer;

@@ -19,9 +19,19 @@ function* getMyCompletedBets(){
     }
 }
 
+function* getMyOpenBets(){
+    try{
+        let response = yield axios.get('/api/bets/my-bets/open');
+        yield put({type: 'SAVE_OPEN_BETS', payload: response.data})
+    }catch(error){
+        console.log("ERROR IN GET OPEN BETS SAGA: ", error)
+    }
+}
+
 function* myBetSaga(){
     yield takeEvery('GET_MY_ACTIVE_BETS', getMyActiveBets);
     yield takeEvery('GET_MY_COMPLETED_BETS', getMyCompletedBets);
+    yield takeEvery('GET_MY_OPEN_BETS', getMyOpenBets)
 }
 
 export default myBetSaga;
