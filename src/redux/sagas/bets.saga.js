@@ -1,9 +1,9 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+//sending bet to router
 function* postBet(action) {
   try {
-    console.log('SAGA BET', action.payload);
     yield axios.post('/api/bets', action.payload);
 
   } catch (error) {

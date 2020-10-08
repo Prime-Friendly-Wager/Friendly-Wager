@@ -44,7 +44,7 @@ function CreateBetForm(props) {
     const handleCreateBet = () => {
         console.log('NEW BET IS:', bet);
         if (bet.wager === '' || bet.proposers_team_id === '') {
-            alert('Select a team and enter how many units you\'d like to wager');
+            alert('Select a team and enter how many units you\'d like to wager.');
             return;
         }
 
