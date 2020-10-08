@@ -34,6 +34,7 @@ CREATE TABLE "teams" (
 
 CREATE TABLE "games" (
 	"id" SERIAL PRIMARY KEY NOT NULL,
+	"nfl_id" TEXT NOT NULL,
 	"home_team_id" int NOT NULL REFERENCES "teams",
 	"away_team_id" int NOT NULL REFERENCES "teams",
 	"home_team_spread" DECIMAL NOT NULL,
@@ -43,7 +44,7 @@ CREATE TABLE "games" (
 	"home_team_score" int,
 	"away_team_score" int,
 	"game_completed" BOOLEAN NOT NULL DEFAULT 'false',
-	"winning_team_id" int REFERENCES "teams"
+	"bet_winning_team_id" int REFERENCES "teams"
 );
 
 CREATE TABLE "bets" (
@@ -55,6 +56,7 @@ CREATE TABLE "bets" (
 	"accepted" BOOLEAN NOT NULL DEFAULT 'false',
 	"acceptors_id" int REFERENCES "user",
 	"acceptors_team_id" int REFERENCES "teams",
+	"completed" BOOLEAN NOT NULL DEFAULT 'false',
 	"winners_id" int REFERENCES "user",
 	"settled" BOOLEAN NOT NULL DEFAULT 'false'
 );

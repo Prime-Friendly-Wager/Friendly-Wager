@@ -39,6 +39,8 @@ class TheBoard extends Component {
         </div>
         <TabPanel />
         <button onClick={() => axios.get('/api/games/fromNflApi')}>API CALL - USE WITH CAUTION</button>
+        <button onClick={() => axios.put('/api/games/theJudge')}>The Judge - USE WITH CAUTION</button>
+
         {/* <LogOutButton className="log-in" /> */}
       </div>
     );
