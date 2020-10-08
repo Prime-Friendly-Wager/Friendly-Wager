@@ -5,6 +5,7 @@ import userSaga from './user.saga';
 import friendSaga from './friend.saga';
 import gamesSaga from './games.saga';
 import gameDetailsSaga from './gameDetail.saga';
+import myBetSaga from './myBet.saga'
 
 
 
@@ -23,5 +24,6 @@ export default function* rootSaga() {
     friendSaga(),
     gamesSaga(),
     gameDetailsSaga(),
+    myBetSaga(),
   ]);
 }

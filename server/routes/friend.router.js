@@ -40,7 +40,6 @@ router.get('/:search', rejectUnauthenticated, async (req, res) => {
         }
     }else{
         try{
-            // let search = `%${req.params.search}%`;
             await client.query('BEGIN');
             const firstQuery = `SELECT "user".id FROM "user"
             JOIN "friends" ON "friends".user2_id = "user".id
