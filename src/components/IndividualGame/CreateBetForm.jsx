@@ -40,10 +40,15 @@ function CreateBetForm(props) {
     }
 
     //sending packaged bet to saga
+    //then emptying radio button and input
     const handleCreateBet = () => {
         console.log('NEW BET IS:', bet);
+        if (bet.wager === '' || bet.proposers_team_id === '') {
+            alert('Select a team and enter how many units you\'d like to wager');
+            return;
+        }
 
-        
+        props.dispatch({ type: 'POST_BET', payload: bet });
 
         setBet({
             ...bet,
