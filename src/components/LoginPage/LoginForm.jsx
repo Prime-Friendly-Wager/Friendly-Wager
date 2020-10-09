@@ -32,14 +32,19 @@ class LoginForm extends Component {
 
   render() {
     return (
+     
       <form className="formPanel" onSubmit={this.login}>
+         <center>
         <h2>Login</h2>
         {this.props.store.errors.loginMessage && (
           <h3 className="alert" role="alert">
             {this.props.store.errors.loginMessage}
           </h3>
+        
         )}
+        </center>
         <div>
+          <center>
           <label htmlFor="username">
             Email:
             <input
@@ -50,8 +55,10 @@ class LoginForm extends Component {
               onChange={this.handleInputChangeFor('username')}
             />
           </label>
+          </center>
         </div>
         <div>
+         <center>
           <label htmlFor="password">
             Password:
             <input
@@ -62,10 +69,14 @@ class LoginForm extends Component {
               onChange={this.handleInputChangeFor('password')}
             />
           </label>
+          </center>
+        
         </div>
+        <center>
         <div>
           <input className="btn" type="submit" name="submit" value="Log In" />
         </div>
+        </center>
       </form>
     );
   }
