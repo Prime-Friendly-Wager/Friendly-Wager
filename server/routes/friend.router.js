@@ -5,7 +5,7 @@ const {
     rejectUnauthenticated,
   } = require('../modules/authentication-middleware');
 
-  // route to get all of app users
+  // 4.1 route to get all of app users
 router.get('/:search', rejectUnauthenticated, async (req, res) => {
     let nonFriendMembersList = [];
     const client = await pool.connect();
@@ -72,7 +72,7 @@ router.get('/:search', rejectUnauthenticated, async (req, res) => {
     }
 })
 
-// route to get the current logged in user's friends
+// 4.2 route to get the current logged in user's friends
 router.get('/', rejectUnauthenticated, (req, res) => {
         let queryText = `
         SELECT "user".id, "user".username, "user".first_name, "user".last_name FROM "user"
@@ -93,6 +93,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     })
 })
 
+// 4.2 route to add a friend
 router.post('/', rejectUnauthenticated, (req, res) => {
     let queryText = `INSERT INTO "friends" (user1_id, user2_id)
     VALUES ($1, $2);`;
