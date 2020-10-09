@@ -80,9 +80,9 @@ router.get('/details/open/:id', rejectUnauthenticated, async (req, res) => {
         const friendsIds = friendResults.rows;
         console.log(friendsIds);
         
-
         //gets all of their friends open bets for this particular game
-        const bets = await Promise.all(friendsIds.map(friendsId => {
+        const bets = []
+        await Promise.all(friendsIds.map(async friendsId => {
             const betQuery = `SELECT  "bets".id, 
             "bets".wager, 
             "bets".game_id, 
@@ -105,13 +105,15 @@ router.get('/details/open/:id', rejectUnauthenticated, async (req, res) => {
         WHERE "bets".proposers_id = $1
         AND "games".id = $2
         AND "bets".accepted = false;`
-
-            return client.query(betQuery, [friendsId.id, req.params.id])
+        const results = await client.query(betQuery, [friendsId.id, req.params.id]);
+             results.rows.forEach(row => {
+                 bets.push(row)
+             })
         }))
-        console.log('sending bets back', bets[0].rows);
+        console.log('sending bets back', bets);
         
         await client.query('COMMIT');
-        res.send(bets[0].rows)
+        res.send(bets)
 
     } catch (error) {
         await client.query('ROLLBACK');

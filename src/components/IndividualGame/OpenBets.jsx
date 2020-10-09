@@ -24,6 +24,10 @@ const useStyles = makeStyles({
 
 function OpenBets(props) {
 
+  useEffect( () => {
+    props.dispatch({ type: 'FETCH_GAME_OPEN_BETS', payload: props.match.params.id })
+  }, [])
+
   const classes = useStyles();
 
   return (
@@ -32,7 +36,6 @@ function OpenBets(props) {
         <TableHead>
           <TableRow>
             <TableCell align="right">Friend</TableCell>
-            <TableCell align="right">Game</TableCell>
             <TableCell align="right">Bet</TableCell>
             <TableCell align="right">Wager</TableCell>
 
@@ -51,4 +54,4 @@ function OpenBets(props) {
   );
 }
 
-export default connect(mapStoreToProps)(OpenBets);
+export default connect(mapStoreToProps)(withRouter(OpenBets));

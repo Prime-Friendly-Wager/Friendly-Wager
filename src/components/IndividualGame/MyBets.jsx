@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import React from 'react';
+import React, { useEffect } from 'react';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom';
 import CreateBetForm from './CreateBetForm';
@@ -21,6 +21,10 @@ const useStyles = makeStyles({
 });
 
 function MyBets(props) {
+
+  useEffect( () => {
+    props.dispatch({ type: 'FETCH_GAME_DETAILS_MY_BETS', payload: props.match.params.id })
+  }, [])
 
   const classes = useStyles();
 

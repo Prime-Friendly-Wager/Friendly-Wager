@@ -5,6 +5,7 @@ import axios from 'axios';
 function* postBet(action) {
   try {
     yield axios.post('/api/bets', action.payload);
+    yield fetchGameDetailsMyBets({ payload: action.payload.game_id });
   } catch (error) {
     console.log('ERROR POSTING BET', error);
   }
