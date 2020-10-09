@@ -29,7 +29,7 @@ function Active(props) {
             <TableRow>
               <TableCell align="right">{moment(bet.date).format("M/D")}</TableCell>
               <TableCell align="right">{bet.away_team_name} @ {bet.home_team_name}</TableCell>
-              <TableCell align="right">{bet.first_name}</TableCell>
+              <TableCell align="right">{bet.opponent}</TableCell>
               <TableCell align="right">{bet.my_bet_team} {bet.proposers_spread}</TableCell>
               <TableCell align="right">{bet.wager}</TableCell>
             </TableRow>

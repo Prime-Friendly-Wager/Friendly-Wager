@@ -126,7 +126,7 @@ router.get('/details/my-bets/active/:id', rejectUnauthenticated, (req, res) => {
 //5.1 your active bets
 router.get('/my-bets/active', rejectUnauthenticated, (req, res) => {
     const userId = req.user.id;
-    const betQuery = `SELECT "bets".id, "bets".wager, "bets".game_id, "user".first_name, "games".date, "home_team".name AS home_team_name, "away_team".name AS away_team_name, "my_bet_team".name AS my_bet_team,
+    const betQuery = `SELECT "bets".id, "bets".wager, "bets".game_id, "user".first_name AS opponent, "games".date, "home_team".name AS home_team_name, "away_team".name AS away_team_name, "my_bet_team".name AS my_bet_team,
     CASE 
     WHEN "bets".proposers_team_id = "games".home_team_id THEN "games".home_team_spread
     ELSE "games".away_team_spread
@@ -180,10 +180,23 @@ router.get('/my-bets/open', rejectUnauthenticated, (req, res) => {
 //5.3 your completed bet history
 router.get('/my-bets/history', rejectUnauthenticated, (req, res) => {
     const userId = req.user.id;
-    const betQuery = `SELECT * FROM "bets"
-                WHERE ("proposers_id" = $1 OR "acceptors_id" = $1)
-                AND "winners_id" IS NOT NULL;`
-                // winners_id is not null means the bet has been processed
+    const betQuery = `SELECT "bets".id, "bets".wager, "bets".game_id, "user".first_name AS opponent, "games".date, "home_team".name AS home_team_name, "away_team".name AS away_team_name, "my_bet_team".name AS my_bet_team,
+    CASE 
+    WHEN "bets".proposers_team_id = "games".home_team_id THEN "games".home_team_spread
+    ELSE "games".away_team_spread
+    END AS proposers_spread,
+    CASE
+    WHEN "bets".winners_id = $1 THEN 'W'
+    ELSE 'L'
+    END AS winner
+    FROM "bets"
+    JOIN "user" ON "user".id = "bets".acceptors_id
+    JOIN "games" ON "games".id = "bets".game_id
+    LEFT JOIN "teams" as home_team ON "games".home_team_id = "home_team".id
+    LEFT JOIN "teams" as away_team ON "games".away_team_id = "away_team".id
+    LEFT JOIN "teams" as my_bet_team ON "bets".proposers_team_id = "my_bet_team".id
+    WHERE "bets".proposers_id = $1
+    AND "bets".completed = true;`
 
     pool.query(betQuery, [userId])
         .then(response => {
