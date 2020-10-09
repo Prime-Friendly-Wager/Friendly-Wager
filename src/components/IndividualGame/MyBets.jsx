@@ -33,7 +33,6 @@ function MyBets(props) {
       <div>
         <div>
           <h3>Open Bets</h3>
-
           <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
               <TableBody>
@@ -49,7 +48,6 @@ function MyBets(props) {
               </TableBody>
             </Table>
           </TableContainer>
-
           <h3>Active Bets</h3>
           <p>Your active bets</p>
           <h3>Create Bet</h3>
