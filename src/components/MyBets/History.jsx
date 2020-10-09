@@ -7,9 +7,9 @@ import moment from 'moment';
 
 function History(props) {
   
-  useEffect( () => {
-    props.dispatch({type: 'GET_MY_COMPLETED_BETS'})
-  }, [])
+  // useEffect( () => {
+  //   props.dispatch({type: 'GET_MY_COMPLETED_BETS'})
+  // }, [])
 
   return (
     <TableContainer component={Paper}>

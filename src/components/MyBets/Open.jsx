@@ -6,9 +6,9 @@ import moment from 'moment';
 
 function Open(props) {
  
-  useEffect( () => {
-    props.dispatch({type: 'GET_MY_OPEN_BETS'})
-  }, [])
+  // useEffect( () => {
+  //   props.dispatch({type: 'GET_MY_OPEN_BETS'})
+  // }, [])
 
   return (
     <TableContainer component={Paper}>

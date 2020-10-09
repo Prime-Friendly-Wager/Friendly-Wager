@@ -10,9 +10,9 @@ import moment from 'moment';
 function Active(props) {
 
 
-  useEffect( () => {
-    props.dispatch({type: 'GET_MY_ACTIVE_BETS'})
-  }, [])
+  // useEffect( () => {
+  //   props.dispatch({type: 'GET_MY_ACTIVE_BETS'})
+  // }, [])
 
   return (
     <TableContainer component={Paper}>

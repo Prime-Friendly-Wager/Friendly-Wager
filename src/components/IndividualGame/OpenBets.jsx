@@ -39,13 +39,13 @@ function OpenBets(props) {
 
           </TableRow>
         </TableHead>
-<!--         <TableBody>
-          {props.store.betReducer.openBetReducer.map((bet, i) => {
+        <TableBody>
+          {/* {props.store.betReducer.openBetReducer.map((bet, i) => {
             return (
               <OpenBetRow key={bet.id} bet={bet} />
             )
-          })}
-        </TableBody> -->
+          })} */}
+        </TableBody>
       </Table>
     </TableContainer>
   );
