@@ -17,7 +17,7 @@ function History(props) {
         <TableHead>
           <TableRow>
             <TableCell align="left">Date</TableCell>
-            <TableCell align="left">Game</TableCell>
+            <TableCell align="center">Game</TableCell>
             <TableCell align="left">Against</TableCell>
             <TableCell align="left">My Bet</TableCell>
             <TableCell align="left">W/L</TableCell>
