@@ -26,7 +26,7 @@ function Active(props) {
         </TableHead>
         <TableBody>
           {props.store.betReducer.activeBetReducer.map(bet => (
-            <TableRow>
+            <TableRow key={bet.id}>
               <TableCell align="right">{moment(bet.date).format("M/D")}</TableCell>
               <TableCell align="right">{bet.away_team_name} @ {bet.home_team_name}</TableCell>
               <TableCell align="right">{bet.opponent}</TableCell>

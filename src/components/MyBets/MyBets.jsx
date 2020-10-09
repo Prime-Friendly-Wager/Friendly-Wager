@@ -7,7 +7,7 @@ import BetsTabPanel from './BetsTabPanel'
 class MyBets extends Component {
 
   componentDidMount(){
-
+    this.props.dispatch({type: 'GET_MY_OVERALL_PLUS_MINUS'})
   }
 
 
@@ -15,6 +15,7 @@ class MyBets extends Component {
     return (
       <div>
         <h2>My Bets</h2>
+        <h4>Overall (+/-) {this.props.store.betReducer.overallPlusMinusReducer.sum}</h4>
         <BetsTabPanel />
       </div>
     );

@@ -24,7 +24,7 @@ function History(props) {
         </TableHead>
         <TableBody>
           {props.store.betReducer.completedBetReducer.map(bet => (
-            <TableRow>
+            <TableRow key={bet.id}>
               <TableCell align="left">{moment(bet.date).format("M/D")}</TableCell>
               <TableCell align="left">{bet.home_team_name} @ {bet.away_team_name}</TableCell>
               <TableCell align="left">{bet.opponent}</TableCell>

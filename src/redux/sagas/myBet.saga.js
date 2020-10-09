@@ -28,10 +28,20 @@ function* getMyOpenBets(){
     }
 }
 
+function* getMyOverallPlusMinus(){
+    try{
+        let response = yield axios.get('api/bets/my-unit-history');
+        yield put({type: 'SAVE_OVERALL_PLUS_MINUS', payload: response.data})
+    }catch(error){
+        console.log('ERROR IN GET MY OVERALL PLUS/MINUS: ', error)
+    }
+}
+
 function* myBetSaga(){
     yield takeEvery('GET_MY_ACTIVE_BETS', getMyActiveBets);
     yield takeEvery('GET_MY_COMPLETED_BETS', getMyCompletedBets);
-    yield takeEvery('GET_MY_OPEN_BETS', getMyOpenBets)
+    yield takeEvery('GET_MY_OPEN_BETS', getMyOpenBets);
+    yield takeEvery('GET_MY_OVERALL_PLUS_MINUS', getMyOverallPlusMinus)
 }
 
 export default myBetSaga;

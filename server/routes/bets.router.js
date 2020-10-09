@@ -222,7 +222,7 @@ router.get('/my-unit-history', rejectUnauthenticated, (req, res) => {
 
     pool.query(betQuery, [userId])
         .then(response => {
-            res.send(response.rows)
+            res.send(response.rows[0])
         }).catch(error => {
             console.log('error getting your lifetime +/-', error); 
             res.sendStatus(500)
