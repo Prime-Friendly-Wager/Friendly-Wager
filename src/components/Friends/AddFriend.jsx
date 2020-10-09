@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import {withStyles, TextField, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton} from '@material-ui/core';
+import {withStyles, TextField, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton, Button} from '@material-ui/core';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
 
 const styles = theme => ({
   mainDiv: {
     margin: 10
-  }
+  },
 })
 class AddFriend extends Component {
 
@@ -37,6 +38,9 @@ class AddFriend extends Component {
     const {classes} = this.props;
     return (
       <div className={classes.mainDiv}>
+        <Button onClick={()=>this.props.history.goBack()}>
+           <ArrowBackIcon/>
+        </Button>
         <h2>Add Friends</h2>
         <SearchIcon fontSize="large"/><TextField id="friendSearch" label="Search" variant="outlined" onChange={this.handleSearch}/>
         <List>
