@@ -10,28 +10,30 @@ import moment from 'moment';
 function Active(props) {
 
 
-  useEffect( () => {
-    props.dispatch({type: 'GET_MY_ACTIVE_BETS'})
-  }, [])
+  // useEffect( () => {
+  //   props.dispatch({type: 'GET_MY_ACTIVE_BETS'})
+  // }, [])
 
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
         <TableHead>
-          <TableCell align="right">Date</TableCell>
-          <TableCell align="right">Game</TableCell>
-          <TableCell align="right">Against</TableCell>
-          <TableCell align="right">My Bet</TableCell>
-          <TableCell align="right">Wager</TableCell>
+          <TableRow>
+            <TableCell align="left">Date</TableCell>
+            <TableCell align="center">Game</TableCell>
+            <TableCell align="left">Against</TableCell>
+            <TableCell align="left">My Bet</TableCell>
+            <TableCell align="left">Wager</TableCell>
+          </TableRow>
         </TableHead>
         <TableBody>
           {props.store.betReducer.activeBetReducer.map(bet => (
             <TableRow key={bet.id}>
-              <TableCell align="right">{moment(bet.date).format("M/D")}</TableCell>
-              <TableCell align="right">{bet.away_team_name} @ {bet.home_team_name}</TableCell>
-              <TableCell align="right">{bet.opponent}</TableCell>
-              <TableCell align="right">{bet.my_bet_team} {bet.proposers_spread}</TableCell>
-              <TableCell align="right">{bet.wager}</TableCell>
+              <TableCell align="left">{moment(bet.date).format("M/D")}</TableCell>
+              <TableCell align="left">{bet.away_team_name} @ {bet.home_team_name}</TableCell>
+              <TableCell align="left">{bet.opponent}</TableCell>
+              <TableCell align="left">{bet.my_bet_team} {bet.proposers_spread}</TableCell>
+              <TableCell align="left">{bet.wager}</TableCell>
             </TableRow>
           ))}
         </TableBody>
