@@ -15,12 +15,14 @@ function History(props) {
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
         <TableHead>
-          <TableCell align="left">Date</TableCell>
-          <TableCell align="left">Game</TableCell>
-          <TableCell align="left">Against</TableCell>
-          <TableCell align="left">My Bet</TableCell>
-          <TableCell align="left">W/L</TableCell>
-          <TableCell align="left">Wager</TableCell>
+          <TableRow>
+            <TableCell align="left">Date</TableCell>
+            <TableCell align="left">Game</TableCell>
+            <TableCell align="left">Against</TableCell>
+            <TableCell align="left">My Bet</TableCell>
+            <TableCell align="left">W/L</TableCell>
+            <TableCell align="left">Wager</TableCell>
+          </TableRow>
         </TableHead>
         <TableBody>
           {props.store.betReducer.completedBetReducer.map(bet => (
