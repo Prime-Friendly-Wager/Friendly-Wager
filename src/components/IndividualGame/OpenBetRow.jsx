@@ -7,7 +7,6 @@ import { Button, TableCell, TableRow } from '@material-ui/core';
 function OpenBetRow(props) {
   
     return (
-
                 <>
                   <TableRow>
                     {/* Friend */}
