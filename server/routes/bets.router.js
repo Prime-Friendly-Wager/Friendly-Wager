@@ -44,7 +44,6 @@ router.get('/open', rejectUnauthenticated, async (req, res) => {
         LEFT JOIN "teams" as friends_team ON "bets".proposers_team_id = "friends_team".id
         LEFT JOIN "user" ON "bets".proposers_id = "user".id
         WHERE "bets".proposers_id = $1
-        AND "games".id = $2
         AND "bets".accepted = false;`
 
             return client.query(betQuery, [friendsId.id])
