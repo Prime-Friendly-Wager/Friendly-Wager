@@ -26,6 +26,7 @@ function OpenBets(props) {
 
   const classes = useStyles();
 
+
   return (
   <TableContainer component={Paper}>
  <Table className={classes.table} aria-label="simple table">
@@ -39,13 +40,13 @@ function OpenBets(props) {
 
           </TableRow>
         </TableHead>
-<!--         <TableBody>
+         <TableBody>
           {props.store.betReducer.openBetReducer.map((bet, i) => {
             return (
               <OpenBetRow key={bet.id} bet={bet} />
             )
           })}
-        </TableBody> -->
+        </TableBody>
       </Table>
     </TableContainer>
   );
