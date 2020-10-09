@@ -1,35 +1,82 @@
-import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import React from 'react';
+import moment from 'moment';
+import { withRouter } from 'react-router-dom';
 import CreateBetForm from './CreateBetForm';
-
 import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles({
   createBetForm: {
     textAlign: 'center',
+    marginBottom: '3.5em',
   },
 });
 
 function MyBets(props) {
 
   const classes = useStyles();
-  const [heading, setHeading] = useState('Functional Component');
 
   return (
     <div>
       <div>
-        <h2>Open Bets</h2>
-        <p>Your open bets</p>
-        <h2>Active Bets</h2>
-        <p>Your active bets</p>
-        <h2>Create Bet</h2>
+        <div>
+          <h3>Open Bets</h3>
+
+          <TableContainer component={Paper}>
+            <Table className={classes.table} aria-label="simple table">
+              <TableBody>
+                {props.store.betReducer.openBetReducer.map((bet, i) => {
+                  return (
+                    <TableRow key={bet.id}>
+                      <TableCell align="left">You have team {bet.proposers_team_id} {bet.wager} units</TableCell>
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+
+          <h3>Active Bets</h3>
+          <p>Your active bets</p>
+          <h3>Create Bet</h3>
+        </div>
+        <div className={classes.createBetForm}>
+          <CreateBetForm />
+        </div>
       </div>
-      <div className={classes.createBetForm}>
-        <CreateBetForm />
-      </div>
+      {/* <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="right">Game</TableCell>
+              <TableCell align="right">Time</TableCell>
+              <TableCell align="right">Spread</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {props.store.games.map((game, i) => {
+              return (
+                <TableRow key={game.id} onClick={() => props.history.push(`/game-details/${game.id}`)}>
+                  <TableCell align="right">{game.away_team} @ {game.home_team}</TableCell>
+                  <TableCell align="right">{moment(game.date).format("ddd MMM D, h:mm a")}</TableCell>
+                  <TableCell align="right">{game.home_team} {game.home_team_spread}</TableCell>
+                </TableRow>
+              )
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer> */}
     </div>
   );
 }
 
-export default connect(mapStoreToProps)(MyBets);
+
+export default connect(mapStoreToProps)(withRouter(MyBets));
