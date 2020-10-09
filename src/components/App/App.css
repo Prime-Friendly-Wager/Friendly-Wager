@@ -110,3 +110,12 @@ input {
   margin: 5px;
   margin-bottom: 10px;
 }
+
+.MuiTableContainer-root {
+  padding: 0em;
+  margin-bottom: 3.5em;
+}
+
+.MuiBox-root-11 {
+  padding: 0;
+}

@@ -12,8 +12,6 @@ function OpenBetRow(props) {
                   <TableRow>
                     {/* Friend */}
                     <TableCell align="right">{props.bet.friend_first_name} {props.bet.friend_last_name}</TableCell>
-                    {/* Game */}
-                    <TableCell align="right">{props.bet.away_team} @ {props.bet.home_team}</TableCell>
                     {/* Bet */}
                     <TableCell align="right">{props.bet.friends_team}{props.bet.friends_team_spread}</TableCell>
                     {/* Wager */}
