@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 
 function MyBets(props) {
 
-  useEffect( () => {
+  useEffect(() => {
     props.dispatch({ type: 'FETCH_GAME_DETAILS_MY_BETS', payload: props.match.params.id })
   }, [])
 
@@ -40,7 +40,9 @@ function MyBets(props) {
                 {props.store.betReducer.openBetReducer.map((bet, i) => {
                   return (
                     <TableRow key={bet.id}>
-                      <TableCell align="left">You have team {bet.proposers_team_id} {bet.wager} units</TableCell>
+                      <TableCell align="left">
+                        You have {bet.team_name} {bet.proposers_spread}, {bet.wager} units
+                      </TableCell>
                     </TableRow>
                   )
                 })}
@@ -56,28 +58,6 @@ function MyBets(props) {
           <CreateBetForm />
         </div>
       </div>
-      {/* <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="right">Game</TableCell>
-              <TableCell align="right">Time</TableCell>
-              <TableCell align="right">Spread</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {props.store.games.map((game, i) => {
-              return (
-                <TableRow key={game.id} onClick={() => props.history.push(`/game-details/${game.id}`)}>
-                  <TableCell align="right">{game.away_team} @ {game.home_team}</TableCell>
-                  <TableCell align="right">{moment(game.date).format("ddd MMM D, h:mm a")}</TableCell>
-                  <TableCell align="right">{game.home_team} {game.home_team_spread}</TableCell>
-                </TableRow>
-              )
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer> */}
     </div>
   );
 }

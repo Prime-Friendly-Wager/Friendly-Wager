@@ -129,14 +129,20 @@ router.get('/details/my-bets/open/:id', rejectUnauthenticated, (req, res) => {
     console.log('ROUTER', req.params.id);
     const userId = req.user.id;
     const gameId = req.params.id;
-    const betQuery = `SELECT * FROM "bets"
-                WHERE "proposers_id" = $1
-                AND "accepted" = false
-                AND "game_id" = $2;`
+    const betQuery = `SELECT "teams".name AS team_name, "bets".wager,
+                    CASE 
+                    WHEN "bets".proposers_team_id = "games".home_team_id THEN "games".home_team_spread
+                    ELSE "games".away_team_spread
+                    END AS proposers_spread
+                    FROM "bets"
+                    LEFT JOIN "teams" ON "bets".proposers_team_id = "teams".id
+                    LEFT JOIN "games" ON "bets".game_id = "games".id
+                    WHERE "proposers_id" = $1
+                    AND "accepted" = false
+                    AND "game_id" = $2;`
 
     pool.query(betQuery, [userId, gameId])
         .then(response => {
-            console.log('ROUTER 3.2', response.rows);
             res.send(response.rows)
         }).catch(error => {
             console.log('error getting your individual game open bets', error); 
