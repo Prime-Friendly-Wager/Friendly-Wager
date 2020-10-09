@@ -25,7 +25,16 @@ function Active(props) {
           <TableCell align="right">Wager</TableCell>
         </TableHead>
         <TableBody>
-          
+          {props.store.betReducer.activeBetReducer.map(bet => (
+            <TableRow>
+              <TableCell align="right">{bet.date}</TableCell>
+              <TableCell align="right">{bet.away_team_name} @ {bet.home_team_name}</TableCell>
+              <TableCell align="right">Spread</TableCell>
+              <TableCell align="right">{bet.first_name}</TableCell>
+              <TableCell align="right">{bet.my_bet_team} {bet.proposers_spread}</TableCell>
+              <TableCell align="right">{bet.wager}</TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
