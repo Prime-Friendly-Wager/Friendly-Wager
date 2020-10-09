@@ -199,7 +199,6 @@ router.get('/my-unit-history', rejectUnauthenticated, (req, res) => {
 
 //3.2 creating bet, posting bet to bets table
 router.post('/', rejectUnauthenticated, (req, res) => {
-    console.log('ROUTER BET', req.body);
     const { proposers_id, wager, game_id, proposers_team_id } = req.body;
     const queryText = `INSERT INTO "bets" ("proposers_id", "wager", "game_id", "proposers_team_id")
                         VALUES ($1, $2, $3, $4);`
