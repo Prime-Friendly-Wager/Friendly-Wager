@@ -5,13 +5,16 @@ import BetsTabPanel from './BetsTabPanel'
 
 
 class MyBets extends Component {
-  state = {
-    heading: 'Class Component',
-  };
+
+  componentDidMount(){
+
+  }
+
 
   render() {
     return (
       <div>
+        <h2>My Bets</h2>
         <BetsTabPanel />
       </div>
     );
