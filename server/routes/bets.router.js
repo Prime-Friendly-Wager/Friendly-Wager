@@ -59,19 +59,37 @@ router.get('/details/open/:id', rejectUnauthenticated, async (req, res) => {
 
         const friendResults = await pool.query(friendQuery, [req.user.id])
         const friendsIds = friendResults.rows;
+        console.log(friendsIds);
+        
 
         //gets all of their friends open bets for this particular game
         const bets = await Promise.all(friendsIds.map(friendsId => {
-            const betQuery = `SELECT * FROM "bets"
-                WHERE "proposers_id" = $1
-                AND "accepted" = false
-                AND "game_id" = $2;`
+            const betQuery = `SELECT  "bets".id, 
+            "bets".wager, 
+            "bets".game_id, 
+            "home_team".name AS home_team_name, 
+            "away_team".name AS away_team_name, 
+            "friends_team".name AS friends_team,
+            CASE 
+                WHEN "bets".proposers_team_id = "games".home_team_id 
+                    THEN "games".home_team_spread
+                    ELSE "games".away_team_spread
+            END AS "friends_team_spread"
+        FROM "bets"
+        JOIN "games" ON "games".id = "bets".game_id
+        LEFT JOIN "teams" as home_team ON "games".home_team_id = "home_team".id
+        LEFT JOIN "teams" as away_team ON "games".away_team_id = "away_team".id
+        LEFT JOIN "teams" as friends_team ON "bets".proposers_team_id = "friends_team".id
+        WHERE "bets".proposers_id = $1
+        AND "games".id = $2
+        AND "bets".accepted = false;`
 
-            return client.query(betQuery, [friendsId, req.params.id])
+            return client.query(betQuery, [friendsId.id, req.params.id])
         }))
+        console.log('sending bets back', bets[0].rows);
         
         await client.query('COMMIT');
-        res.send(bets)
+        res.send(bets[0].rows)
 
     } catch (error) {
         await client.query('ROLLBACK');
