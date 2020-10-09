@@ -109,8 +109,7 @@ router.get('/details/my-bets/active/:id', rejectUnauthenticated, (req, res) => {
                 WHERE ("proposers_id" = $1 OR "acceptors_id" = $1)
                 AND "accepted" = true
                 AND "game_id" = $2
-                AND "winners_id" IS NULL;`
-                // winners_id is null means the bet hasn't been processed yet
+                AND "completed" = false;`
 
 
     pool.query(betQuery, [userId, gameId])
@@ -218,6 +217,7 @@ router.get('/my-unit-history', rejectUnauthenticated, (req, res) => {
                                 END) 
                         FROM "bets"
                         WHERE ("proposers_id" = $1 OR "acceptors_id" = $1)
+                        AND "completed" = true
                         AND "winners_id" IS NOT NULL;`
 
     pool.query(betQuery, [userId])

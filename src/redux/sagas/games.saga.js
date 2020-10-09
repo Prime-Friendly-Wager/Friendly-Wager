@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function* fetchGames(action) {
   try {
-    let response = yield axios.get(`/api/games/${action.payload}`);
+    let response = yield axios.get(`/api/games/week/${action.payload}`);
     console.log(response.data);
     //sending games to reducer
     yield put({ type: 'SET_GAMES', payload: response.data })
