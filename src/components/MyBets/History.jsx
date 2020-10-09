@@ -7,20 +7,22 @@ import moment from 'moment';
 
 function History(props) {
   
-  useEffect( () => {
-    props.dispatch({type: 'GET_MY_COMPLETED_BETS'})
-  }, [])
+  // useEffect( () => {
+  //   props.dispatch({type: 'GET_MY_COMPLETED_BETS'})
+  // }, [])
 
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
         <TableHead>
-          <TableCell align="left">Date</TableCell>
-          <TableCell align="left">Game</TableCell>
-          <TableCell align="left">Against</TableCell>
-          <TableCell align="left">My Bet</TableCell>
-          <TableCell align="left">W/L</TableCell>
-          <TableCell align="left">Wager</TableCell>
+          <TableRow>
+            <TableCell align="left">Date</TableCell>
+            <TableCell align="center">Game</TableCell>
+            <TableCell align="left">Against</TableCell>
+            <TableCell align="left">My Bet</TableCell>
+            <TableCell align="left">W/L</TableCell>
+            <TableCell align="left">Wager</TableCell>
+          </TableRow>
         </TableHead>
         <TableBody>
           {props.store.betReducer.completedBetReducer.map(bet => (
