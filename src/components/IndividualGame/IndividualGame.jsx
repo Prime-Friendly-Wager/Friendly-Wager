@@ -19,7 +19,8 @@ const styles = theme => ({
 class IndividualGame extends Component {
 
   componentDidMount() {
-    this.props.dispatch({type: 'FETCH_GAME_DETAILS', payload: this.props.match.params.id })
+    this.props.dispatch({ type: 'FETCH_GAME_DETAILS', payload: this.props.match.params.id });
+    this.props.dispatch({ type: 'FETCH_GAME_DETAILS_MY_BETS', payload: this.props.match.params.id });
   }
 
   handleBack = () => {

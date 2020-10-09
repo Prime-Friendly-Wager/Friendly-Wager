@@ -84,6 +84,7 @@ router.get('/details/open/:id', rejectUnauthenticated, async (req, res) => {
 
 //3.2 your open bets on individual game
 router.get('/details/my-bets/open/:id', rejectUnauthenticated, (req, res) => {
+    console.log('ROUTER', req.params.id);
     const userId = req.user.id;
     const gameId = req.params.id;
     const betQuery = `SELECT * FROM "bets"
@@ -93,6 +94,7 @@ router.get('/details/my-bets/open/:id', rejectUnauthenticated, (req, res) => {
 
     pool.query(betQuery, [userId, gameId])
         .then(response => {
+            console.log('ROUTER 3.2', response.rows);
             res.send(response.rows)
         }).catch(error => {
             console.log('error getting your individual game open bets', error); 
