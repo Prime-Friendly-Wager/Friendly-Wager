@@ -1,35 +1,64 @@
-import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import React, { useEffect } from 'react';
+import moment from 'moment';
+import { withRouter } from 'react-router-dom';
 import CreateBetForm from './CreateBetForm';
-
 import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles({
   createBetForm: {
     textAlign: 'center',
+    marginBottom: '3.5em',
   },
 });
 
 function MyBets(props) {
 
+  useEffect(() => {
+    props.dispatch({ type: 'FETCH_GAME_DETAILS_MY_BETS', payload: props.match.params.id })
+  }, [])
+
   const classes = useStyles();
-  const [heading, setHeading] = useState('Functional Component');
 
   return (
     <div>
       <div>
-        <h2>Open Bets</h2>
-        <p>Your open bets</p>
-        <h2>Active Bets</h2>
-        <p>Your active bets</p>
-        <h2>Create Bet</h2>
-      </div>
-      <div className={classes.createBetForm}>
-        <CreateBetForm />
+        <div>
+          <h3>Open Bets</h3>
+          <TableContainer component={Paper}>
+            <Table className={classes.table} aria-label="simple table">
+              <TableBody>
+                {props.store.betReducer.openBetReducer.map((bet, i) => {
+                  return (
+                    <TableRow key={bet.id}>
+                      <TableCell align="left">
+                        You have {bet.team_name} {bet.proposers_spread}, {bet.wager} units
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <h3>Active Bets</h3>
+          <p>Your active bets</p>
+          <h3>Create Bet</h3>
+        </div>
+        <div className={classes.createBetForm}>
+          <CreateBetForm />
+        </div>
       </div>
     </div>
   );
 }
 
-export default connect(mapStoreToProps)(MyBets);
+
+export default connect(mapStoreToProps)(withRouter(MyBets));

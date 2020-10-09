@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import React, { useEffect } from 'react';
+import React from 'react';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom';
 

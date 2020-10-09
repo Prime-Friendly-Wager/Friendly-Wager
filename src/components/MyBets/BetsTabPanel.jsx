@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import mapStoreToProps from '../../redux/mapStoreToProps';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 import Open from './Open';
@@ -57,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimpleTabs() {
+function SimpleTabs(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -69,9 +70,9 @@ export default function SimpleTabs() {
     <div className={classes.root}>
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-          <Tab label="Open" {...a11yProps(0)} className={classes.tabs}/>
-          <Tab label="Active" {...a11yProps(1)} className={classes.tabs}/>
-          <Tab label="History" {...a11yProps(2)} className={classes.tabs}/>
+          <Tab label={`Open (${props.store.betReducer.openBetReducer.length})`} {...a11yProps(0)} className={classes.tabs}/>
+          <Tab label={`Active (${props.store.betReducer.activeBetReducer.length})`} {...a11yProps(1)} className={classes.tabs}/>
+          <Tab label={`History (${props.store.betReducer.completedBetReducer.length})`} {...a11yProps(2)} className={classes.tabs}/>
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
@@ -86,3 +87,5 @@ export default function SimpleTabs() {
     </div>
   );
 }
+
+export default connect(mapStoreToProps)(SimpleTabs)

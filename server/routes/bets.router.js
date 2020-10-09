@@ -79,9 +79,9 @@ router.get('/details/open/:id', rejectUnauthenticated, async (req, res) => {
         const friendsIds = friendResults.rows;
         console.log(friendsIds);
         
-
         //gets all of their friends open bets for this particular game
-        const bets = await Promise.all(friendsIds.map(friendsId => {
+        const bets = []
+        await Promise.all(friendsIds.map(async friendsId => {
             const betQuery = `SELECT  "bets".id, 
             "bets".wager, 
             "bets".game_id, 
@@ -104,13 +104,15 @@ router.get('/details/open/:id', rejectUnauthenticated, async (req, res) => {
         WHERE "bets".proposers_id = $1
         AND "games".id = $2
         AND "bets".accepted = false;`
-
-            return client.query(betQuery, [friendsId.id, req.params.id])
+        const results = await client.query(betQuery, [friendsId.id, req.params.id]);
+             results.rows.forEach(row => {
+                 bets.push(row)
+             })
         }))
-        console.log('sending bets back', bets[0].rows);
+        console.log('sending bets back', bets);
         
         await client.query('COMMIT');
-        res.send(bets[0].rows)
+        res.send(bets)
 
     } catch (error) {
         await client.query('ROLLBACK');
@@ -123,12 +125,20 @@ router.get('/details/open/:id', rejectUnauthenticated, async (req, res) => {
 
 //3.2 your open bets on individual game
 router.get('/details/my-bets/open/:id', rejectUnauthenticated, (req, res) => {
+    console.log('ROUTER', req.params.id);
     const userId = req.user.id;
     const gameId = req.params.id;
-    const betQuery = `SELECT * FROM "bets"
-                WHERE "proposers_id" = $1
-                AND "accepted" = false
-                AND "game_id" = $2;`
+    const betQuery = `SELECT "teams".name AS team_name, "bets".wager,
+                    CASE 
+                    WHEN "bets".proposers_team_id = "games".home_team_id THEN "games".home_team_spread
+                    ELSE "games".away_team_spread
+                    END AS proposers_spread
+                    FROM "bets"
+                    LEFT JOIN "teams" ON "bets".proposers_team_id = "teams".id
+                    LEFT JOIN "games" ON "bets".game_id = "games".id
+                    WHERE "proposers_id" = $1
+                    AND "accepted" = false
+                    AND "game_id" = $2;`
 
     pool.query(betQuery, [userId, gameId])
         .then(response => {
@@ -164,7 +174,8 @@ router.get('/details/my-bets/active/:id', rejectUnauthenticated, (req, res) => {
 //5.1 your active bets
 router.get('/my-bets/active', rejectUnauthenticated, (req, res) => {
     const userId = req.user.id;
-    const betQuery = `SELECT "bets".id, "bets".wager, "bets".game_id, "user".first_name AS opponent, "games".date, "home_team".name AS home_team_name, "away_team".name AS away_team_name, "my_bet_team".name AS my_bet_team,
+    const betQuery = `SELECT "bets".id, "bets".wager, "bets".game_id, "user".first_name AS opponent, "games".date, "home_team".nfl_api_ref AS home_team_name, 
+    "away_team".nfl_api_ref AS away_team_name, "my_bet_team".nfl_api_ref AS my_bet_team,
     CASE 
     WHEN "bets".proposers_team_id = "games".home_team_id THEN "games".home_team_spread
     ELSE "games".away_team_spread
@@ -192,7 +203,8 @@ router.get('/my-bets/active', rejectUnauthenticated, (req, res) => {
 //5.2 your open bets
 router.get('/my-bets/open', rejectUnauthenticated, (req, res) => {
     const userId = req.user.id;
-    const betQuery = `SELECT "bets".id, "bets".wager, "bets".game_id, "games".date, "home_team".name AS home_team_name, "away_team".name AS away_team_name, "my_bet_team".name AS my_bet_team,
+    const betQuery = `SELECT "bets".id, "bets".wager, "bets".game_id, "games".date, "home_team".nfl_api_ref AS home_team_name, 
+    "away_team".nfl_api_ref AS away_team_name, "my_bet_team".nfl_api_ref AS my_bet_team,
     CASE 
     WHEN "bets".proposers_team_id = "games".home_team_id THEN "games".home_team_spread
     ELSE "games".away_team_spread
@@ -218,7 +230,8 @@ router.get('/my-bets/open', rejectUnauthenticated, (req, res) => {
 //5.3 your completed bet history
 router.get('/my-bets/history', rejectUnauthenticated, (req, res) => {
     const userId = req.user.id;
-    const betQuery = `SELECT "bets".id, "bets".wager, "bets".game_id, "user".first_name AS opponent, "games".date, "home_team".name AS home_team_name, "away_team".name AS away_team_name, "my_bet_team".name AS my_bet_team,
+    const betQuery = `SELECT "bets".id, "bets".wager, "bets".game_id, "user".first_name AS opponent, "games".date, "home_team".nfl_api_ref AS home_team_name, 
+    "away_team".nfl_api_ref AS away_team_name, "my_bet_team".nfl_api_ref AS my_bet_team,
     CASE 
     WHEN "bets".proposers_team_id = "games".home_team_id THEN "games".home_team_spread
     ELSE "games".away_team_spread
@@ -271,7 +284,6 @@ router.get('/my-unit-history', rejectUnauthenticated, (req, res) => {
 
 //3.2 creating bet, posting bet to bets table
 router.post('/', rejectUnauthenticated, (req, res) => {
-    console.log('ROUTER BET', req.body);
     const { proposers_id, wager, game_id, proposers_team_id } = req.body;
     const queryText = `INSERT INTO "bets" ("proposers_id", "wager", "game_id", "proposers_team_id")
                         VALUES ($1, $2, $3, $4);`

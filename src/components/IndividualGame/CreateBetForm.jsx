@@ -49,7 +49,7 @@ function CreateBetForm(props) {
         }
 
         props.dispatch({ type: 'POST_BET', payload: bet });
-
+        
         setBet({
             ...bet,
             wager: '',
