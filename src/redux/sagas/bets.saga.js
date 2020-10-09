@@ -11,8 +11,21 @@ function* postBet(action) {
   }
 }
 
+//requesting 3.1 bets
+function* fetchGameOpenBets(action) {
+  try {
+    const response = yield axios.get(`/api/bets/details/open/${action.payload}`);
+
+    yield put({type: 'SAVE_OPEN_BETS', payload: response.data})
+
+  } catch (error) {
+    console.log('ERROR FETCHING INDIVIDUAL GAME OPEN BETS', error);
+  }
+}
+
 function* betsSaga() {
   yield takeLatest('POST_BET', postBet);
+  yield takeLatest('FETCH_GAME_OPEN_BETS', fetchGameOpenBets);
 }
 
 export default betsSaga;
