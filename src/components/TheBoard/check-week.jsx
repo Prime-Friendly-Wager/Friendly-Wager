@@ -76,22 +76,22 @@ function getWeek(convertedDate){
 
 //can use for loops to write logic for schedule for weeks outside of current week and
 //also for the current week
-function getSchedule(currentWeek){
-  // for (let i = currentWeek; i < 18; i++){
-    // console.log('hi')
-    //put logic of what we need in here for games
-    //after current week
-  // }
-  // for (let i = currentWeek; i >0; i--){
-    // console.log('hi')
-    //put logic of what we need in here for games
-    //before current week
-//   }
-// }
+// function getSchedule(currentWeek){
+//   // for (let i = currentWeek; i < 18; i++){
+//     // console.log('hi')
+//     //put logic of what we need in here for games
+//     //after current week
+//   // }
+//   // for (let i = currentWeek; i >0; i--){
+//     // console.log('hi')
+//     //put logic of what we need in here for games
+//     //before current week
+// //   }
+// // }
 
-  console.log(currentWeek);
-  return currentWeek
-}
+//   console.log(currentWeek);
+//   return currentWeek
+// }
 
 // convertDate()
 

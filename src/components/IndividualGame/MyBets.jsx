@@ -1,17 +1,11 @@
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import React, { useEffect } from 'react';
-import moment from 'moment';
 import { withRouter } from 'react-router-dom';
 import CreateBetForm from './CreateBetForm';
+
 import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import { Table, TableBody, TableCell, TableContainer, TableRow, Paper } from '@material-ui/core';
 
 const useStyles = makeStyles({
   createBetForm: {
@@ -29,7 +23,6 @@ function MyBets(props) {
   const classes = useStyles();
 
   return (
-    <div>
       <div>
         <div>
           <h3>Open Bets</h3>
@@ -56,7 +49,6 @@ function MyBets(props) {
           <CreateBetForm />
         </div>
       </div>
-    </div>
   );
 }
 

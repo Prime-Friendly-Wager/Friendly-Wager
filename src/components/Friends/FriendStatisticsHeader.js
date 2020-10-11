@@ -7,7 +7,7 @@ import { withRouter } from "react-router";
 import ArrowBackIosSharpIcon from '@material-ui/icons/ArrowBackIosSharp';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
-import { deepOrange, deepPurple } from '@material-ui/core/colors';
+import { deepOrange } from '@material-ui/core/colors';
 
 
 const useStyles = makeStyles((theme) => ({

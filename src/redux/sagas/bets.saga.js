@@ -11,6 +11,22 @@ function* postBet(action) {
   }
 };
 
+//accepting bet
+function* acceptBet(action) {
+  try {
+    yield axios.put('/api/bets/accept', action.payload);
+    //this tells us if we were viewing an individual game, or all open bets, when we accepted and will refresh appropriately
+    if ( action.payload.is_individual_game ) {
+      yield fetchGameOpenBets({ payload: action.payload.game_id })
+    } else {
+      yield fetchAllOpenBets();
+    }
+    
+  } catch (error) {
+    console.log('ERROR ACCEPTING BET', error);
+  }
+};
+
 //this is for 3.2 my bets, open bets
 function* fetchGameDetailsMyBets(action) {
     try {
@@ -47,6 +63,7 @@ function* fetchAllOpenBets() {
 
 function* betsSaga() {
   yield takeLatest('POST_BET', postBet);
+  yield takeLatest('ACCEPT_BET', acceptBet);
   yield takeLatest('FETCH_GAME_DETAILS_MY_BETS', fetchGameDetailsMyBets)
   yield takeLatest('FETCH_GAME_OPEN_BETS', fetchGameOpenBets);
   yield takeLatest('FETCH_ALL_OPEN_BETS', fetchAllOpenBets);
