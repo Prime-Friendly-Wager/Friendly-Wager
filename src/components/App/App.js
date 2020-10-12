@@ -20,8 +20,16 @@ import IndividualGame from '../IndividualGame/IndividualGame';
 import FriendsList from '../Friends/FriendsList'
 import FriendStatistics from '../Friends/FriendStatistics'
 import MyBets from '../MyBets/MyBets'
+import { ThemeProvider, createMuiTheme} from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper'
 
 import './App.css';
+
+const darkTheme = createMuiTheme ({
+  palette: {
+    type: "dark"
+  }
+})
 
 class App extends Component {
   componentDidMount() {
@@ -30,6 +38,7 @@ class App extends Component {
 
   render() {
     return (
+      <ThemeProvider theme={darkTheme}>
       <Router>
         <div>
           <Switch>
@@ -120,6 +129,7 @@ class App extends Component {
         <BottomNavBar />
          )} 
       </Router>
+      </ThemeProvider>
       
     );
   }
