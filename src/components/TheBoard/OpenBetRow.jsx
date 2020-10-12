@@ -32,7 +32,7 @@ function OpenBetRow(props) {
                     <TableCell align="right">{props.bet.wager}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell colSpan={4}><Button onClick={() => acceptBet()}>Accept Bet</Button></TableCell>
+                    <TableCell colSpan={4}><Button color="primary" variant="contained" onClick={() => acceptBet()}>Accept Bet</Button></TableCell>
                   </TableRow>
                 </>
     );
