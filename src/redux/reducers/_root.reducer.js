@@ -8,6 +8,7 @@ import gameDetails from './gameDetails.reducer';
 import friendsList from './friends.reducer'
 import friendStatistics from './friendStatistics.reducer'
 import betReducer from './bet.reducer'
+import goBackReducer from './goBack.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   gameDetails,
   friendStatistics,
   betReducer,
+  goBackReducer,
 });
 
 export default rootReducer;

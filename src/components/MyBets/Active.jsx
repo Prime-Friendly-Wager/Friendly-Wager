@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import {Table, TableContainer, TableBody, TableCell, TableHead, TableRow, Paper} from '@material-ui/core';
+import { Table, TableContainer, TableBody, TableCell, TableHead, TableRow, Paper, Typography } from '@material-ui/core';
 import moment from 'moment';
 
 function Active(props) {
@@ -20,14 +20,40 @@ function Active(props) {
         </TableHead>
         <TableBody>
           {props.store.betReducer.activeBetReducer.map(bet => (
-            <TableRow key={bet.id}>
-              <TableCell align="left">{moment(bet.date).format("M/D")}</TableCell>
-              <TableCell align="left">{bet.away_team_name} @ {bet.home_team_name}</TableCell>
-              <TableCell align="left">{bet.opponent}</TableCell>
-              <TableCell align="left">{bet.my_bet_team} {bet.my_spread}</TableCell>
-              <TableCell align="left">{bet.wager}</TableCell>
-            </TableRow>
-          ))}
+              <TableRow key={bet.id}>
+                <TableCell align="left">{moment(bet.date).format("M/D")}</TableCell>
+                <TableCell align="left">{bet.away_team_abbr} @ {bet.home_team_abbr}</TableCell>
+                  {bet.proposers_id === props.store.user.id ?
+                    bet.proposers_team_is_home_team ? 
+                      //user is proposer and team is home
+                      <>                             
+                        <TableCell align="left">{bet.acceptors_first_name} {bet.acceptors_last_name}</TableCell>
+                        <TableCell align="left">{bet.home_team_name} {bet.home_team_spread}</TableCell>
+                      </>
+                      :
+                      //user is proposer and team is away
+                      <>                              
+                        <TableCell align="left">{bet.acceptors_first_name} {bet.acceptors_last_name}</TableCell>
+                        <TableCell align="left">{bet.away_team_name} {bet.away_team_spread}</TableCell>
+                      </>
+                    :
+                    bet.proposers_team_is_home_team ?
+                      //user is acceptor and team is away
+                      <>                              
+                        <TableCell align="left">{bet.proposers_first_name} {bet.proposers_last_name}</TableCell>
+                        <TableCell align="left">{bet.away_team_name} {bet.away_team_spread}</TableCell>
+                      </>
+                      :
+                      //user is acceptor and team is home
+                      <>                              
+                        <TableCell align="left">{bet.proposers_first_name} {bet.proposers_last_name}</TableCell>
+                        <TableCell align="left">{bet.home_team_name} {bet.home_team_spread}</TableCell>
+                      </>
+                  }
+                  <TableCell align="left">{bet.wager}</TableCell>                      
+              </TableRow>
+            )
+          )}
         </TableBody>
       </Table>
     </TableContainer>

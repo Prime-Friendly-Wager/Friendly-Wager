@@ -6,7 +6,6 @@ import {ListItem, ListItemAvatar, ListItemText, Grid, Typography, Avatar, Contai
 import { withRouter } from "react-router";
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -29,26 +28,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
 function FriendsListItem(props) {
   const classes = useStyles();
   // const [dense, setDense] = React.useState(false);
   // const [secondary, setSecondary] = React.useState(false);
- 
 
   return (
     <div className={classes.root}>
-    
-      <Container >
-        <Grid item xs={12} md={6}>
-          
-          <div className={classes.demo}>
+      {props.store.friendsList[0]
+        ?
+        <Grid container spacing={0}>
+          <Grid item xs={12} md={6}>
+            <Typography variant="h6" className={classes.title}>
+              Friends List
+            </Typography>
+            <div className={classes.demo}>
               {props.store.friendsList.map((friend) =>
-                <ListItem key={friend.id} onClick={() => {props.history.push(`/friends/statistics/${friend.id}`)}}>
+                <ListItem key={friend.id} onClick={() => { props.history.push(`/friends/statistics/${friend.id}`) }}>
                   <ListItemAvatar>
                     <Avatar
-                    className={classes.orange}>{friend.first_name[0].toUpperCase()}{friend.last_name[0].toUpperCase()}</Avatar>
+                      className={classes.orange}>{friend.first_name[0].toUpperCase()}</Avatar>
                   </ListItemAvatar>
                   <ListItemText
                     primary={<Typography color="textPrimary">{friend.first_name} {friend.last_name}</Typography>}
@@ -56,11 +55,12 @@ function FriendsListItem(props) {
                   />
                 </ListItem>,
               )}
-             
-          </div>
+            </div>
+          </Grid>
         </Grid>
-      
-      </Container>
+        :
+        <Typography>You haven't added any friends yet!</Typography>
+      }
     </div>
   );
 }
