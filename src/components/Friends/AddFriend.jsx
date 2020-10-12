@@ -8,7 +8,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 const styles = theme => ({
   mainDiv: {
-    margin: 10,
+    // margin: 10,
     marginBottom: '3.5em',
   },
 })

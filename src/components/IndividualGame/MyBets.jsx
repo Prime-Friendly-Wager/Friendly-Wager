@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import CreateBetForm from './CreateBetForm';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Table, TableBody, TableCell, TableContainer, TableRow, Paper } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, TableRow, Typography, Paper } from '@material-ui/core';
 
 const useStyles = makeStyles({
   createBetForm: {
@@ -16,12 +16,6 @@ const useStyles = makeStyles({
 
 function MyBets(props) {
 
-  useEffect(() => {
-    //both these dispatches are for 3.2
-    props.dispatch({ type: 'FETCH_GAME_MY_BETS_OPEN', payload: props.match.params.id })
-    props.dispatch({ type: 'FETCH_GAME_MY_BETS_ACTIVE', payload: props.match.params.id })
-  }, [])
-
   const classes = useStyles();
 
   return (
@@ -31,15 +25,20 @@ function MyBets(props) {
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
               <TableBody>
-                {props.store.betReducer.openBetReducer.map((openBet, i) => {
-                  return (
-                    <TableRow key={openBet.id}>
+                {/* only shows your open bets for this particular game */}
+                {props.store.betReducer.openBetReducer.filter(bet => 
+                  (bet.proposers_id === props.store.user.id && bet.game_id === props.store.gameDetails.id)).map(bet => 
+                    (<TableRow key={bet.id}>
                       <TableCell align="left">
-                        You have {openBet.team_name} {openBet.proposers_spread}, {openBet.wager} units
+                        {/* determines if proposer has home team stats */}
+                        {bet.proposers_team_is_home_team ? 
+                          <Typography> You have {bet.home_team_name} {bet.home_team_spread} for {bet.wager} units.</Typography> 
+                          :
+                          <Typography> You have {bet.away_team_name} {bet.away_team_spread} for {bet.wager} units.</Typography>
+                        }
                       </TableCell>
                     </TableRow>
-                  )
-                })}
+                  ))}
               </TableBody>
             </Table>
           </TableContainer>
@@ -47,15 +46,36 @@ function MyBets(props) {
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
               <TableBody>
-                {props.store.betReducer.activeBetReducer.map((activeBet, i) => {
-                  return (
-                    <TableRow key={activeBet.id}>
-                      <TableCell align="left">
-                        You have {activeBet.proposers_team} {activeBet.proposers_spread}, {activeBet.acceptors_name} has {activeBet.acceptors_team} {activeBet.acceptors_spread}, {activeBet.wager} units
-                      </TableCell>
+                {/* filters only active bets for this game */}
+                {props.store.betReducer.activeBetReducer.filter(bet => 
+                  (bet.game_id === props.store.gameDetails.id)).map(bet => (
+                    <TableRow key={bet.id}>
+                        {bet.proposers_id === props.store.user.id ?
+                          bet.proposers_team_is_home_team ? 
+                            //user is proposer and team is home
+                            <TableCell align="left">
+                              You have {bet.home_team_name} {bet.home_team_spread} for {bet.wager}, {bet.acceptors_first_name} {bet.acceptors_last_name} has taken {bet.away_team_name}.
+                            </TableCell>
+                            :
+                            //user is proposer and team is away
+                            <TableCell align="left">
+                              You have {bet.away_team_name} {bet.away_team_spread} for {bet.wager}, {bet.acceptors_first_name} {bet.acceptors_last_name} has taken {bet.home_team_name}.
+                            </TableCell>
+                          :
+                          bet.proposers_team_is_home_team ?
+                            //user is acceptor and team is away
+                            <TableCell align="left">
+                              You have {bet.away_team_name} {bet.away_team_spread} for {bet.wager}, {bet.proposers_first_name} {bet.proposers_last_name} has taken {bet.home_team_name}.
+                            </TableCell>
+                            :
+                            //user is acceptor and team is home
+                            <TableCell align="left">
+                              You have {bet.home_team_name} {bet.home_team_spread} for {bet.wager}, {bet.proposers_first_name} {bet.proposers_last_name} has taken {bet.away_team_name}.
+                            </TableCell>
+                        }                      
                     </TableRow>
                   )
-                })}
+                )}
               </TableBody>
             </Table>
           </TableContainer>

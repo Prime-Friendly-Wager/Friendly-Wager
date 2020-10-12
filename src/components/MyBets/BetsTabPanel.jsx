@@ -65,12 +65,15 @@ function SimpleTabs(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
+  
+  //filters open bet reducer to get appropriate length
+  const openBetsLength = props.store.betReducer.openBetReducer.filter(bet => bet.proposers_id === props.store.user.id).length
+  
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-          <Tab label={`Open (${props.store.betReducer.openBetReducer.length})`} {...a11yProps(0)} className={classes.tabs}/>
+          <Tab label={`Open (${openBetsLength})`} {...a11yProps(0)} className={classes.tabs}/>
           <Tab label={`Active (${props.store.betReducer.activeBetReducer.length})`} {...a11yProps(1)} className={classes.tabs}/>
           <Tab label={`History (${props.store.betReducer.completedBetReducer.length})`} {...a11yProps(2)} className={classes.tabs}/>
         </Tabs>

@@ -23,11 +23,16 @@ function OpenBetRow(props) {
                 <>
                   <TableRow>
                     {/* Friend */}
-                    <TableCell align="right">{props.bet.friend_first_name} {props.bet.friend_last_name}</TableCell>
+                    <TableCell align="right">{props.bet.proposers_first_name} {props.bet.proposers_last_name}</TableCell>
                     {/* Game */}
                     <TableCell align="right">{props.bet.away_team_abbr} @ {props.bet.home_team_abbr}</TableCell>
                     {/* Bet */}
-                    <TableCell align="right">{props.bet.friends_team}{props.bet.friends_team_spread}</TableCell>
+                    {/* checks if proposer is home team */}
+                    {props.bet.proposers_team_is_home_team ? 
+                          <TableCell align="right">{props.bet.home_team_name} {props.bet.home_team_spread}</TableCell> 
+                          :
+                          <TableCell align="right">{props.bet.away_team_name} {props.bet.away_team_spread}</TableCell>
+                        }
                     {/* Wager */}
                     <TableCell align="right">{props.bet.wager}</TableCell>
                   </TableRow>

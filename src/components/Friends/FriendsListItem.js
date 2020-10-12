@@ -43,9 +43,8 @@ function FriendsListItem(props) {
  
 
   return (
-    <div className={classes.root}>
     
-      <Grid container spacing={2}>
+      <Grid container spacing={0} className={classes.root}>
         <Grid item xs={12} md={6}>
           <Typography variant="h6" className={classes.title}>
             Friends List
@@ -68,7 +67,6 @@ function FriendsListItem(props) {
         </Grid>
       
       </Grid>
-    </div>
   );
 }
 export default connect(mapStoreToProps)(withRouter(FriendsListItem));
