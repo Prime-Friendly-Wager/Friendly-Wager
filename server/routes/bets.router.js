@@ -54,7 +54,7 @@ router.get('/open', rejectUnauthenticated, async (req, res) => {
 
     } catch (error) {
         await client.query('ROLLBACK');
-        console.log('ERROR GETTING 3.1 BETS', error);
+        console.log('ERROR GETTING 2.1 BETS', error);
         res.sendStatus(500)
     } finally {
         client.release();
