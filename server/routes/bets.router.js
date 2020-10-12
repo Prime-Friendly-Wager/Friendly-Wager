@@ -90,7 +90,6 @@ router.get('/details/open/:id', rejectUnauthenticated, (req, res) => {
 
     pool.query(queryText, [req.user.id, req.params.id])
         .then(response => {
-            console.log(response.rows);
             res.send(response.rows);
         })
         .catch(error => {
@@ -100,7 +99,6 @@ router.get('/details/open/:id', rejectUnauthenticated, (req, res) => {
 
 //3.2 your open bets on individual game
 router.get('/details/my-bets/open/:id', rejectUnauthenticated, (req, res) => {
-    console.log('ROUTER', req.params.id);
     const userId = req.user.id;
     const gameId = req.params.id;
     const betQuery = `SELECT "teams".name AS team_name, "bets".wager, "bets".id,
@@ -129,12 +127,23 @@ router.get('/details/my-bets/open/:id', rejectUnauthenticated, (req, res) => {
 router.get('/details/my-bets/active/:id', rejectUnauthenticated, (req, res) => {
     const userId = req.user.id;
     const gameId = req.params.id;
-    const betQuery = `SELECT * FROM "bets"
-                WHERE ("proposers_id" = $1 OR "acceptors_id" = $1)
-                AND "accepted" = true
-                AND "game_id" = $2
-                AND "completed" = false;`
-
+    const betQuery = `SELECT "proposers_team".name AS "proposers_team", "acceptors_team".name AS "acceptors_team", "bets".wager, "bets".id, "acceptor".first_name AS "acceptors_name", 
+                    CASE 
+                    WHEN "bets".proposers_team_id = "games".home_team_id THEN "games".home_team_spread
+                    ELSE "games".away_team_spread
+                    END AS proposers_spread,
+                    CASE 
+                    WHEN "bets".acceptors_team_id = "games".home_team_id THEN "games".home_team_spread
+                    ELSE "games".away_team_spread
+                    END AS acceptors_spread
+                    FROM "bets"
+                    LEFT JOIN "teams" AS "proposers_team" ON "bets".proposers_team_id = "proposers_team".id
+                    LEFT JOIN "teams" AS "acceptors_team" ON "bets".acceptors_team_id = "acceptors_team".id
+                    LEFT JOIN "games" ON "bets".game_id = "games".id
+                    LEFT JOIN "user" AS "acceptor" ON "bets".acceptors_id = "acceptor".id
+                    WHERE "proposers_id" = $1
+                    AND "accepted" = true
+                    AND "game_id" = $2;`
 
     pool.query(betQuery, [userId, gameId])
         .then(response => {

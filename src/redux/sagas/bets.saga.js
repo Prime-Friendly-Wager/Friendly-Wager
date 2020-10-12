@@ -5,7 +5,7 @@ import axios from 'axios';
 function* postBet(action) {
   try {
     yield axios.post('/api/bets', action.payload);
-    yield fetchGameDetailsMyBets({ payload: action.payload.game_id });
+    yield fetchGameMyBetsOpen({ payload: action.payload.game_id });
   } catch (error) {
     console.log('ERROR POSTING BET', error);
   }
@@ -27,13 +27,24 @@ function* acceptBet(action) {
   }
 };
 
+
 //this is for 3.2 my bets, open bets
-function* fetchGameDetailsMyBets(action) {
+function* fetchGameMyBetsOpen(action) {
     try {
         let response = yield axios.get(`/api/bets/details/my-bets/open/${action.payload}`);
         yield put({type: 'SAVE_OPEN_BETS', payload: response.data});
-      } catch (error) {
+    } catch (error) {
         console.log('ERROR GETTING GAME DETAILS MY BETS OPEN BETS', error);
+    }
+};
+
+//this is for 3.2 my bets, active bets
+function* fetchGameMyBetsActive(action) {
+    try {
+        let response = yield axios.get(`/api/bets/details/my-bets/active/${action.payload}`);
+        yield put({type: 'SAVE_ACTIVE_BETS', payload: response.data});
+      } catch (error) {
+        console.log('ERROR GETTING GAME DETAILS MY BETS ACTIVE BETS', error);
       }
 };
 
@@ -64,7 +75,8 @@ function* fetchAllOpenBets() {
 function* betsSaga() {
   yield takeLatest('POST_BET', postBet);
   yield takeLatest('ACCEPT_BET', acceptBet);
-  yield takeLatest('FETCH_GAME_DETAILS_MY_BETS', fetchGameDetailsMyBets)
+  yield takeLatest('FETCH_GAME_MY_BETS_OPEN', fetchGameMyBetsOpen);
+  yield takeLatest('FETCH_GAME_MY_BETS_ACTIVE', fetchGameMyBetsActive);
   yield takeLatest('FETCH_GAME_OPEN_BETS', fetchGameOpenBets);
   yield takeLatest('FETCH_ALL_OPEN_BETS', fetchAllOpenBets);
 };

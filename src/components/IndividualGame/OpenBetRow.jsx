@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import { Button, TableCell, TableRow } from '@material-ui/core';
 
   
@@ -15,7 +14,7 @@ function OpenBetRow(props) {
             from_individual_game: true
           }
       })
-    }
+    };
     return (
                 <>
                   <TableRow>
@@ -27,7 +26,7 @@ function OpenBetRow(props) {
                     <TableCell align="right">{props.bet.wager}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell colSpan={4}><Button onClick={() => acceptBet()}>Accept Bet</Button></TableCell>
+                    <TableCell colSpan={4}><Button variant="contained" color="primary" onClick={() => acceptBet()}>Accept Bet</Button></TableCell>
                   </TableRow>
                 </>
     );

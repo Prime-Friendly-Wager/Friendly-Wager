@@ -17,7 +17,9 @@ const useStyles = makeStyles({
 function MyBets(props) {
 
   useEffect(() => {
-    props.dispatch({ type: 'FETCH_GAME_DETAILS_MY_BETS', payload: props.match.params.id })
+    //both these dispatches are for 3.2
+    props.dispatch({ type: 'FETCH_GAME_MY_BETS_OPEN', payload: props.match.params.id })
+    props.dispatch({ type: 'FETCH_GAME_MY_BETS_ACTIVE', payload: props.match.params.id })
   }, [])
 
   const classes = useStyles();
