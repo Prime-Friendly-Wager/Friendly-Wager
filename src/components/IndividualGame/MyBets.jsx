@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import CreateBetForm from './CreateBetForm';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Table, TableBody, TableCell, TableContainer, TableRow, Paper, Typography } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, TableRow, Paper, Typography, Button } from '@material-ui/core';
 
 const useStyles = makeStyles({
   createBetForm: {
@@ -37,6 +37,9 @@ function MyBets(props) {
                     <TableRow key={openBet.id}>
                       <TableCell align="left">
                         You have {openBet.team_name} {openBet.proposers_spread}, {openBet.wager} units
+                      </TableCell>
+                      <TableCell>
+                        <Button variant="contained" size="small" color="secondary" >Delete</Button>
                       </TableCell>
                     </TableRow>
                   )
