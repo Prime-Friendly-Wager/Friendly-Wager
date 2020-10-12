@@ -144,6 +144,7 @@ router.get('/details/my-bets/active/:id', rejectUnauthenticated, (req, res) => {
                     LEFT JOIN "user" AS "proposer" ON "bets".proposers_id = "proposer".id
                     WHERE ("proposers_id" = $1 OR "acceptors_id" = $1)
                     AND "accepted" = true
+                    AND "completed" = false
                     AND "game_id" = $2;`
 
     pool.query(betQuery, [userId, gameId])

@@ -24,10 +24,10 @@ const theJudge = async (req, res) => {
         const base = 'https://api.nfl.com/v1/games?';
 
         //gets current week
-        const weekNumber =  await convertDate();
-        console.log('pulling games for last week', weekNumber - 1);
-        
-        const params = `s={"$query":{"week.season":2020,"week.seasonType":"REG","week.week":${weekNumber - 1}}}&fs={week{season,seasonType,week},id,gameTime,gameStatus,homeTeam{id,abbr},visitorTeam{id,abbr},homeTeamScore,visitorTeamScore}`
+        const weekNumber = await convertDate();
+        console.log('pulling games for last week', weekNumber);
+
+        const params = `s={"$query":{"week.season":2020,"week.seasonType":"REG","week.week":${weekNumber}}}&fs={week{season,seasonType,week},id,gameTime,gameStatus,homeTeam{id,abbr},visitorTeam{id,abbr},homeTeamScore,visitorTeamScore}`
         const url = encodeURI(`${base}${params}`)
         const getGameInfo = {
             method: 'get',
@@ -40,17 +40,17 @@ const theJudge = async (req, res) => {
 
         const completedGamesArray = gameResponse.data.data
         console.log(completedGamesArray);
-        
+
         await client.query('BEGIN');
 
         await Promise.all(completedGamesArray.map(game => {
-                
+            if (game.homeTeamScore) {
                 //updates scores in database
                 const scoreUpdateQuery = `UPDATE games 
                     SET home_team_score = $1, away_team_score = $2, game_completed = true
                     WHERE nfl_id = $3;`
                 const scoreUpdateValues = [game.homeTeamScore.pointsTotal, game.visitorTeamScore.pointsTotal, game.id];
-                
+
                 client.query(scoreUpdateQuery, scoreUpdateValues);
 
                 //updates winners in database
@@ -65,11 +65,13 @@ const theJudge = async (req, res) => {
                         END FROM games WHERE nfl_id = $1)
                     WHERE nfl_id = $1;`
                 const winnerUpdateValues = [game.id];
-                
+
                 client.query(winnerUpdateQuery, winnerUpdateValues);
-            }
+
+            } //end if statement
+        }
         ))
-        
+
         //adjudicates bets
         const adjudicationQuery = `UPDATE bets 
                 SET winners_id = CASE 
@@ -79,20 +81,20 @@ const theJudge = async (req, res) => {
                         THEN acceptors_id
                     END, completed = true
                 FROM games WHERE bets.game_id = games.id AND games.week = $1;`
-        const adjudicationWeekValue = [weekNumber - 1];
+        const adjudicationWeekValue = [weekNumber];
         console.log(weekNumber);
-        
+
         await client.query(adjudicationQuery, adjudicationWeekValue)
-        
+
         //delete unaccepted bets
         await client.query(`DELETE FROM bets WHERE accepted = false;`)
-        
+
         await client.query('COMMIT');
 
         //signing off
         return true
 
-        
+
 
     } catch (error) {
         await client.query('ROLLBACK');
@@ -127,9 +129,9 @@ const getGamesFromNfl = async (req, res) => {
         const authResponse = await axios(getAccessToken);
         const base = 'https://api.nfl.com/v1/games?';
 
-        const weekNumber =  await convertDate();
+        const weekNumber = await convertDate();
         console.log('week number is', weekNumber);
-        
+
         const params = `s={"$query":{"week.season":2020,"week.seasonType":"REG","week.week":${weekNumber}}}&fs={week{season,seasonType,week},id,gameTime,gameStatus,homeTeam{id,abbr},visitorTeam{id,abbr},homeTeamScore,visitorTeamScore}`
         const url = encodeURI(`${base}${params}`)
         const getGameInfo = {
@@ -154,12 +156,12 @@ const getGamesFromNfl = async (req, res) => {
             nflGames.push(nflGame);
         })
         console.log(nflGames);
-        
+
         //START OF ODDS API CALL
         const oddsResponse = await axios.get(`https://api.the-odds-api.com/v3/odds/?apiKey=${process.env.ODDS_KEY}&sport=americanfootball_nfl&region=us&mkt=spreads&dateFormat=iso`);
         oddsResponse.data.data.map(game => {
             // console.log(game);
-            
+
 
             //builds empty newGame object
             let newGame = {};
@@ -198,17 +200,17 @@ const getGamesFromNfl = async (req, res) => {
 
         nflGames.map(async game => {
             //checks to make sure that the game has a spread
-            if( game.hasOwnProperty('home_team_spread') ){
+            if (game.hasOwnProperty('home_team_spread')) {
                 console.log('starting item');
-                
+
                 //gets database ids for away and home teams
                 const idQuery = `SELECT id FROM teams WHERE nfl_api_ref = $1`
-                    //adds database id to object for home team
-                    const nested_home_team_id = await client.query(idQuery, [game.homeTeamAbbr]);
-                    game.home_team_id = nested_home_team_id.rows[0].id;
-                    //adds database id to object for away team
-                    const nested_away_team_id = await client.query(idQuery, [game.awayTeamAbbr]);
-                    game.away_team_id = nested_away_team_id.rows[0].id;
+                //adds database id to object for home team
+                const nested_home_team_id = await client.query(idQuery, [game.homeTeamAbbr]);
+                game.home_team_id = nested_home_team_id.rows[0].id;
+                //adds database id to object for away team
+                const nested_away_team_id = await client.query(idQuery, [game.awayTeamAbbr]);
+                game.away_team_id = nested_away_team_id.rows[0].id;
 
                 //posts games to database
                 const postQuery = `INSERT INTO games 
@@ -221,7 +223,7 @@ const getGamesFromNfl = async (req, res) => {
             }
         })
         // console.log(nflGames);
-        
+
         await client.query('COMMIT');
         return true;
 

@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import mapStoreToProps from '../../redux/mapStoreToProps';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -55,7 +57,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimpleTabs() {
+function SimpleTabs(props) {
+
+  useEffect(() => {
+    //this checks to see if page is loading from 3.2 back button
+    if (props.store.goBackReducer) {
+      setValue(1)
+    };
+    //unmounting reducer back to false to show open bets next time clicked
+    return () => {
+      props.dispatch({ type: 'SET_BACK_STATUS', payload: false });
+    };
+  }, []);
+
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -67,8 +81,8 @@ export default function SimpleTabs() {
     <div className={classes.root}>
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-          <Tab label="Open Bets" {...a11yProps(0)} className={classes.tabs}/>
-          <Tab label="Games" {...a11yProps(1)} className={classes.tabs}/>
+          <Tab label="Open Bets" {...a11yProps(0)} className={classes.tabs} />
+          <Tab label="Games" {...a11yProps(1)} className={classes.tabs} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
@@ -80,3 +94,5 @@ export default function SimpleTabs() {
     </div>
   );
 }
+
+export default connect(mapStoreToProps)(SimpleTabs);

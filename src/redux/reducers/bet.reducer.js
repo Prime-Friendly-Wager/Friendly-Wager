@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 
 const activeBetReducer = (state = [], action) => {
     switch (action.type) {
