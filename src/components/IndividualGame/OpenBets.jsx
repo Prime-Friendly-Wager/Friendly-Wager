@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import OpenBetRow from './OpenBetRow';
 
@@ -35,11 +35,11 @@ function OpenBets(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {props.store.betReducer.openBetReducer.map((bet, i) => {
-                return (
-                  <OpenBetRow key={bet.id} bet={bet} />
-                )
-              })}
+             {/* only displays bets you didn't propose and belong to this game  */}
+             {props.store.betReducer.openBetReducer.filter(bet => 
+             (bet.proposers_id !== props.store.user.id && bet.game_id === props.store.gameDetails.id)).map(bet => (
+                <OpenBetRow key={bet.id} bet={bet} />
+              ))}
             </TableBody>
           </Table>
         </TableContainer>

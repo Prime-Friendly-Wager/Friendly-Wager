@@ -21,11 +21,17 @@ function Open(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {props.store.betReducer.openBetReducer.map(bet => (
+               {/* only displays your proposed bets */}
+               {props.store.betReducer.openBetReducer.filter(bet => bet.proposers_id === props.store.user.id).map(bet => (
                 <TableRow key={bet.id}>
-                  <TableCell align="left">{moment(bet.date).format("M/D")}</TableCell>
-                  <TableCell align="left">{bet.away_team_name} @ {bet.home_team_name}</TableCell>
-                  <TableCell align="left">{bet.my_bet_team} {bet.proposers_spread}</TableCell>
+                  <TableCell align="left">{moment(bet.date_played).format("M/D")}</TableCell> 
+                  <TableCell align="left">{bet.away_team_abbr} @ {bet.home_team_abbr}</TableCell>
+                  {/* checks if proposer is home team */}
+                  {bet.proposers_team_is_home_team ? 
+                    <TableCell align="left">{bet.home_team_name} {bet.home_team_spread}</TableCell> 
+                    :
+                    <TableCell align="left">{bet.away_team_name} {bet.away_team_spread}</TableCell>
+                  }
                   <TableCell align="left">{bet.wager}</TableCell>
                 </TableRow>
               ))}

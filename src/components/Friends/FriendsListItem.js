@@ -11,7 +11,6 @@ import { withRouter } from "react-router";
 import Avatar from '@material-ui/core/Avatar';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -34,19 +33,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
 function FriendsListItem(props) {
   const classes = useStyles();
   // const [dense, setDense] = React.useState(false);
   // const [secondary, setSecondary] = React.useState(false);
 
-
   return (
     <div className={classes.root}>
       {props.store.friendsList[0]
         ?
-        <Grid container spacing={2}>
+        <Grid container spacing={0}>
           <Grid item xs={12} md={6}>
             <Typography variant="h6" className={classes.title}>
               Friends List
@@ -64,7 +60,6 @@ function FriendsListItem(props) {
                   />
                 </ListItem>,
               )}
-
             </div>
           </Grid>
         </Grid>
