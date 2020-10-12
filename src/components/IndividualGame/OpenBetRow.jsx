@@ -9,7 +9,8 @@ function OpenBetRow(props) {
         type: 'ACCEPT_BET', 
         payload: 
           {
-            bet_id: props.bet.id, 
+            bet_id: props.bet.id,
+            game_id: props.bet.game_id, 
             acceptors_team_id: props.bet.acceptors_team_id,
             from_individual_game: true,
           }
