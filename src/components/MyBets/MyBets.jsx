@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import BetsTabPanel from './BetsTabPanel'
+import {Typography} from '@material-ui/core'
 
 
 class MyBets extends Component {
@@ -17,8 +18,8 @@ class MyBets extends Component {
   render() {
     return (
       <div>
-        <h2>My Bets</h2>
-        <h4>Overall (+/-) {this.props.store.betReducer.overallPlusMinusReducer.sum}</h4>
+        <Typography color="textPrimary" variant="h4">My Bets</Typography>
+        <Typography color="textPrimary" variant="h6">Overall (+/-) {this.props.store.betReducer.overallPlusMinusReducer.sum}</Typography>
         <BetsTabPanel />
       </div>
     );

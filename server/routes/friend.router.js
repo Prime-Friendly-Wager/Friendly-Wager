@@ -81,7 +81,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         UNION
         SELECT "user".id, "user".username, "user".first_name, "user".last_name FROM "user"
         JOIN "friends" ON "friends".user1_id = "user".id
-        WHERE "friends".user2_id = $1;
+        WHERE "friends".user2_id = $1
+        ORDER BY first_name ASC;
       `;
     pool.query(queryText, [req.user.id])
     .then(result => {

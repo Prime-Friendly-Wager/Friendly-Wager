@@ -20,7 +20,7 @@ const styles = theme => ({
     backgroundColor: deepOrange[500],
   },
   textField: {
-    alignItem: "center"
+    align: "center"
   }
  
 })
@@ -57,7 +57,9 @@ class AddFriend extends Component {
             <ArrowBackIcon fontSize="large"/>
           </Button>
           <Typography align="center" color="textPrimary" variant="h4">Add Friend</Typography>
-          <TextField className={classes.textField} margin="normal" id="friendSearch" label="Search" variant="outlined" onChange={this.handleSearch}/>
+          <center>
+            <TextField className={classes.textField} margin="normal" id="friendSearch" label={<SearchIcon></SearchIcon>} variant="outlined" onChange={this.handleSearch}/>
+          </center>
           <List>
             {this.props.store.memberReducer.map(member => (
               <ListItem key={member.id}>
@@ -66,11 +68,9 @@ class AddFriend extends Component {
                       {member.first_name[0].toUpperCase()}{member.last_name[0].toUpperCase()}
                     </Avatar>
                   </ListItemAvatar>
-                <ListItemText>
-                  <Typography color="textPrimary">
-                    {member.first_name} {member.last_name}
-                  </Typography>
-                </ListItemText>
+                <ListItemText 
+                primary={<Typography color="textPrimary">{member.first_name} {member.last_name}</Typography>}
+                secondary={<Typography color="textSecondary">{member.username}</Typography>}/>
                 <ListItemSecondaryAction><IconButton onClick={()=>this.addFriend(member.id)}><AddIcon/></IconButton></ListItemSecondaryAction>
               </ListItem>
             ))}
