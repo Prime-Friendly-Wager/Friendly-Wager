@@ -67,14 +67,14 @@ function CreateBetForm(props) {
                     control={<Radio color="primary" />}
                     label={gameDetails.away_team + ' ' + gameDetails.away_team_spread}
                     labelPlacement="top"
-                    checked={bet.proposers_team_id == gameDetails.away_team_id}
+                    checked={bet.proposers_team_id === gameDetails.away_team_id}
                 />
                 <FormControlLabel
                     value={gameDetails.home_team_id}
                     control={<Radio color="primary" />}
                     label={gameDetails.home_team + ' ' + gameDetails.home_team_spread}
                     labelPlacement="top"
-                    checked={bet.proposers_team_id == gameDetails.home_team_id}
+                    checked={bet.proposers_team_id === gameDetails.home_team_id}
                 />
             </RadioGroup>
             <TextField value={bet.wager} placeholder="0" variant="outlined" onChange={(event) => handleInputChange('wager', event)}/>

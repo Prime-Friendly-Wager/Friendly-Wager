@@ -6,29 +6,13 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 //2.1 all of your friends open bets
-router.get('/open', rejectUnauthenticated, async (req, res) => {
-    const client = await pool.connect();
+router.get('/open', rejectUnauthenticated, (req, res) => {
 
-    try {
-        //gets all of the logged in user's friends
-        const friendQuery = `SELECT "user".id FROM "user"
-        JOIN "friends" ON "friends".user2_id = "user".id
-        WHERE "friends".user1_id = $1
-        UNION
-        SELECT "user".id FROM "user"
-        JOIN "friends" ON "friends".user1_id = "user".id
-        WHERE "friends".user2_id = $1;`
-
-        const friendResults = await pool.query(friendQuery, [req.user.id])
-        const friendsIds = friendResults.rows;
-
-        //gets all of their friends open bets
-        const bets = await Promise.all(friendsIds.map(friendsId => {
-            const betQuery = `SELECT  "bets".id, 
+    const queryText = `SELECT  "bets".id, 
             "bets".wager, 
             "bets".game_id, 
-            "home_team".name AS home_team_name, 
-            "away_team".name AS away_team_name, 
+            "home_team".nfl_api_ref AS home_team_abbr, 
+            "away_team".nfl_api_ref AS away_team_abbr, 
             "friends_team".name AS friends_team,
             "user".first_name AS friend_first_name,
             "user".last_name AS friend_last_name,
@@ -36,57 +20,45 @@ router.get('/open', rejectUnauthenticated, async (req, res) => {
                 WHEN "bets".proposers_team_id = "games".home_team_id 
                     THEN "games".home_team_spread
                     ELSE "games".away_team_spread
-            END AS "friends_team_spread"
-        FROM "bets"
-        JOIN "games" ON "games".id = "bets".game_id
-        LEFT JOIN "teams" as home_team ON "games".home_team_id = "home_team".id
-        LEFT JOIN "teams" as away_team ON "games".away_team_id = "away_team".id
-        LEFT JOIN "teams" as friends_team ON "bets".proposers_team_id = "friends_team".id
-        LEFT JOIN "user" ON "bets".proposers_id = "user".id
-        WHERE "bets".proposers_id = $1
-        AND "bets".accepted = false;`
+            END AS "friends_team_spread",
+            CASE
+            	WHEN "bets".proposers_team_id = "games".home_team_id
+            		THEN "games".away_team_id
+            		ELSE "games".home_team_id
+            END AS "acceptors_team_id"
+            FROM "bets"
+            JOIN "games" ON "games".id = "bets".game_id
+            LEFT JOIN "teams" as home_team ON "games".home_team_id = "home_team".id
+            LEFT JOIN "teams" as away_team ON "games".away_team_id = "away_team".id
+            LEFT JOIN "teams" as friends_team ON "bets".proposers_team_id = "friends_team".id
+            LEFT JOIN "user" ON "bets".proposers_id = "user".id
+            WHERE "bets".proposers_id IN (SELECT "user".id FROM "user"
+		        JOIN "friends" ON "friends".user2_id = "user".id
+		        WHERE "friends".user1_id = $1
+		        UNION
+		        SELECT "user".id FROM "user"
+		        JOIN "friends" ON "friends".user1_id = "user".id
+		        WHERE "friends".user2_id = $1)
+            AND "bets".accepted = false`
 
-            return client.query(betQuery, [friendsId.id])
-        }))
-        
-        await client.query('COMMIT');
-        res.send(bets[0].rows)
+    pool.query(queryText, [req.user.id])
+        .then(response => {
+            console.log(response.rows);
+            res.send(response.rows);
+        })
+        .catch(error => {
+            console.log('error in 2.1', error);
+        })
 
-    } catch (error) {
-        await client.query('ROLLBACK');
-        console.log('ERROR GETTING 3.1 BETS', error);
-        res.sendStatus(500)
-    } finally {
-        client.release();
-    }
 });
 
 //3.1 open bets on individual game
-router.get('/details/open/:id', rejectUnauthenticated, async (req, res) => {
-    const client = await pool.connect();
-
-    try {
-        //gets all of the logged in user's friends
-        const friendQuery = `SELECT "user".id FROM "user"
-        JOIN "friends" ON "friends".user2_id = "user".id
-        WHERE "friends".user1_id = $1
-        UNION
-        SELECT "user".id FROM "user"
-        JOIN "friends" ON "friends".user1_id = "user".id
-        WHERE "friends".user2_id = $1;`
-
-        const friendResults = await pool.query(friendQuery, [req.user.id])
-        const friendsIds = friendResults.rows;
-        console.log(friendsIds);
-        
-        //gets all of their friends open bets for this particular game
-        const bets = []
-        await Promise.all(friendsIds.map(async friendsId => {
-            const betQuery = `SELECT  "bets".id, 
+router.get('/details/open/:id', rejectUnauthenticated, (req, res) => {
+    const queryText = `SELECT  "bets".id, 
             "bets".wager, 
             "bets".game_id, 
-            "home_team".name AS home_team_name, 
-            "away_team".name AS away_team_name, 
+            "home_team".nfl_api_ref AS home_team_abbr, 
+            "away_team".nfl_api_ref AS away_team_abbr, 
             "friends_team".name AS friends_team,
             "user".first_name AS friend_first_name,
             "user".last_name AS friend_last_name,
@@ -94,33 +66,36 @@ router.get('/details/open/:id', rejectUnauthenticated, async (req, res) => {
                 WHEN "bets".proposers_team_id = "games".home_team_id 
                     THEN "games".home_team_spread
                     ELSE "games".away_team_spread
-            END AS "friends_team_spread"
-        FROM "bets"
-        JOIN "games" ON "games".id = "bets".game_id
-        LEFT JOIN "teams" as home_team ON "games".home_team_id = "home_team".id
-        LEFT JOIN "teams" as away_team ON "games".away_team_id = "away_team".id
-        LEFT JOIN "teams" as friends_team ON "bets".proposers_team_id = "friends_team".id
-        LEFT JOIN "user" ON "bets".proposers_id = "user".id
-        WHERE "bets".proposers_id = $1
-        AND "games".id = $2
-        AND "bets".accepted = false;`
-        const results = await client.query(betQuery, [friendsId.id, req.params.id]);
-             results.rows.forEach(row => {
-                 bets.push(row)
-             })
-        }))
-        console.log('sending bets back', bets);
-        
-        await client.query('COMMIT');
-        res.send(bets)
+            END AS "friends_team_spread",
+            CASE
+            	WHEN "bets".proposers_team_id = "games".home_team_id
+            		THEN "games".away_team_id
+            		ELSE "games".home_team_id
+            END AS "acceptors_team_id"
+            FROM "bets"
+            JOIN "games" ON "games".id = "bets".game_id
+            LEFT JOIN "teams" as home_team ON "games".home_team_id = "home_team".id
+            LEFT JOIN "teams" as away_team ON "games".away_team_id = "away_team".id
+            LEFT JOIN "teams" as friends_team ON "bets".proposers_team_id = "friends_team".id
+            LEFT JOIN "user" ON "bets".proposers_id = "user".id
+            WHERE "bets".proposers_id IN (SELECT "user".id FROM "user"
+		        JOIN "friends" ON "friends".user2_id = "user".id
+		        WHERE "friends".user1_id = $1
+		        UNION
+		        SELECT "user".id FROM "user"
+		        JOIN "friends" ON "friends".user1_id = "user".id
+		        WHERE "friends".user2_id = $1)
+            AND "bets".accepted = false
+            AND "games".id = $2`
 
-    } catch (error) {
-        await client.query('ROLLBACK');
-        console.log('ERROR GETTING 3.1 BETS', error);
-        res.sendStatus(500)
-    } finally {
-        client.release();
-    }
+    pool.query(queryText, [req.user.id, req.params.id])
+        .then(response => {
+            console.log(response.rows);
+            res.send(response.rows);
+        })
+        .catch(error => {
+            console.log('error in 3.1', error);
+        })
 });
 
 //3.2 your open bets on individual game
@@ -128,7 +103,7 @@ router.get('/details/my-bets/open/:id', rejectUnauthenticated, (req, res) => {
     console.log('ROUTER', req.params.id);
     const userId = req.user.id;
     const gameId = req.params.id;
-    const betQuery = `SELECT "teams".name AS team_name, "bets".wager,
+    const betQuery = `SELECT "teams".name AS team_name, "bets".wager, "bets".id,
                     CASE 
                     WHEN "bets".proposers_team_id = "games".home_team_id THEN "games".home_team_spread
                     ELSE "games".away_team_spread
@@ -179,7 +154,7 @@ router.get('/my-bets/active', rejectUnauthenticated, (req, res) => {
     CASE 
     WHEN "bets".proposers_team_id = "games".home_team_id THEN "games".home_team_spread
     ELSE "games".away_team_spread
-    END AS proposers_spread
+    END AS my_spread
     FROM "bets"
     JOIN "user" ON "user".id = "bets".acceptors_id
     JOIN "games" ON "games".id = "bets".game_id
@@ -187,6 +162,22 @@ router.get('/my-bets/active', rejectUnauthenticated, (req, res) => {
     LEFT JOIN "teams" as away_team ON "games".away_team_id = "away_team".id
     LEFT JOIN "teams" as my_bet_team ON "bets".proposers_team_id = "my_bet_team".id
     WHERE "bets".proposers_id = $1
+    AND "bets".accepted = true
+    AND "bets".completed = false
+    UNION
+    SELECT "bets".id, "bets".wager, "bets".game_id, "user".first_name AS opponent, "games".date, "home_team".nfl_api_ref AS home_team_name, 
+    "away_team".nfl_api_ref AS away_team_name, "my_bet_team".nfl_api_ref AS my_bet_team,
+    CASE 
+    WHEN "bets".acceptors_team_id = "games".home_team_id THEN "games".home_team_spread
+    ELSE "games".away_team_spread
+    END AS my_spread
+    FROM "bets"
+    JOIN "user" ON "user".id = "bets".proposers_id
+    JOIN "games" ON "games".id = "bets".game_id
+    LEFT JOIN "teams" as home_team ON "games".home_team_id = "home_team".id
+    LEFT JOIN "teams" as away_team ON "games".away_team_id = "away_team".id
+    LEFT JOIN "teams" as my_bet_team ON "bets".acceptors_team_id = "my_bet_team".id
+    WHERE "bets".acceptors_id = $1
     AND "bets".accepted = true
     AND "bets".completed = false;`
 
@@ -235,7 +226,7 @@ router.get('/my-bets/history', rejectUnauthenticated, (req, res) => {
     CASE 
     WHEN "bets".proposers_team_id = "games".home_team_id THEN "games".home_team_spread
     ELSE "games".away_team_spread
-    END AS proposers_spread,
+    END AS my_spread,
     CASE
     WHEN "bets".winners_id = $1 THEN 'W'
     ELSE 'L'
@@ -247,6 +238,25 @@ router.get('/my-bets/history', rejectUnauthenticated, (req, res) => {
     LEFT JOIN "teams" as away_team ON "games".away_team_id = "away_team".id
     LEFT JOIN "teams" as my_bet_team ON "bets".proposers_team_id = "my_bet_team".id
     WHERE "bets".proposers_id = $1
+    AND "bets".completed = true
+    UNION
+    SELECT "bets".id, "bets".wager, "bets".game_id, "user".first_name AS opponent, "games".date, "home_team".nfl_api_ref AS home_team_name, 
+    "away_team".nfl_api_ref AS away_team_name, "my_bet_team".nfl_api_ref AS my_bet_team,
+    CASE 
+    WHEN "bets".acceptors_team_id = "games".home_team_id THEN "games".home_team_spread
+    ELSE "games".away_team_spread
+    END AS my_spread,
+    CASE
+    WHEN "bets".winners_id = $1 THEN 'W'
+    ELSE 'L'
+    END AS winner
+    FROM "bets"
+    JOIN "user" ON "user".id = "bets".proposers_id
+    JOIN "games" ON "games".id = "bets".game_id
+    LEFT JOIN "teams" as home_team ON "games".home_team_id = "home_team".id
+    LEFT JOIN "teams" as away_team ON "games".away_team_id = "away_team".id
+    LEFT JOIN "teams" as my_bet_team ON "bets".acceptors_team_id = "my_bet_team".id
+    WHERE "bets".acceptors_id = $1
     AND "bets".completed = true;`
 
     pool.query(betQuery, [userId])
@@ -295,6 +305,22 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         })
         .catch((error) => {
             console.log('ERROR CREATING BET', error);
+        })
+});
+
+//2.1/3.1 accepting bets
+router.put('/accept', rejectUnauthenticated, (req, res) => {
+    const { bet_id, acceptors_team_id } = req.body;
+    const acceptors_id = req.user.id
+    const queryText = `UPDATE "bets" SET "accepted" = true, "acceptors_id" = $1, acceptors_team_id = $2 WHERE "bets".id = $3;`
+    
+    pool.query(queryText, [acceptors_id, acceptors_team_id, bet_id])
+        .then(() => {
+            console.log('BET ACCEPTED')
+            res.sendStatus(200);
+        })
+        .catch((error) => {
+            console.log('ERROR ACCEPTING BET', error);
         })
 });
 
