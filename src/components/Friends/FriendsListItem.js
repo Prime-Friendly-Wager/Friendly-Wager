@@ -11,7 +11,6 @@ import { withRouter } from "react-router";
 import Avatar from '@material-ui/core/Avatar';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -34,27 +33,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
 function FriendsListItem(props) {
   const classes = useStyles();
   // const [dense, setDense] = React.useState(false);
   // const [secondary, setSecondary] = React.useState(false);
- 
 
   return (
-    
-      <Grid container spacing={0} className={classes.root}>
-        <Grid item xs={12} md={6}>
-          <Typography variant="h6" className={classes.title}>
-            Friends List
-          </Typography>
-          <div className={classes.demo}>
+    <div className={classes.root}>
+      {props.store.friendsList[0]
+        ?
+        <Grid container spacing={0}>
+          <Grid item xs={12} md={6}>
+            <Typography variant="h6" className={classes.title}>
+              Friends List
+            </Typography>
+            <div className={classes.demo}>
               {props.store.friendsList.map((friend) =>
-                <ListItem key={friend.id} onClick={() => {props.history.push(`/friends/statistics/${friend.id}`)}}>
+                <ListItem key={friend.id} onClick={() => { props.history.push(`/friends/statistics/${friend.id}`) }}>
                   <ListItemAvatar>
                     <Avatar
-                    className={classes.orange}>{friend.first_name[0].toUpperCase()}</Avatar>
+                      className={classes.orange}>{friend.first_name[0].toUpperCase()}</Avatar>
                   </ListItemAvatar>
                   <ListItemText
                     primary={`${friend.first_name} ${friend.last_name}`}
@@ -62,11 +60,13 @@ function FriendsListItem(props) {
                   />
                 </ListItem>,
               )}
-             
-          </div>
+            </div>
+          </Grid>
         </Grid>
-      
-      </Grid>
+        :
+        <Typography>You haven't added any friends yet!</Typography>
+      }
+    </div>
   );
 }
 export default connect(mapStoreToProps)(withRouter(FriendsListItem));

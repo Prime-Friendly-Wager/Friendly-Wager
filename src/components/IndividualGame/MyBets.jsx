@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import CreateBetForm from './CreateBetForm';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Table, TableBody, TableCell, TableContainer, TableRow, Typography, Paper } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, TableRow, Paper, Typography, Button } from '@material-ui/core';
 
 const useStyles = makeStyles({
   createBetForm: {
@@ -19,9 +19,10 @@ function MyBets(props) {
   const classes = useStyles();
 
   return (
+    <div>
       <div>
-        <div>
-          <h3>Open Bets</h3>
+        <h3>Open Bets</h3>
+        {props.store.betReducer.openBetReducer[0] ?
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
               <TableBody>
@@ -37,12 +38,19 @@ function MyBets(props) {
                           <Typography> You have {bet.away_team_name} {bet.away_team_spread} for {bet.wager} units.</Typography>
                         }
                       </TableCell>
+                      <TableCell>
+                        <Button variant="contained" size="small" color="secondary" >Delete</Button>
+                      </TableCell>
                     </TableRow>
                   ))}
               </TableBody>
             </Table>
           </TableContainer>
-          <h3>Active Bets</h3>
+          :
+          <Typography>You don't have any open bets for this game.</Typography>
+        }
+        <h3>Active Bets</h3>
+        {props.store.betReducer.activeBetReducer[0] ?
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
               <TableBody>
@@ -79,12 +87,15 @@ function MyBets(props) {
               </TableBody>
             </Table>
           </TableContainer>
-          <h3>Create Bet</h3>
-        </div>
-        <div className={classes.createBetForm}>
-          <CreateBetForm />
-        </div>
+          :
+          <Typography>You don't have any active bets for this game.</Typography>
+        }
+        <h3>Create Bet</h3>
       </div>
+      <div className={classes.createBetForm}>
+        <CreateBetForm />
+      </div>
+    </div>
   );
 }
 
