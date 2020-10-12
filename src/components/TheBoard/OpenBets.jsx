@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import React, { useEffect } from 'react';
+import React from 'react';
 import OpenBetRow from './OpenBetRow';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -22,10 +22,6 @@ function OpenBets(props) {
 
   const classes = useStyles();
 
-  useEffect(() => {
-    props.dispatch({type: 'FETCH_ALL_OPEN_BETS'})
-  }, []);
-
   return (
   <TableContainer component={Paper}>
  <Table className={classes.table} aria-label="simple table">
@@ -40,11 +36,11 @@ function OpenBets(props) {
           </TableRow>
         </TableHead>
          <TableBody>
-          {props.store.betReducer.openBetReducer.map((bet, i) => {
-            return (
+          {/* only displays open bets that you didn't propose */}
+          {props.store.betReducer.openBetReducer.filter(bet => bet.proposers_id !== props.store.user.id).map((bet) => (
               <OpenBetRow key={bet.id} bet={bet} />
-            )
-          })}
+              )
+          )}
         </TableBody>
       </Table>
     </TableContainer>
