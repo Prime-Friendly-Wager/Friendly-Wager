@@ -4,7 +4,6 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 import axios from 'axios';
 import { withStyles } from '@material-ui/core';
 import TabPanel from './TabPanel';
-import LogOutButton from '../BottomNavBar/LogOutButton';
 import convertDate from './check-week';
 
 const styles = theme => ({
@@ -41,7 +40,6 @@ class TheBoard extends Component {
         <button onClick={() => axios.get('/api/games/fromNflApi')}>API CALL - USE WITH CAUTION</button>
         <button onClick={() => axios.put('/api/games/theJudge')}>The Judge - USE WITH CAUTION</button>
 
-        {/* <LogOutButton className="log-in" /> */}
       </div>
     );
   }

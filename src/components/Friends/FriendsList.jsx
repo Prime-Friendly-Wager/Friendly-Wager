@@ -20,12 +20,10 @@ class FriendsList extends Component {
   render() {
     
     return (
-      <div>
+      <>
         <FriendsListHeading />
         <FriendsListItem />
-         
-
-      </div>
+      </>
     );
   }
 }
