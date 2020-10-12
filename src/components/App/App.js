@@ -21,7 +21,7 @@ import FriendsList from '../Friends/FriendsList'
 import FriendStatistics from '../Friends/FriendStatistics'
 import MyBets from '../MyBets/MyBets'
 import { ThemeProvider, createMuiTheme} from '@material-ui/core/styles'
-import Paper from '@material-ui/core/Paper'
+
 
 import './App.css';
 

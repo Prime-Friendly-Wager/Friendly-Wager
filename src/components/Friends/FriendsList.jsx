@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import FriendsListHeading from './FriendsListHeading'
 import FriendsListItem from './FriendsListItem'
+import Paper from '@material-ui/core/Paper'
 
 // Basic class component structure for React with default state
 // value setup. When making a new component be sure to replace
@@ -21,8 +22,10 @@ class FriendsList extends Component {
     
     return (
       <>
-        <FriendsListHeading />
-        <FriendsListItem />
+   
+      <FriendsListHeading />
+      <FriendsListItem />
+
       </>
     );
   }
