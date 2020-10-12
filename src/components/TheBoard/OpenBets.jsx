@@ -16,9 +16,6 @@ function OpenBets(props) {
 
   const classes = useStyles();
 
-  useEffect(() => {
-    props.dispatch({ type: 'FETCH_ALL_OPEN_BETS' })
-  }, []);
 
   return (
     <>

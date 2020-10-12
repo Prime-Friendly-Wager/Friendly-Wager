@@ -3,7 +3,6 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import OpenBetRow from './OpenBetRow';
-
 import { makeStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@material-ui/core';
 
@@ -15,9 +14,7 @@ const useStyles = makeStyles({
 
 function OpenBets(props) {
 
-  useEffect(() => {
-    props.dispatch({ type: 'FETCH_GAME_OPEN_BETS', payload: props.match.params.id })
-  }, [])
+
 
   const classes = useStyles();
 
