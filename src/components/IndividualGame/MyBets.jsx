@@ -17,7 +17,9 @@ const useStyles = makeStyles({
 function MyBets(props) {
 
   useEffect(() => {
-    props.dispatch({ type: 'FETCH_GAME_DETAILS_MY_BETS', payload: props.match.params.id })
+    //both these dispatches are for 3.2
+    props.dispatch({ type: 'FETCH_GAME_MY_BETS_OPEN', payload: props.match.params.id })
+    props.dispatch({ type: 'FETCH_GAME_MY_BETS_ACTIVE', payload: props.match.params.id })
   }, [])
 
   const classes = useStyles();
@@ -27,13 +29,13 @@ function MyBets(props) {
         <div>
           <h3>Open Bets</h3>
           <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
+            <Table aria-label="simple table">
               <TableBody>
-                {props.store.betReducer.openBetReducer.map((bet, i) => {
+                {props.store.betReducer.openBetReducer.map((openBet, i) => {
                   return (
-                    <TableRow key={bet.id}>
+                    <TableRow key={openBet.id}>
                       <TableCell align="left">
-                        You have {bet.team_name} {bet.proposers_spread}, {bet.wager} units
+                        You have {openBet.team_name} {openBet.proposers_spread}, {openBet.wager} units
                       </TableCell>
                     </TableRow>
                   )
@@ -42,7 +44,21 @@ function MyBets(props) {
             </Table>
           </TableContainer>
           <h3>Active Bets</h3>
-          <p>Your active bets</p>
+          <TableContainer component={Paper}>
+            <Table aria-label="simple table">
+              <TableBody>
+                {props.store.betReducer.activeBetReducer.map((activeBet, i) => {
+                  return (
+                    <TableRow key={activeBet.id}>
+                      <TableCell align="left">
+                        You have {activeBet.proposers_team} {activeBet.proposers_spread}, {activeBet.acceptors_name} has {activeBet.acceptors_team} {activeBet.acceptors_spread}, {activeBet.wager} units
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
           <h3>Create Bet</h3>
         </div>
         <div className={classes.createBetForm}>
