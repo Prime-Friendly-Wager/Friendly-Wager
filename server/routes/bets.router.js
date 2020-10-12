@@ -127,7 +127,7 @@ router.get('/details/my-bets/open/:id', rejectUnauthenticated, (req, res) => {
 router.get('/details/my-bets/active/:id', rejectUnauthenticated, (req, res) => {
     const userId = req.user.id;
     const gameId = req.params.id;
-    const betQuery = `SELECT "proposers_team".nfl_api_ref AS "proposers_team", "acceptors_team".nfl_api_ref AS "acceptors_team", "bets".wager, "bets".id, "acceptor".first_name AS "acceptors_name", 
+    const betQuery = `SELECT "proposers_team".nfl_api_ref AS "proposers_team", "acceptors_team".nfl_api_ref AS "acceptors_team", "bets".wager, "bets".id, "acceptor".first_name AS "acceptors_name", "proposer".first_name AS "proposers_name",
                     CASE 
                     WHEN "bets".proposers_team_id = "games".home_team_id THEN "games".home_team_spread
                     ELSE "games".away_team_spread
@@ -141,7 +141,8 @@ router.get('/details/my-bets/active/:id', rejectUnauthenticated, (req, res) => {
                     LEFT JOIN "teams" AS "acceptors_team" ON "bets".acceptors_team_id = "acceptors_team".id
                     LEFT JOIN "games" ON "bets".game_id = "games".id
                     LEFT JOIN "user" AS "acceptor" ON "bets".acceptors_id = "acceptor".id
-                    WHERE "proposers_id" = $1
+                    LEFT JOIN "user" AS "proposer" ON "bets".proposers_id = "proposer".id
+                    WHERE ("proposers_id" = $1 OR "acceptors_id" = $1)
                     AND "accepted" = true
                     AND "game_id" = $2;`
 

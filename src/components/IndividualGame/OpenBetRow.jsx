@@ -11,7 +11,7 @@ function OpenBetRow(props) {
           {
             bet_id: props.bet.id, 
             acceptors_team_id: props.bet.acceptors_team_id,
-            from_individual_game: true
+            from_individual_game: true,
           }
       })
     };
@@ -21,7 +21,7 @@ function OpenBetRow(props) {
                     {/* Friend */}
                     <TableCell align="right">{props.bet.friend_first_name} {props.bet.friend_last_name}</TableCell>
                     {/* Bet */}
-                    <TableCell align="right">{props.bet.friends_team}{props.bet.friends_team_spread}</TableCell>
+                    <TableCell align="right">{props.bet.friends_team} {props.bet.friends_team_spread}</TableCell>
                     {/* Wager */}
                     <TableCell align="right">{props.bet.wager}</TableCell>
                   </TableRow>
