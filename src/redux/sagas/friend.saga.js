@@ -30,7 +30,7 @@ function* addFriend(action){
 
 // fetches information for friends statistics page
 function* getStatistics(){
-    console.log('in get statistics')
+    yield console.log('in get statistics')
 
 }
 

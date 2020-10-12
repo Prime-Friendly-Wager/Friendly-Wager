@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import {Table, TableContainer, TableBody, TableCell, TableHead, TableRow, Paper} from '@material-ui/core';
@@ -6,10 +6,7 @@ import moment from 'moment';
 
 
 function History(props) {
-  
-  // useEffect( () => {
-  //   props.dispatch({type: 'GET_MY_COMPLETED_BETS'})
-  // }, [])
+
 
   return (
     <TableContainer component={Paper}>
@@ -30,7 +27,7 @@ function History(props) {
               <TableCell align="left">{moment(bet.date).format("M/D")}</TableCell>
               <TableCell align="left">{bet.home_team_name} @ {bet.away_team_name}</TableCell>
               <TableCell align="left">{bet.opponent}</TableCell>
-              <TableCell align="left">{bet.my_bet_team} {bet.proposers_spread}</TableCell>
+              <TableCell align="left">{bet.my_bet_team} {bet.my_spread}</TableCell>
               <TableCell align="left">{bet.winner}</TableCell>
               <TableCell align="left">{bet.wager}</TableCell>
             </TableRow>

@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import React, { useEffect, useState } from 'react';
-import moment from 'moment';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import OpenBetRow from './OpenBetRow';
 
