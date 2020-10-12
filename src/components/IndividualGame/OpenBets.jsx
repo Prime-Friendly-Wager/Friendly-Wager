@@ -15,10 +15,6 @@ const useStyles = makeStyles({
 
 function OpenBets(props) {
 
-  useEffect(() => {
-    props.dispatch({ type: 'FETCH_GAME_OPEN_BETS', payload: props.match.params.id })
-  }, [])
-
   const classes = useStyles();
 
   return (
