@@ -9,6 +9,7 @@ import Paper from '@material-ui/core/Paper'
 // value setup. When making a new component be sure to replace
 // the component name FriendsList with the name for the new
 // component.
+
 class FriendsList extends Component {
   state = {
    
@@ -21,12 +22,12 @@ class FriendsList extends Component {
   render() {
     
     return (
-      <>
+      <div>
    
       <FriendsListHeading />
       <FriendsListItem />
 
-      </>
+      </div>
     );
   }
 }

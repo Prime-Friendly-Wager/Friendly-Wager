@@ -1,17 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import {withStyles, TextField, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton, Button} from '@material-ui/core';
+import {withStyles, TextField, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton, Button,
+Typography, Container} from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
+import { deepOrange } from '@material-ui/core/colors'
 
 const styles = theme => ({
+  rootContainer: {
+    padding: 10,
+  },
   mainDiv: {
-    margin: 10,
     marginBottom: '3.5em',
   },
+  avatar: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: deepOrange[500],
+  },
+  textField: {
+    alignItem: "center"
+  }
+ 
 })
+
 class AddFriend extends Component {
 
   componentDidMount(){
@@ -38,22 +51,32 @@ class AddFriend extends Component {
   {
     const {classes} = this.props;
     return (
-      <div className={classes.mainDiv}>
-        <Button onClick={()=>this.props.history.goBack()}>
-           <ArrowBackIcon/>
-        </Button>
-        <h2>Add Friends</h2>
-        <SearchIcon fontSize="large"/><TextField id="friendSearch" label="Search" variant="outlined" onChange={this.handleSearch}/>
-        <List>
-          {this.props.store.memberReducer.map(member => (
-            <ListItem key={member.id}>
-              <ListItemAvatar><Avatar/></ListItemAvatar>
-              <ListItemText primary={`${member.first_name} ${member.last_name}`}/>
-              <ListItemSecondaryAction><IconButton onClick={()=>this.addFriend(member.id)}><AddIcon/></IconButton></ListItemSecondaryAction>
-            </ListItem>
-          ))}
-        </List>
-      </div>
+      <Container className={classes.rootContainer} maxWidth="sm">
+        <div className={classes.mainDiv}>
+          <Button onClick={()=>this.props.history.goBack()}>
+            <ArrowBackIcon fontSize="large"/>
+          </Button>
+          <Typography align="center" color="textPrimary" variant="h4">Add Friend</Typography>
+          <TextField className={classes.textField} margin="normal" id="friendSearch" label="Search" variant="outlined" onChange={this.handleSearch}/>
+          <List>
+            {this.props.store.memberReducer.map(member => (
+              <ListItem key={member.id}>
+                <ListItemAvatar>
+                    <Avatar className={classes.avatar}>
+                      {member.first_name[0].toUpperCase()}{member.last_name[0].toUpperCase()}
+                    </Avatar>
+                  </ListItemAvatar>
+                <ListItemText>
+                  <Typography color="textPrimary">
+                    {member.first_name} {member.last_name}
+                  </Typography>
+                </ListItemText>
+                <ListItemSecondaryAction><IconButton onClick={()=>this.addFriend(member.id)}><AddIcon/></IconButton></ListItemSecondaryAction>
+              </ListItem>
+            ))}
+          </List>
+        </div>
+      </Container>
     );
   }
 }

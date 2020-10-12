@@ -45,9 +45,9 @@ function FriendsListItem(props) {
   return (
     <div className={classes.root}>
     
-      <Grid container spacing={2}>
+      <Grid container >
         <Grid item xs={12} md={6}>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h6">
             Friends List
           </Typography>
           <div className={classes.demo}>
@@ -55,7 +55,7 @@ function FriendsListItem(props) {
                 <ListItem key={friend.id} onClick={() => {props.history.push(`/friends/statistics/${friend.id}`)}}>
                   <ListItemAvatar>
                     <Avatar
-                    className={classes.orange}>{friend.first_name[0].toUpperCase()}</Avatar>
+                    className={classes.orange}>{friend.first_name[0].toUpperCase()}{friend.last_name[0].toUpperCase()}</Avatar>
                   </ListItemAvatar>
                   <ListItemText
                     primary={`${friend.first_name} ${friend.last_name}`}
