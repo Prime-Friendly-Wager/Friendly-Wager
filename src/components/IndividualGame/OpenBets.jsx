@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import OpenBetRow from './OpenBetRow';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
   table: {
@@ -15,31 +15,38 @@ const useStyles = makeStyles({
 
 function OpenBets(props) {
 
-  useEffect( () => {
+  useEffect(() => {
     props.dispatch({ type: 'FETCH_GAME_OPEN_BETS', payload: props.match.params.id })
   }, [])
 
   const classes = useStyles();
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="right">Friend</TableCell>
-            <TableCell align="right">Bet</TableCell>
-            <TableCell align="right">Wager</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {props.store.betReducer.openBetReducer.map((bet, i) => {
-            return (
-              <OpenBetRow key={bet.id} bet={bet} />
-            )
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      {props.store.betReducer.openBetReducer[0]
+        ?
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="right">Friend</TableCell>
+                <TableCell align="right">Bet</TableCell>
+                <TableCell align="right">Wager</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {props.store.betReducer.openBetReducer.map((bet, i) => {
+                return (
+                  <OpenBetRow key={bet.id} bet={bet} />
+                )
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        :
+        <Typography>There aren't any open bets for this game.</Typography>
+      }
+    </>
   );
 }
 

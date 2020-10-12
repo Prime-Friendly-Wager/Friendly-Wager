@@ -40,22 +40,23 @@ function FriendsListItem(props) {
   const classes = useStyles();
   // const [dense, setDense] = React.useState(false);
   // const [secondary, setSecondary] = React.useState(false);
- 
+
 
   return (
     <div className={classes.root}>
-    
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
-          <Typography variant="h6" className={classes.title}>
-            Friends List
-          </Typography>
-          <div className={classes.demo}>
+      {props.store.friendsList[0]
+        ?
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            <Typography variant="h6" className={classes.title}>
+              Friends List
+            </Typography>
+            <div className={classes.demo}>
               {props.store.friendsList.map((friend) =>
-                <ListItem key={friend.id} onClick={() => {props.history.push(`/friends/statistics/${friend.id}`)}}>
+                <ListItem key={friend.id} onClick={() => { props.history.push(`/friends/statistics/${friend.id}`) }}>
                   <ListItemAvatar>
                     <Avatar
-                    className={classes.orange}>{friend.first_name[0].toUpperCase()}</Avatar>
+                      className={classes.orange}>{friend.first_name[0].toUpperCase()}</Avatar>
                   </ListItemAvatar>
                   <ListItemText
                     primary={`${friend.first_name} ${friend.last_name}`}
@@ -63,11 +64,13 @@ function FriendsListItem(props) {
                   />
                 </ListItem>,
               )}
-             
-          </div>
+
+            </div>
+          </Grid>
         </Grid>
-      
-      </Grid>
+        :
+        <Typography>You haven't added any friends yet!</Typography>
+      }
     </div>
   );
 }
