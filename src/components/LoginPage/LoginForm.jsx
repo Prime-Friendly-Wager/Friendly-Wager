@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import {Typography} from '@material-ui/core'
 
 class LoginForm extends Component {
   state = {

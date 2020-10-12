@@ -2,13 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { makeStyles } from '@material-ui/core/styles';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemText from '@material-ui/core/ListItemText';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import {ListItem, ListItemAvatar, ListItemText, Grid, Typography, Avatar, Container} from '@material-ui/core';
 import { withRouter } from "react-router";
-import Avatar from '@material-ui/core/Avatar';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
@@ -55,8 +50,8 @@ function FriendsListItem(props) {
                       className={classes.orange}>{friend.first_name[0].toUpperCase()}</Avatar>
                   </ListItemAvatar>
                   <ListItemText
-                    primary={`${friend.first_name} ${friend.last_name}`}
-                    secondary={friend.username}
+                    primary={<Typography color="textPrimary">{friend.first_name} {friend.last_name}</Typography>}
+                    secondary={<Typography color="textSecondary">{friend.username}</Typography>}
                   />
                 </ListItem>,
               )}

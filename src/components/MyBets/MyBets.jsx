@@ -4,6 +4,7 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 import BetsTabPanel from './BetsTabPanel'
 import { Typography } from '@material-ui/core';
 
+
 class MyBets extends Component {
 
   componentDidMount(){

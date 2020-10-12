@@ -5,13 +5,26 @@ import { withStyles, TextField, List, ListItem, ListItemAvatar, Avatar, ListItem
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
+import { deepOrange } from '@material-ui/core/colors'
 
 const styles = theme => ({
+  rootContainer: {
+    padding: 10,
+  },
   mainDiv: {
-    // margin: 10,
+
     marginBottom: '3.5em',
   },
+  avatar: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: deepOrange[500],
+  },
+  textField: {
+    align: "center"
+  }
+ 
 })
+
 class AddFriend extends Component {
 
   componentDidMount() {

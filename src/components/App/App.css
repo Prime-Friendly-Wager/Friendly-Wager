@@ -7,6 +7,7 @@ body,
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0px;
+  background-color: #424242;
 }
 
 img {
@@ -67,7 +68,7 @@ Button
   border-radius: 0;
   background: none;
   font: inherit;
-  color: #444;
+  color:white;
 }
 
 .btn_asLink:hover {
@@ -101,9 +102,10 @@ Form Treatment
   max-width: 100%;
   padding: 25px;
   margin: 0 auto 20px;
-  background-color: #efefef;
+  background-color: #424242;
   border-radius: 3px;
   box-shadow: 0 1px 2px rgb(0, 0, 0, 0.4);
+  color: white;
 }
 
 input {

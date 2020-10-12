@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { makeStyles } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
+import {Fab, Typography, Container} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
 import TextField from '@material-ui/core/TextField';
@@ -22,12 +22,16 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
+        paddingTop: '15px'
     },
     heading: {
         paddingRight: '100px'
     },
     extendedIcon: {
       marginRight: theme.spacing(1),
+    },
+    addButton:{
+      float:"right"
     },
     margin: {
         margin: theme.spacing(1),
@@ -54,10 +58,10 @@ function FriendsListHeading(props) {
   const [heading] = useState('My Friends');
   
   return (
-      <>
+      <Container>
       <center>
     <div className={classes.headingContainer}>
-      <h2 className={classes.heading}>{heading}</h2>
+      <Typography variant="h4" color="textPrimary" className={classes.heading}>{heading}</Typography>
       <Fab color="primary" className={classes.addButton} aria-label="add">
         <AddIcon onClick={()=>props.history.push("/friends/add")}/>
       </Fab>
@@ -92,7 +96,7 @@ function FriendsListHeading(props) {
     </div>
     </div>
    
-   </>
+   </Container>
   );
 }
 
