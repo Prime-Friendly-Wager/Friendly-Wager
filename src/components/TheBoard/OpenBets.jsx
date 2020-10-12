@@ -1,8 +1,6 @@
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import React, { useEffect, useState } from 'react';
-import moment from 'moment';
-import { withRouter } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import OpenBetRow from './OpenBetRow';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';

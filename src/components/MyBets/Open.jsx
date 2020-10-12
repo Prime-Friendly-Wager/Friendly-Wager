@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import {Table, TableContainer, TableBody, TableCell, TableHead, TableRow, Paper} from '@material-ui/core'
 import moment from 'moment';
 
 function Open(props) {
- 
-  // useEffect( () => {
-  //   props.dispatch({type: 'GET_MY_OPEN_BETS'})
-  // }, [])
 
   return (
     <TableContainer component={Paper}>

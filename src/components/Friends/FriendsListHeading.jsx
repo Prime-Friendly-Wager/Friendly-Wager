@@ -51,7 +51,7 @@ function FriendsListHeading(props) {
     const classes = useStyles();
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
-  const [heading, setHeading] = useState('My Friends');
+  const [heading] = useState('My Friends');
   
   return (
       <>
