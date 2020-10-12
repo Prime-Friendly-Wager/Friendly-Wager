@@ -17,8 +17,8 @@ function* acceptBet(action) {
     try {
       yield axios.put('/api/bets/accept', action.payload);
       //this tells us if we were viewing an individual game, or all open bets, when we accepted and will refresh appropriately
-      if ( action.payload.is_individual_game ) {
-        yield fetchGameOpenBets({ payload: action.payload.game_id })
+      if ( action.payload.from_individual_game ) {
+        yield fetchGameOpenBets({ payload: action.payload.game_id });
       } else {
         yield fetchAllOpenBets();
       }
