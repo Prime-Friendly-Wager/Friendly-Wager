@@ -107,5 +107,17 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     })
 })
 
+// 4.3 route to get individual friend statistics
+router.get('/statistics/:id', rejectUnauthenticated, (req, res) => {
+    let queryText = `SELECT id FROM "bets"
+    WHERE proposers_id = $1 OR acceptors_id = $1`
+    pool.query(queryText, [req.params.id])
+    .then(result => {
+        res.send(result.rows)
+    })
+    .catch(error => {
+        res.sendStatus(500)
+    })
+})
 
 module.exports = router;

@@ -9,7 +9,6 @@ class MyBets extends Component {
 
   componentDidMount(){
     this.props.dispatch({type: 'GET_MY_OVERALL_PLUS_MINUS'});
-    this.props.dispatch({type: 'FETCH_BET_HISTORY'});
   }
 
   render() {

@@ -29,8 +29,14 @@ function* addFriend(action){
 }
 
 // fetches information for friends statistics page
-function* getStatistics(){
-    yield console.log('in get statistics')
+function* getStatistics(action){
+    console.log(action.payload)
+   try{
+       let response = yield axios.get(`/api/friend/statistics/${action.payload}`);
+       yield put({type: 'SET_FRIEND_STATISTICS', payload: response.data})
+   }catch(error){
+       console.log('ERROR IN GET FRIENDS STATS SAGA: ', error);
+   }
 
 }
 
