@@ -208,4 +208,19 @@ router.put('/accept', rejectUnauthenticated, (req, res) => {
         })
 });
 
+//3.2 and 5.2 deleting bets
+router.delete('/delete/:id', rejectUnauthenticated, (req, res) => {
+    const { id } = req.params;
+    const queryText = `DELETE FROM "bets" WHERE "bets".id = $1;`
+    
+    pool.query(queryText, [id])
+        .then(() => {
+            console.log('BET DELETED:', id);
+            res.sendStatus(202); //accepted status
+        })
+        .catch((error) => {
+            console.log('ERROR DELETING BET', error);
+        })
+});
+
 module.exports = router;

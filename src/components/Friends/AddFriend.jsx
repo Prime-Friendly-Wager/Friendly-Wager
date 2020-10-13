@@ -34,11 +34,12 @@ class AddFriend extends Component {
   // function to handle searching for a member by name
   handleSearch = () => {
     let nameSearch = document.getElementById('friendSearch').value;
+    console.log(nameSearch);
     if (nameSearch !== '') {
-      this.props.dispatch({ type: "GET_MEMBERS", payload: { search: nameSearch } })
+      this.props.dispatch({ type: "GET_MEMBERS", payload: { search: nameSearch, type: 'members' } })
     }
     if (nameSearch === '') {
-      this.props.dispatch({ type: "GET_MEMBERS", payload: { search: 'All' } })
+      this.props.dispatch({ type: "GET_MEMBERS", payload: { search: 'All', type: 'members' } })
     }
   }
 
@@ -61,8 +62,9 @@ class AddFriend extends Component {
           <List>
             {this.props.store.memberReducer.map(member => (
               <ListItem key={member.id}>
-                <ListItemAvatar><Avatar /></ListItemAvatar>
-                <ListItemText primary={`${member.first_name} ${member.last_name}`} />
+                <ListItemAvatar><Avatar className={classes.avatar}>{member.first_name[0].toUpperCase()}</Avatar></ListItemAvatar>
+                <ListItemText primary={<Typography color="textPrimary">{member.first_name} {member.last_name}</Typography>} 
+                  secondary={<Typography color="textSecondary">{member.username}</Typography>}/>
                 <ListItemSecondaryAction><IconButton onClick={() => this.addFriend(member.id)}><AddIcon /></IconButton></ListItemSecondaryAction>
               </ListItem>
             ))}
