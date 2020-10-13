@@ -89,6 +89,7 @@ function FriendsListHeading(props) {
         <TextField
         id="searchfriend"
         {...params} 
+        
         onChange={handleSearch}
         label= "Search Friends" 
         margin="normal" 
