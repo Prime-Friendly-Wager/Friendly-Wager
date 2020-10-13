@@ -14,5 +14,4 @@ cron.schedule('5 11 * * 2', function(){
 
 
 
-
 module.exports = getGames;
