@@ -8,7 +8,9 @@ const sessionMiddleware = require('./modules/session-middleware');
 
 const passport = require('./strategies/user.strategy');
 
+
 //api automation file
+
 const getGames = require('./modules/automation');
 
 // Route includes
@@ -36,6 +38,8 @@ app.use('/api/user', userRouter);
 app.use('/api/friend', friendRouter);
 app.use('/api/games', gamesRouter);
 app.use('/api/bets', betsRouter);
+
+
 
 // Serve static files
 app.use(express.static('build'));
