@@ -83,12 +83,13 @@ function FriendsListHeading(props) {
     <div className={classes.search}>
     <Autocomplete
       freeSolo
-      //Change mapping for friends
+      Change mapping for friends
       options={props.store.friendsList.map((option) => option.first_name + " " + option.last_name)}
       renderInput={(params) => (
         <TextField
         id="searchfriend"
         {...params} 
+        
         onChange={handleSearch}
         label= "Search Friends" 
         margin="normal" 
