@@ -8,7 +8,9 @@ const sessionMiddleware = require('./modules/session-middleware');
 
 const passport = require('./strategies/user.strategy');
 
-//automation file
+
+//api automation file
+
 const getGames = require('./modules/automation');
 
 // Route includes
@@ -16,6 +18,9 @@ const userRouter = require('./routes/user.router');
 const friendRouter = require('./routes/friend.router');
 const gamesRouter = require('./routes/games.router');
 const betsRouter = require('./routes/bets.router');
+
+getGames();
+
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -39,7 +44,6 @@ app.use('/api/bets', betsRouter);
 // Serve static files
 app.use(express.static('build'));
 
-//api use
 getGames();
 
 // App Set //
