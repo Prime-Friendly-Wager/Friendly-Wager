@@ -41,8 +41,10 @@ function MyBets(props) {
   return (
     <div>
       <div>
-        <h3>Open Bets</h3>
-        {props.store.betReducer.openBetReducer[0] ?
+        <Typography variant="h5" color="textPrimary">Open Bets</Typography>
+        {props.store.betReducer.openBetReducer.filter(bet =>
+                  (bet.proposers_id === props.store.user.id && bet.game_id === props.store.gameDetails.id)).length
+          ?
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
               <TableBody>
@@ -83,9 +85,9 @@ function MyBets(props) {
             </Table>
           </TableContainer>
           :
-          <Typography>You don't have any open bets for this game.</Typography>
+          <Typography color="textPrimary">You don't have any open bets for this game.</Typography>
         }
-        <h3>Active Bets</h3>
+        <Typography variant="h5" color="textPrimary">Active Bets</Typography>
         {props.store.betReducer.activeBetReducer[0] ?
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
@@ -124,9 +126,9 @@ function MyBets(props) {
             </Table>
           </TableContainer>
           :
-          <Typography>You don't have any active bets for this game.</Typography>
+          <Typography color="textPrimary">You don't have any active bets for this game.</Typography>
         }
-        <h3>Create Bet</h3>
+        <Typography variant="h5" color="textPrimary">Create Bet</Typography>
       </div>
       <div className={classes.createBetForm}>
         <CreateBetForm />

@@ -69,7 +69,7 @@ class AddFriend extends Component {
             ))}
           </List>
           :
-          <Typography>There aren't any users to friend.</Typography>
+          <Typography color="textPrimary">There aren't any users to add.</Typography>
         }
       </div>
     );

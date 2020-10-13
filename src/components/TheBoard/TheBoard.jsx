@@ -1,18 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import axios from 'axios';
-import { withStyles } from '@material-ui/core';
+import { withStyles, Typography } from '@material-ui/core';
 import TabPanel from './TabPanel';
 import convertDate from './check-week';
 
 const styles = theme => ({
-  container: {
+  heading: {
     padding: '1em',
+    textAlign: 'center',
+    position: 'fixed',
+    width: '100%',
+    top: 0,
+    zIndex: '10',
+    backgroundColor: '#424242',
+    height: '3em',
   },
   weekSpan: {
     marginLeft: '1em',
     fontSize: '.50em',
+  },
+  tabPanel: {
+    marginTop: '5em',
   },
 });
 
@@ -30,15 +39,15 @@ class TheBoard extends Component {
 
     return (
       <div>
-        <div className={classes.container}>
-          <h1>The Board<span className={classes.weekSpan}>
+        <div className={classes.heading}>
+          <Typography variant="h4" color="textPrimary">The Board<span className={classes.weekSpan}>
             Week {currentWeek && currentWeek.week}
             </span>
-          </h1>
+          </Typography>
         </div>
-        <TabPanel />
-        {/* <button onClick={() => axios.get('/api/games/fromNflApi')}>API CALL - USE WITH CAUTION</button>
-        <button onClick={() => axios.put('/api/games/theJudge')}>The Judge - USE WITH CAUTION</button> */}
+        <div className={classes.tabPanel}>
+        <TabPanel/>
+        </div>
       </div>
     );
   }

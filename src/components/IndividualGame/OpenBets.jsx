@@ -18,7 +18,8 @@ function OpenBets(props) {
 
   return (
     <>
-      {props.store.betReducer.openBetReducer[0]
+      {props.store.betReducer.openBetReducer.filter(bet => 
+             (bet.proposers_id !== props.store.user.id && bet.game_id === props.store.gameDetails.id)).length
         ?
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="simple table">
@@ -39,7 +40,7 @@ function OpenBets(props) {
           </Table>
         </TableContainer>
         :
-        <Typography>There aren't any open bets for this game.</Typography>
+        <Typography color="textPrimary">There aren't any open bets for this game.</Typography>
       }
     </>
   );

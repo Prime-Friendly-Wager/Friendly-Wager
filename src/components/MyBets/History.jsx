@@ -39,7 +39,7 @@ function History(props) {
           </Table>
         </TableContainer>
         :
-        <Typography>You haven't completed any bets yet.</Typography>
+        <Typography color="textPrimary">You haven't completed any bets yet.</Typography>
       }
     </>
   );

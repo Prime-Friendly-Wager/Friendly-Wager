@@ -28,8 +28,6 @@ function OpenBets(props) {
                 <TableCell align="right">Game</TableCell>
                 <TableCell align="right">Bet</TableCell>
                 <TableCell align="right">Wager</TableCell>
-
-
               </TableRow>
             </TableHead>
             <TableBody>

@@ -49,8 +49,17 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
   },
+  mainTab: {
+    position: 'fixed',
+    width: '100%',
+    backgroundColor: '#3f51b5',
+    marginTop: '0',
+  },
   tabs: {
     width: '50%',
+  },
+  tabPanel: {
+    marginTop: '2.5em',
   },
   games: {
     width: '100%',
@@ -80,15 +89,15 @@ function SimpleTabs(props) {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" className={classes.mainTab}>
           <Tab label="Open Bets" {...a11yProps(0)} className={classes.tabs} />
           <Tab label="Games" {...a11yProps(1)} className={classes.tabs} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
+      <TabPanel value={value} index={0} className={classes.tabPanel}>
         <OpenBets />
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      <TabPanel value={value} index={1} className={classes.tabPanel}>
         <Games />
       </TabPanel>
     </div>
