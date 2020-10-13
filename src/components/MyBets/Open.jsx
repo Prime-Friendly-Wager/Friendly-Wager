@@ -1,10 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import { Table, TableContainer, TableBody, TableCell, TableHead, TableRow, Paper, Typography } from '@material-ui/core'
+import { Table, TableContainer, TableBody, TableCell, TableHead, TableRow, Paper, Typography, Button } from '@material-ui/core'
 import moment from 'moment';
 
 function Open(props) {
+
+    //deleting bet
+    const handleDelete = (id) => {
+      console.log('deleting bet:', id);
+      props.dispatch({ type: 'DELETE_BET', payload: id });
+    }
 
   return (
     <>
@@ -33,6 +39,7 @@ function Open(props) {
                     <TableCell align="left">{bet.away_team_name} {bet.away_team_spread}</TableCell>
                   }
                   <TableCell align="left">{bet.wager}</TableCell>
+                  <TableCell align="left"><Button variant="contained" size="small" color="secondary" onClick={() => handleDelete(bet.id)}>Delete</Button></TableCell>
                 </TableRow>
               ))}
             </TableBody>
