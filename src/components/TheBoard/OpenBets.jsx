@@ -42,7 +42,7 @@ function OpenBets(props) {
           </Table>
         </TableContainer>
         :
-        <Typography>Your friends haven't opened any bets yet.</Typography>
+        <Typography color="textPrimary">Your friends haven't opened any bets yet.</Typography>
       }
     </>
   );

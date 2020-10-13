@@ -44,7 +44,7 @@ function SimpleTable(props) {
           </Table>
         </TableContainer>
         :
-        <Typography>There aren't any games to display.</Typography>
+        <Typography color="textPrimary">There aren't any games to display.</Typography>
       }
     </>
   );
