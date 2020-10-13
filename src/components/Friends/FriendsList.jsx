@@ -18,6 +18,13 @@ class FriendsList extends Component {
     this.props.dispatch({type: 'GET_FRIENDS'});
   }
 
+  //The reason for unmount is because searching changes friendsList reducer, 
+  //so if the user leaves the page in the middle of the search we want friendsList reducer
+  //to reset
+  componentWillUnmount(){
+    this.props.dispatch({type: 'GET_FRIENDS'});
+  }
+
   render() {
     
     return (
