@@ -24,7 +24,7 @@ const theJudge = async (req, res) => {
         const base = 'https://api.nfl.com/v1/games?';
 
         //gets current week
-        const weekNumber = await convertDate();
+        const weekNumber = await (convertDate()) - 1;
         console.log('pulling games for last week', weekNumber);
 
         const params = `s={"$query":{"week.season":2020,"week.seasonType":"REG","week.week":${weekNumber}}}&fs={week{season,seasonType,week},id,gameTime,gameStatus,homeTeam{id,abbr},visitorTeam{id,abbr},homeTeamScore,visitorTeamScore}`

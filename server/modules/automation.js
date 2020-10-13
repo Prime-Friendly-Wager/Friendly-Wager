@@ -7,7 +7,7 @@ function getGames() {
         getGamesFromNfl();
     });
     
-    cron.schedule('5 11 * * 2', function(){
+    cron.schedule('19 11 * * 2', function(){
         theJudge();
     });
 };

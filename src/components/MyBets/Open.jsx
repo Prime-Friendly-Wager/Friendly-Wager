@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { Table, TableContainer, TableBody, TableCell, TableHead, TableRow, Paper, Typography, Button } from '@material-ui/core'
 import moment from 'moment';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 function Open(props) {
 
@@ -39,14 +40,16 @@ function Open(props) {
                     <TableCell align="left">{bet.away_team_name} {bet.away_team_spread}</TableCell>
                   }
                   <TableCell align="left">{bet.wager}</TableCell>
-                  <TableCell align="left"><Button variant="contained" size="small" color="secondary" onClick={() => handleDelete(bet.id)}>Delete</Button></TableCell>
+                  <TableCell align="left">
+                      <DeleteForeverIcon color="secondary" onClick={() => handleDelete(bet.id)}/>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
         :
-        <Typography>You haven't opened any bets yet.</Typography>
+        <Typography color="textPrimary">You haven't opened any bets yet.</Typography>
       }
     </>
   );

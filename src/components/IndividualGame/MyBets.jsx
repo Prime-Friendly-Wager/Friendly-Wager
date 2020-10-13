@@ -3,6 +3,7 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import CreateBetForm from './CreateBetForm';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableContainer, TableRow, Paper, Typography, Button } from '@material-ui/core';
@@ -45,7 +46,7 @@ function MyBets(props) {
                         }
                       </TableCell>
                       <TableCell>
-                        <Button variant="contained" size="small" color="secondary" onClick={() => handleDelete(bet.id)}>Delete</Button>
+                        <DeleteForeverIcon color="secondary" onClick={() => handleDelete(bet.id)}/>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -104,6 +105,5 @@ function MyBets(props) {
     </div>
   );
 }
-
 
 export default connect(mapStoreToProps)(withRouter(MyBets));
