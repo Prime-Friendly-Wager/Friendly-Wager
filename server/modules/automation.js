@@ -11,4 +11,5 @@ cron.schedule('5 11 * * 2', function(){
     theJudge();
 })
 
+
 module.exports = getGames;
