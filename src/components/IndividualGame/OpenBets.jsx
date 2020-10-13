@@ -14,8 +14,6 @@ const useStyles = makeStyles({
 
 function OpenBets(props) {
 
-
-
   const classes = useStyles();
 
   return (

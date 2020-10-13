@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import TabPanel from './TabPanel';
@@ -18,6 +18,7 @@ const styles = theme => ({
 
 class IndividualGame extends Component {
 
+  
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_GAME_DETAILS', payload: this.props.match.params.id });
   }

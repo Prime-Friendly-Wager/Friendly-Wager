@@ -84,7 +84,7 @@ function OpenBetRow(props) {
                     {/* Wager */}
                     <TableCell align="right">{props.bet.wager}</TableCell>
                   </TableRow>
-                  <div>
+                  <>
      
       <Dialog
         open={open}
@@ -95,9 +95,9 @@ function OpenBetRow(props) {
         <DialogTitle id="alert-dialog-title">{`Take this Bet?`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-          If you accept {props.bet.friend_first_name} {props.bet.friend_last_name}'s bet 
-          of {props.bet.wager} units on {props.bet.friends_team} {props.bet.friends_team_spread} for {props.bet.away_team_abbr} @ {props.bet.home_team_abbr} this
-          will become an open bet.
+          If you accept {props.bet.proposers_first_name} {props.bet.proposers_last_name}'s bet 
+          of {props.bet.wager} units on {props.bet.proposers_team_is_home_team ? props.bet.home_team_name : props.bet.away_team_name} {props.bet.proposers_team_spread} for {props.bet.away_team_abbr} @ {props.bet.home_team_abbr} this
+          will become an active bet.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -109,7 +109,7 @@ function OpenBetRow(props) {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
               </>
      
     );

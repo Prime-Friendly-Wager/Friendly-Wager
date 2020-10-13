@@ -16,7 +16,6 @@ function OpenBets(props) {
 
   const classes = useStyles();
 
-
   return (
     <>
       {props.store.betReducer.openBetReducer[0]
