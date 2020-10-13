@@ -86,7 +86,7 @@ function CreateBetForm(props) {
                     checked={bet.proposers_team_id === gameDetails.home_team_id}
                 />
             </RadioGroup>
-            <TextField type="number" value={bet.wager} placeholder="Enter units" variant="outlined" onChange={(event) => handleInputChange('wager', event)}/>
+            <TextField type="number" value={bet.wager} placeholder="Enter number of units" variant="outlined" onChange={(event) => handleInputChange('wager', event)}/>
             <p>Units</p>
             <Button
                 variant="contained"
