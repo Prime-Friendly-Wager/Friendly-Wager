@@ -6,8 +6,9 @@ const {
   } = require('../modules/authentication-middleware');
 
   // 4.1 route to get all of app users
-router.get('/:search', rejectUnauthenticated, async (req, res) => {
+router.get('/:search/:type', rejectUnauthenticated, async (req, res) => {
     let nonFriendMembersList = [];
+    let friendSearchList = [];
     const client = await pool.connect();
     if(req.params.search ==='All') { // gets all of the members of the app
         try{
@@ -31,6 +32,7 @@ router.get('/:search', rejectUnauthenticated, async (req, res) => {
                   return memberObj.id === friendObj.id
                 })
               })
+            //if search !null will retrieve members, if null get friends
             res.send(nonFriendMembersList)
         }catch(error){
             await client.query('ROLLBACK');
@@ -62,7 +64,18 @@ router.get('/:search', rejectUnauthenticated, async (req, res) => {
                   return memberObj.id === friendObj.id
                 })
             })
+            friendSearchList = members.rows.filter( (memberObj) => {
+                return friends.rows.find( (friendObj) => {
+                  return memberObj.id === friendObj.id
+                })
+            })
+            if(req.params.type === 'friend'){
+            res.send(friendSearchList);
+            }
+            else {
             res.send(nonFriendMembersList)
+            }
+            
         }catch(error){
             await client.query('ROLLBACK');
             throw error;

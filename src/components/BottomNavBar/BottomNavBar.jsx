@@ -14,6 +14,7 @@ import { withRouter } from "react-router";
 
 const useStyles = makeStyles({
   root: {
+    
     width: '100%',
     position: 'fixed',
     bottom: 0,
@@ -46,10 +47,10 @@ function BottomNavBar(props) {
   return (
     <>
     <BottomNavigation position="fixed" value={value} onChange={handleChange} className={classes.root}>
-      <BottomNavigationAction label="The Board" onClick={() => {props.history.push('/the-board')}} value="recents" icon={<DashboardIcon />} />
-      <BottomNavigationAction label="Friends" onClick={() => {props.history.push('/friends')}} value="favorites" icon={ <img alt="friend icon" src={process.env.PUBLIC_URL + '/Images/friends.svg'} />} />
-      <BottomNavigationAction label="My Bets" onClick={() => {props.history.push('/mybets')}} value="nearby" icon={ <img alt="ticket icon" src={process.env.PUBLIC_URL + '/Images/Ticket.svg'} />} />
-      <BottomNavigationAction label="Log Out" value="folder" onClick={handleMobileMenuOpen} icon={<AccountCircleIcon />} />
+      <BottomNavigationAction label="The Board" style={{color: 'white'}} onClick={() => {props.history.push('/the-board')}} value="recents" icon={<DashboardIcon />} />
+      <BottomNavigationAction label="My Bets" style={{color: 'white'}} onClick={() => {props.history.push('/mybets')}} value="nearby" icon={ <img alt="ticket icon" src={process.env.PUBLIC_URL + '/Images/Ticket.svg'} />} />
+      <BottomNavigationAction label="Friends" style={{color: 'white'}}onClick={() => {props.history.push('/friends')}} value="favorites" icon={ <img alt="friend icon" src={process.env.PUBLIC_URL + '/Images/friends.svg'} />} />
+      <BottomNavigationAction label="Log Out" style={{color: 'white'}} value="folder" onClick={handleMobileMenuOpen} icon={<AccountCircleIcon />} />
     </BottomNavigation>
     <Menu
         id="menu-appbar"
