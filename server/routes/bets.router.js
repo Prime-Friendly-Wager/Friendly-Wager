@@ -50,7 +50,6 @@ router.get('/open', rejectUnauthenticated, (req, res) => {
 
     pool.query(queryText, [req.user.id])
         .then(response => {
-            console.log(response.rows);
             res.send(response.rows);
         })
         .catch(error => {
@@ -93,7 +92,6 @@ router.get('/active', rejectUnauthenticated, (req, res) => {
 
     pool.query(queryText, [req.user.id])
         .then(response => {
-            console.log(response.rows);
             res.send(response.rows);
         })
         .catch(error => {
@@ -205,6 +203,21 @@ router.put('/accept', rejectUnauthenticated, (req, res) => {
         })
         .catch((error) => {
             console.log('ERROR ACCEPTING BET', error);
+        })
+});
+
+//3.2 and 5.2 deleting bets
+router.delete('/delete/:id', rejectUnauthenticated, (req, res) => {
+    const { id } = req.params;
+    const queryText = `DELETE FROM "bets" WHERE "bets".id = $1;`
+    
+    pool.query(queryText, [id])
+        .then(() => {
+            console.log('BET DELETED:', id);
+            res.sendStatus(202); //accepted status
+        })
+        .catch((error) => {
+            console.log('ERROR DELETING BET', error);
         })
 });
 

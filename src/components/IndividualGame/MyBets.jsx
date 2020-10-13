@@ -18,6 +18,12 @@ function MyBets(props) {
 
   const classes = useStyles();
 
+  //deleting bet
+  const handleDelete = (id) => {
+    console.log('deleting bet:', id);
+    props.dispatch({ type: 'DELETE_BET', payload: id });
+  }
+
   return (
     <div>
       <div>
@@ -39,7 +45,7 @@ function MyBets(props) {
                         }
                       </TableCell>
                       <TableCell>
-                        <Button variant="contained" size="small" color="secondary" >Delete</Button>
+                        <Button variant="contained" size="small" color="secondary" onClick={() => handleDelete(bet.id)}>Delete</Button>
                       </TableCell>
                     </TableRow>
                   ))}
