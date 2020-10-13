@@ -50,7 +50,7 @@ router.get('/open', rejectUnauthenticated, (req, res) => {
 
     pool.query(queryText, [req.user.id])
         .then(response => {
-            console.log(response.rows);
+            console.log('Got open bets!');
             res.send(response.rows);
         })
         .catch(error => {
@@ -93,7 +93,7 @@ router.get('/active', rejectUnauthenticated, (req, res) => {
 
     pool.query(queryText, [req.user.id])
         .then(response => {
-            console.log(response.rows);
+            console.log('Got active bets!');
             res.send(response.rows);
         })
         .catch(error => {

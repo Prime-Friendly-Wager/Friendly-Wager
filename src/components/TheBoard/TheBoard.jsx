@@ -21,6 +21,7 @@ class TheBoard extends Component {
   componentDidMount() {
     const currentWeek = convertDate();
     this.props.dispatch({ type: 'FETCH_GAMES', payload: currentWeek });
+    this.props.dispatch({ type: 'FETCH_BETS' });
   }
 
   render() {

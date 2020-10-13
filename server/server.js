@@ -2,6 +2,7 @@
 const express = require('express');
 require('dotenv').config();
 
+const automationFunction = require('./modules/automation')
 const app = express();
 const bodyParser = require('body-parser');
 const sessionMiddleware = require('./modules/session-middleware');
@@ -33,6 +34,9 @@ app.use('/api/bets', betsRouter);
 
 // Serve static files
 app.use(express.static('build'));
+
+//cron automation
+automationFunction();
 
 // App Set //
 const PORT = process.env.PORT || 5000;
