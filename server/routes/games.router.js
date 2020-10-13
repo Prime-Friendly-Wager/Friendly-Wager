@@ -2,11 +2,9 @@ const express = require('express');
 const {
     rejectUnauthenticated,
   } = require('../modules/authentication-middleware');
-const axios = require('axios');
 const pool = require('../modules/pool');
 const router = express.Router();
 require('dotenv').config();
-const { theJudge, getGamesFromNfl } = require('../modules/theJudge');
 
 //the querytext in this route will need to be changed
 //as of now it's not getting the team names or logos, just displaying team id
@@ -42,29 +40,6 @@ router.get('/details/:id', rejectUnauthenticated, (req, res) => {
             console.log('ERROR GETTING GAME DETAILS', error);
             res.sendStatus(500); //internal server error
         })
-});
-
-
-//How do we protect this route!?!? we move it!
-router.get('/fromNflApi', async (req, res) => {
-    const result = await getGamesFromNfl();
-    console.log('got games happened?', result);
-    if (result == true){
-        res.sendStatus(200)
-    } else {
-        res.sendStatus(500)
-    }
-    
-});
-
-router.put('/theJudge', async (req, res) => {    
-    const result = await theJudge();
-    console.log('the judge happened?', result);
-    if (result = true){
-        res.sendStatus(200)
-    } else {
-        res.sendStatus(500)
-    }
 });
 
 module.exports = router;
