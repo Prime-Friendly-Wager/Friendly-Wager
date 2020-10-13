@@ -16,6 +16,13 @@ const useStyles = makeStyles({
     textAlign: 'center',
     marginBottom: '3.5em',
   },
+  text: {
+    marginTop: '1em',
+    marginBottom: '1em',
+  },
+  creatBet: {
+    marginBottom: '1em',
+  },
 });
 
 function MyBets(props) {
@@ -41,8 +48,10 @@ function MyBets(props) {
   return (
     <div>
       <div>
-        <h3>Open Bets</h3>
-        {props.store.betReducer.openBetReducer[0] ?
+        <Typography variant="h5" color="textPrimary">Open Bets</Typography>
+        {props.store.betReducer.openBetReducer.filter(bet =>
+                  (bet.proposers_id === props.store.user.id && bet.game_id === props.store.gameDetails.id)).length
+          ?
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
               <TableBody>
@@ -83,9 +92,9 @@ function MyBets(props) {
             </Table>
           </TableContainer>
           :
-          <Typography>You don't have any open bets for this game.</Typography>
+          <Typography color="textPrimary" className={classes.text}>You don't have any open bets for this game.</Typography>
         }
-        <h3>Active Bets</h3>
+        <Typography variant="h5" color="textPrimary">Active Bets</Typography>
         {props.store.betReducer.activeBetReducer[0] ?
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
@@ -124,9 +133,9 @@ function MyBets(props) {
             </Table>
           </TableContainer>
           :
-          <Typography>You don't have any active bets for this game.</Typography>
+          <Typography color="textPrimary" className={classes.text}>You don't have any active bets for this game.</Typography>
         }
-        <h3>Create Bet</h3>
+        <Typography variant="h5" color="textPrimary" className={classes.text}>Create Bet</Typography>
       </div>
       <div className={classes.createBetForm}>
         <CreateBetForm />

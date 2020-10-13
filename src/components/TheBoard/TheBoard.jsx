@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import axios from 'axios';
-import { withStyles } from '@material-ui/core';
+import { withStyles, Typography } from '@material-ui/core';
 import TabPanel from './TabPanel';
 import convertDate from './check-week';
 
 const styles = theme => ({
-  container: {
+  heading: {
     padding: '1em',
+    textAlign: 'center',
+    position: 'fixed',
+    width: '100%',
+    top: 0,
+    backgroundColor: '#424242',
+    height: '4.5em',
   },
   weekSpan: {
     marginLeft: '1em',
     fontSize: '.50em',
+  },
+  tabPanel: {
+    marginTop: '6.5em',
+  },
+  headingText: {
+    marginTop: '.5em',
   },
 });
 
@@ -31,13 +42,15 @@ class TheBoard extends Component {
 
     return (
       <div>
-        <div className={classes.container}>
-          <h1>The Board<span className={classes.weekSpan}>
+        <div className={classes.heading}>
+          <Typography variant="h4" className={classes.headingText} color="textPrimary">The Board<span className={classes.weekSpan}>
             Week {currentWeek && currentWeek.week}
             </span>
-          </h1>
+          </Typography>
         </div>
-        <TabPanel />
+        <div className={classes.tabPanel}>
+        <TabPanel/>
+        </div>
       </div>
     );
   }

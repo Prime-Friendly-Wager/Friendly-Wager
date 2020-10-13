@@ -29,7 +29,7 @@ function Open(props) {
 
   return (
     <>
-      {props.store.betReducer.openBetReducer[0]
+      {props.store.betReducer.openBetReducer.filter(bet => bet.proposers_id === props.store.user.id).length
         ?
         <TableContainer component={Paper}>
           <Table aria-label="simple table">

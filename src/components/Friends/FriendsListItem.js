@@ -57,7 +57,7 @@ function FriendsListItem(props) {
           </Grid>
         </Grid>
         :
-        <Typography>You haven't added any friends yet!</Typography>
+        <Typography color="textPrimary">You haven't added any friends yet!</Typography>
       }
     </div>
   );
