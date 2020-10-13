@@ -38,8 +38,6 @@ class TheBoard extends Component {
           </h1>
         </div>
         <TabPanel />
-        <button onClick={() => axios.get('/api/games/fromNflApi')}>API CALL - USE WITH CAUTION</button>
-        <button onClick={() => axios.put('/api/games/theJudge')}>The Judge - USE WITH CAUTION</button>
       </div>
     );
   }
