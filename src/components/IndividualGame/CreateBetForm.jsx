@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, Typography } from '@material-ui/core';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -13,7 +13,12 @@ const useStyles = makeStyles({
         width: '60%',
         marginLeft: '20%',
         marginRight: '20%',
-        marginTop: '2em',
+    },
+    formControlLabel: {
+        color: 'white',
+    },
+    text: {
+        margin: '1em',
     },
 });
 
@@ -77,6 +82,7 @@ function CreateBetForm(props) {
                     label={gameDetails.away_team + ' ' + gameDetails.away_team_spread}
                     labelPlacement="top"
                     checked={bet.proposers_team_id === gameDetails.away_team_id}
+                    className={classes.formControlLabel}
                 />
                 <FormControlLabel
                     value={gameDetails.home_team_id}
@@ -84,10 +90,12 @@ function CreateBetForm(props) {
                     label={gameDetails.home_team + ' ' + gameDetails.home_team_spread}
                     labelPlacement="top"
                     checked={bet.proposers_team_id === gameDetails.home_team_id}
+                    className={classes.formControlLabel}
                 />
             </RadioGroup>
             <TextField type="number" value={bet.wager} placeholder="Enter number of units" variant="outlined" onChange={(event) => handleInputChange('wager', event)}/>
-            <p>Units</p>
+            <Typography color="textPrimary" className={classes.text}>Units</Typography>
+
             <Button
                 variant="contained"
                 color="primary"
