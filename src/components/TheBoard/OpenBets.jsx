@@ -7,9 +7,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 
 //2.1 
 const useStyles = makeStyles({
-  table: {
-    width: '100%',
-  },
+ 
 });
 
 function OpenBets(props) {
@@ -21,7 +19,7 @@ function OpenBets(props) {
       {props.store.betReducer.openBetReducer[0]
         ?
         <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="simple table">
+          <Table aria-label="simple table" className={classes.tableContainer}>
             <TableHead>
               <TableRow>
                 <TableCell align="right">Friend</TableCell>
