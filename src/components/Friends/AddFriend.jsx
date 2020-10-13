@@ -34,11 +34,12 @@ class AddFriend extends Component {
   // function to handle searching for a member by name
   handleSearch = () => {
     let nameSearch = document.getElementById('friendSearch').value;
+    console.log(nameSearch);
     if (nameSearch !== '') {
-      this.props.dispatch({ type: "GET_MEMBERS", payload: { search: nameSearch } })
+      this.props.dispatch({ type: "GET_MEMBERS", payload: { search: nameSearch, type: 'members' } })
     }
     if (nameSearch === '') {
-      this.props.dispatch({ type: "GET_MEMBERS", payload: { search: 'All' } })
+      this.props.dispatch({ type: "GET_MEMBERS", payload: { search: 'All', type: 'members' } })
     }
   }
 

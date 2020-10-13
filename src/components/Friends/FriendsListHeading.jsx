@@ -56,7 +56,18 @@ function FriendsListHeading(props) {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
   const [heading] = useState('My Friends');
-  
+
+  const handleSearch = (event) => {
+    let nameSearch = event.target.value;
+    console.log(nameSearch);
+    if (nameSearch !== '') {
+      props.dispatch({ type: "GET_FRIENDS_SEARCH", payload: { search: nameSearch, type: 'friend' } })
+    }
+    if (nameSearch === '') {
+      props.dispatch({ type: "GET_FRIENDS" })
+    }
+  }
+
   return (
       <Container>
       <center>
@@ -71,13 +82,14 @@ function FriendsListHeading(props) {
     <div className={classes.root}>
     <div className={classes.search}>
     <Autocomplete
-      id="free-solo-demo"
       freeSolo
-      //Change mapping for friends 
+      //Change mapping for friends
       options={props.store.friendsList.map((option) => option.first_name + " " + option.last_name)}
       renderInput={(params) => (
         <TextField
+        id="searchfriend"
         {...params} 
+        onChange={handleSearch}
         label= "Search Friends" 
         margin="normal" 
         variant="outlined"
@@ -91,7 +103,7 @@ function FriendsListHeading(props) {
         }}
       />
         
-      )}
+    )}
     />
     </div>
     </div>
