@@ -11,9 +11,8 @@ function convertDate(){
 function getWeek(convertedDate){
   let currentWeek;
   let mm = Number(moment(convertedDate).month()) + 1
-  console.log(mm)
   let dd = Number(moment(convertedDate).date())
-  console.log(dd)
+  console.log(`Today's date is ${mm}/${dd}.`)
   if (mm === 9 && (dd >= 8 && dd < 15)){
     currentWeek = 1;
   }
@@ -71,7 +70,7 @@ function getWeek(convertedDate){
   else {
     currentWeek = 17;
   }
-  console.log(currentWeek)
+  console.log(`That means it's week ${currentWeek} of the NFL.`)
   return currentWeek
   // getSchedule(currentWeek)
 

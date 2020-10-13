@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import { withRouter } from 'react-router-dom';
 import {Typography} from '@material-ui/core'
 
 class LoginForm extends Component {
@@ -20,6 +21,7 @@ class LoginForm extends Component {
           password: this.state.password,
         },
       });
+      this.props.history.push('/the-board')
     } else {
       this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }
@@ -83,4 +85,4 @@ class LoginForm extends Component {
   }
 }
 
-export default connect(mapStoreToProps)(LoginForm);
+export default connect(mapStoreToProps)(withRouter(LoginForm));
