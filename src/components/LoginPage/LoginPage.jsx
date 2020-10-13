@@ -15,18 +15,8 @@ class LoginPage extends Component {
     
     return (
       <div>
-        <LoginForm />
-
         <center>
-          <button
-            type="button"
-            className="btn btn_asLink"
-            onClick={() => {
-              this.props.history.push('/create-account');
-            }}
-          >
-            Register
-          </button>
+          <br/>
           <br/>
           <br/>
           <svg xmlns="http://www.w3.org/2000/svg" width="250" height="200" viewBox="0 0 1008.88 822.802">
@@ -45,6 +35,22 @@ class LoginPage extends Component {
             2.884-44.453,10.621-45.906,15.028-.368,1.116-1.05,3.912,5.318,6.7,9.227,4.048,28.565,8.5,40.589,10.4,15.259,2.412,53.335,6.466,99.516,8.554,44.287,2,96.427,1.976,128.083,8.092,57.716,
             11.151,48.551,35.6,48.551,35.6" transform="translate(-1000.554 1374.298)" fill="#fff" stroke="#707070" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3"/>
           </svg>
+        </center>
+
+        <LoginForm />
+
+        <center>
+          <button
+            type="button"
+            className="btn btn_asLink"
+            onClick={() => {
+              this.props.history.push('/create-account');
+            }}
+          >
+            Register
+          </button>
+          <br/>
+          <br/>
         </center>
       </div>
     );
