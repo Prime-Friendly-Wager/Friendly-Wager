@@ -16,6 +16,13 @@ const useStyles = makeStyles({
     textAlign: 'center',
     marginBottom: '3.5em',
   },
+  text: {
+    marginTop: '1em',
+    marginBottom: '1em',
+  },
+  creatBet: {
+    marginBottom: '1em',
+  },
 });
 
 function MyBets(props) {
@@ -85,7 +92,7 @@ function MyBets(props) {
             </Table>
           </TableContainer>
           :
-          <Typography color="textPrimary">You don't have any open bets for this game.</Typography>
+          <Typography color="textPrimary" className={classes.text}>You don't have any open bets for this game.</Typography>
         }
         <Typography variant="h5" color="textPrimary">Active Bets</Typography>
         {props.store.betReducer.activeBetReducer[0] ?
@@ -126,9 +133,9 @@ function MyBets(props) {
             </Table>
           </TableContainer>
           :
-          <Typography color="textPrimary">You don't have any active bets for this game.</Typography>
+          <Typography color="textPrimary" className={classes.text}>You don't have any active bets for this game.</Typography>
         }
-        <Typography variant="h5" color="textPrimary">Create Bet</Typography>
+        <Typography variant="h5" color="textPrimary" className={classes.text}>Create Bet</Typography>
       </div>
       <div className={classes.createBetForm}>
         <CreateBetForm />

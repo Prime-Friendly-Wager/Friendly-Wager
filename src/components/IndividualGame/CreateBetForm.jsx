@@ -13,10 +13,12 @@ const useStyles = makeStyles({
         width: '60%',
         marginLeft: '20%',
         marginRight: '20%',
-        marginTop: '2em',
     },
     formControlLabel: {
         color: 'white',
+    },
+    text: {
+        margin: '1em',
     },
 });
 
@@ -83,7 +85,7 @@ function CreateBetForm(props) {
                 />
             </RadioGroup>
             <TextField value={bet.wager} placeholder="0" variant="outlined" onChange={(event) => handleInputChange('wager', event)}/>
-            <Typography color="textPrimary">Units</Typography>
+            <Typography color="textPrimary" className={classes.text}>Units</Typography>
             <Button
                 variant="contained"
                 color="primary"
