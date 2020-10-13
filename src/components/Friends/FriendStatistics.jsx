@@ -8,8 +8,7 @@ import FriendStatisticsHeader from './FriendStatisticsHeader';
 function FriendStatistics(props) {
 
   useEffect(() => {
-    props.dispatch({type: 'FETCH_FRIEND_DETAILS',
-     payload: props.match.params.id })
+    props.dispatch({type: 'FETCH_FRIEND_DETAILS', payload: props.match.params.id })
   }, []);
 
     return (
