@@ -8,6 +8,7 @@ import ArrowBackIosSharpIcon from '@material-ui/icons/ArrowBackIosSharp';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import { deepOrange } from '@material-ui/core/colors';
+import { Typography } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -55,18 +56,21 @@ const useStyles = makeStyles((theme) => ({
 
     
   }));
-  
 
 function FriendStatisticsHeader(props) {
     const classes = useStyles();
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
-  const [heading, setHeading] = useState('');
-  
-  useEffect(() => {
-    setHeading('Peter Engstrand')
-  }, []);
-
+    let friendId = Number(props.match.params.id);
+    let overall = 0;
+    let friendOpenBets = props.store.betReducer.openBetReducer.filter(bet => bet.proposers_id === friendId);
+    let ourActiveBets = props.store.betReducer.activeBetReducer.filter(bet => bet.proposers_id === friendId || bet.acceptors_id === friendId);
+    let ourCompletedBets = props.store.betReducer.completedBetReducer.filter(bet => bet.oppenent_id === friendId);
+    for(let i = 0; i < ourCompletedBets.length; i++){
+      if(ourCompletedBets[i].winner === 'W'){
+            overall += ourCompletedBets[i].wager;
+      } else{
+        overall -= ourCompletedBets[i].wager
+      }
+    }
   return (
       <>
      
@@ -74,39 +78,55 @@ function FriendStatisticsHeader(props) {
       <Fab color="primary" onClick={() => {props.history.push('/friends')}} aria-label="add">
         <ArrowBackIosSharpIcon className={classes.backButton} />
       </Fab>
-      <h2 className={classes.heading}>{heading}</h2>
+    {props.store.friendsList.filter(friend => friend.id === friendId).map(friend => (
+      <Typography key={friend.id} variant="h4" color="textPrimary">{friend.first_name}</Typography>
+    ))}
     </div>
-    <Grid
-    container
-    direction="row"
-    justify="center"
-    alignItems="center"
-    spacing={5}>  
-    <Grid item><b>Total Bets</b>
-    <br /><center>8</center></Grid> 
-    <Grid item>
-    <Avatar className={classes.orange}>
-    {heading[0]}
-    </Avatar>
-    </Grid> 
-    <Grid item><b>Pending Bets</b>
-    <br /><center>5</center>
-    </Grid> 
+
+    <Grid container direction="row" justify="center" alignItems="center" spacing={5}>  
+      <Grid item>
+        <b>Total Bets</b>
+        <br />
+        <center>
+          <Typography color="textPrimary">{props.store.friendStatistics.length}</Typography>
+        </center>
+      </Grid> 
+      <Grid item>
+        <Avatar className={classes.orange}></Avatar>
+      </Grid> 
+      <Grid item>
+        <b>Open Bets</b>
+        <br />
+        <center>
+          <Typography color="textPrimary">{friendOpenBets.length}</Typography>
+        </center>
+      </Grid> 
     </Grid>
+
     <div className={classes.historyContainer}>
-    <h3>My History with Peter</h3>
+      <h3>My History with Peter</h3>
     </div>
-    <Grid
-    container
-    direction="row"
-    justify="center"
-    alignItems="center"
-    spacing={5}>  
-    <Grid item><b>Total Bets</b>
-    <br /><center>2</center></Grid> 
-    <Grid item><b>Pending Bets</b>
-    <br /><center>4</center>
-    </Grid> 
+
+    <Grid container direction="row" justify="center" alignItems="center" spacing={5}>  
+      <Grid item>
+        <b>Completed Bets</b>
+        <br />
+        <center>
+          <Typography color="textPrimary">{ourCompletedBets.length}</Typography>
+        </center>
+      </Grid> 
+      <Grid item>
+        <b>Active Bets</b>
+        <br />
+        <center>
+          <Typography color="textPrimary">{ourActiveBets.length}</Typography>
+        </center>
+      </Grid>
+      <Grid item>
+        <b>Overall +/-</b>
+        <br />
+        <center>{overall}</center>
+      </Grid> 
     </Grid>
    
 

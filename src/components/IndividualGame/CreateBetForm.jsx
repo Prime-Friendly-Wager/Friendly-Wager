@@ -38,11 +38,20 @@ function CreateBetForm(props) {
 
     //handling input change for state hook
     const handleInputChange = (property, event) => {
+        //if block fixes default to 0 and app crash
+        if (event.target.value == ''){
+            setBet({
+                ...bet,
+                wager: ''
+            })
+        }
+        else {
         setBet({
             ...bet,
             [property]: Number(event.target.value)
         });
     }
+}
 
     //sending packaged bet to saga
     //then emptying radio button and input
@@ -84,8 +93,9 @@ function CreateBetForm(props) {
                     className={classes.formControlLabel}
                 />
             </RadioGroup>
-            <TextField value={bet.wager} placeholder="0" variant="outlined" onChange={(event) => handleInputChange('wager', event)}/>
+            <TextField type="number" value={bet.wager} placeholder="Enter number of units" variant="outlined" onChange={(event) => handleInputChange('wager', event)}/>
             <Typography color="textPrimary" className={classes.text}>Units</Typography>
+
             <Button
                 variant="contained"
                 color="primary"

@@ -50,6 +50,7 @@ router.get('/open', rejectUnauthenticated, (req, res) => {
 
     pool.query(queryText, [req.user.id])
         .then(response => {
+            console.log('Got open bets!');
             res.send(response.rows);
         })
         .catch(error => {
@@ -92,6 +93,7 @@ router.get('/active', rejectUnauthenticated, (req, res) => {
 
     pool.query(queryText, [req.user.id])
         .then(response => {
+            console.log('Got active bets!');
             res.send(response.rows);
         })
         .catch(error => {
@@ -103,7 +105,7 @@ router.get('/active', rejectUnauthenticated, (req, res) => {
 //5.3 your completed bet history
 router.get('/my-bets/history', rejectUnauthenticated, (req, res) => {
     const userId = req.user.id;
-    const betQuery = `SELECT "bets".id, "bets".wager, "bets".game_id, "user".first_name AS opponent, "games".date, "home_team".nfl_api_ref AS home_team_name, 
+    const betQuery = `SELECT "bets".id, "bets".wager, "bets".game_id, "user".first_name AS opponent, "user".id AS oppenent_id, "games".date, "home_team".nfl_api_ref AS home_team_name, 
     "away_team".nfl_api_ref AS away_team_name, "my_bet_team".nfl_api_ref AS my_bet_team,
     CASE 
     WHEN "bets".proposers_team_id = "games".home_team_id THEN "games".home_team_spread
@@ -122,7 +124,7 @@ router.get('/my-bets/history', rejectUnauthenticated, (req, res) => {
     WHERE "bets".proposers_id = $1
     AND "bets".completed = true
     UNION
-    SELECT "bets".id, "bets".wager, "bets".game_id, "user".first_name AS opponent, "games".date, "home_team".nfl_api_ref AS home_team_name, 
+    SELECT "bets".id, "bets".wager, "bets".game_id, "user".first_name AS opponent, "user".id AS oppenent_id, "games".date, "home_team".nfl_api_ref AS home_team_name, 
     "away_team".nfl_api_ref AS away_team_name, "my_bet_team".nfl_api_ref AS my_bet_team,
     CASE 
     WHEN "bets".acceptors_team_id = "games".home_team_id THEN "games".home_team_spread
