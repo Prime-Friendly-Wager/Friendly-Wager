@@ -18,8 +18,6 @@ const styles = theme => ({
     color: 'white',
     padding: '.2em',
     position: 'relative',
-    top: '1em',
-
   },
   heading: {
     textAlign: 'center',
