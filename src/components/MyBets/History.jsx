@@ -7,7 +7,10 @@ import moment from 'moment';
 const useStyles = makeStyles({
   tableContainer: {
     marginTop: '2.5em',
-  }, 
+  },
+  conditionalText: {
+    marginTop: '3em',
+  }
 });
 
 function History(props) {
@@ -16,7 +19,7 @@ function History(props) {
 
   return (
     <>
-      {props.store.betReducer.completedBetReducer[0]
+      {props.store.betReducer.completedBetReducer.length
         ?
         <TableContainer component={Paper} className={classes.tableContainer}>
           <Table aria-label="simple table">
@@ -45,7 +48,7 @@ function History(props) {
           </Table>
         </TableContainer>
         :
-        <Typography color="textPrimary">You haven't completed any bets yet.</Typography>
+        <Typography color="textPrimary" className={classes.conditionalText}>You haven't completed any bets yet.</Typography>
       }
     </>
   );

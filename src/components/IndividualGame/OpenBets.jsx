@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     marginTop: '3em',
   },
   tableContainer: {
-    marginTop: '3em',
+    marginTop: '2.5em',
   },
 });
 

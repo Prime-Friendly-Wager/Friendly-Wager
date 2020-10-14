@@ -12,6 +12,9 @@ const useStyles = makeStyles({
   tableContainer: {
     marginTop: '2.5em',
   }, 
+  conditionalText: {
+    marginTop: '3em',
+  }
 });
 
 function Open(props) {
@@ -88,7 +91,7 @@ function Open(props) {
           </Table>
         </TableContainer>
         :
-        <Typography color="textPrimary">You haven't opened any bets yet.</Typography>
+        <Typography color="textPrimary" className={classes.conditionalText}>You haven't opened any bets yet.</Typography>
       }
     </>
   );

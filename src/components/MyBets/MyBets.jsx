@@ -25,7 +25,6 @@ const styles = theme => ({
   },
 });
 
-
 class MyBets extends Component {
 
   componentDidMount() {
