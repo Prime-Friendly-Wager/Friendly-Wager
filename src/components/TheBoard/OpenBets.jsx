@@ -21,10 +21,10 @@ function OpenBets(props) {
           <Table aria-label="simple table" className={classes.tableContainer}>
             <TableHead>
               <TableRow>
-                <TableCell align="right">Friend</TableCell>
-                <TableCell align="right">Game</TableCell>
-                <TableCell align="right">Bet</TableCell>
-                <TableCell align="right">Wager</TableCell>
+                <TableCell align="left">Friend</TableCell>
+                <TableCell align="left">Game</TableCell>
+                <TableCell align="left">Bet</TableCell>
+                <TableCell align="center">Wager</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
