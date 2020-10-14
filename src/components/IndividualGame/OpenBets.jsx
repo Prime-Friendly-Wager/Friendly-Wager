@@ -10,18 +10,25 @@ const useStyles = makeStyles({
   table: {
     width: '100%',
   },
+  conditionalText: {
+    marginTop: '3em',
+  },
+  tableContainer: {
+    marginTop: '2.5em',
+  },
 });
 
 function OpenBets(props) {
 
   const classes = useStyles();
+  const game = props.store.games.filter(game => game.id == props.match.params.id)[0];
 
   return (
     <>
       {props.store.betReducer.openBetReducer.filter(bet => 
-             (bet.proposers_id !== props.store.user.id && bet.game_id === props.store.gameDetails.id)).length
+             (bet.proposers_id !== props.store.user.id && bet.game_id === game.id)).length
         ?
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} className={classes.tableContainer}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -33,14 +40,14 @@ function OpenBets(props) {
             <TableBody>
              {/* only displays bets you didn't propose and belong to this game  */}
              {props.store.betReducer.openBetReducer.filter(bet => 
-             (bet.proposers_id !== props.store.user.id && bet.game_id === props.store.gameDetails.id)).map(bet => (
+             (bet.proposers_id !== props.store.user.id && bet.game_id === game.id)).map(bet => (
                 <OpenBetRow key={bet.id} bet={bet} />
               ))}
             </TableBody>
           </Table>
         </TableContainer>
         :
-        <Typography color="textPrimary">There aren't any open bets for this game.</Typography>
+        <Typography color="textPrimary" className={classes.conditionalText}>There aren't any open bets for this game.</Typography>
       }
     </>
   );

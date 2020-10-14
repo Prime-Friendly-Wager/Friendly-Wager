@@ -1,14 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles'
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import { Table, TableContainer, TableBody, TableCell, TableHead, TableRow, Paper, Typography, Grid } from '@material-ui/core';
+import { makeStyles, Table, TableContainer, TableBody, TableCell, TableHead, TableRow, Paper, Typography } from '@material-ui/core';
 import moment from 'moment';
 
 const useStyles = makeStyles({
   table: {
     flexGrow: 1
   },
+  tableContainer: {
+    marginTop: '2.5em',
+  },
+  conditionalText: {
+    marginTop: '3em',
+  }
 });
 
 function History(props) {
@@ -17,9 +22,9 @@ function History(props) {
 
   return (
     <>
-      {props.store.betReducer.completedBetReducer[0]
+      {props.store.betReducer.completedBetReducer.length
         ?
-        <TableContainer className={classes.table}>
+        <TableContainer component={Paper} className={classes.tableContainer}>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -46,7 +51,7 @@ function History(props) {
           </Table>
           </TableContainer>
         :
-        <Typography color="textPrimary">You haven't completed any bets yet.</Typography>
+        <Typography color="textPrimary" className={classes.conditionalText}>You haven't completed any bets yet.</Typography>
       }
     </>
   );
