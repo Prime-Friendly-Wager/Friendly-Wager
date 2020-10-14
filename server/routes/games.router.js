@@ -12,7 +12,8 @@ router.get('/week/:week', rejectUnauthenticated, (req, res) => {
                     FROM "games"
                     LEFT JOIN "teams" as home_team ON "games".home_team_id = "home_team".id
                     LEFT JOIN "teams" as away_team ON "games".away_team_id = "away_team".id
-                    WHERE "games".week = $1 AND home_team_spread IS NOT NULL;`
+                    WHERE "games".week = $1 AND home_team_spread IS NOT NULL
+                    ORDER BY "date" ASC;`
     pool.query(queryText, [req.params.week])
         .then((result) => {
             res.send(result.rows);
