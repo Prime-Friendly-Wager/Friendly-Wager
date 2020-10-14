@@ -15,15 +15,14 @@ const styles = theme => ({
     backgroundColor: '#424242',
     height: '4.5em',
   },
-  weekSpan: {
-    marginLeft: '1em',
-    fontSize: '.50em',
-  },
   tabPanel: {
     marginTop: '6.5em',
   },
   headingText: {
-    marginTop: '.5em',
+    marginTop: '.2em',
+  },
+  headingTextGroup: {
+    paddingRight: '1em',
   },
 });
 
@@ -43,13 +42,13 @@ class TheBoard extends Component {
     return (
       <div>
         <div className={classes.heading}>
-          <Typography variant="h4" className={classes.headingText} color="textPrimary">The Board<span className={classes.weekSpan}>
-            Week {currentWeek && currentWeek.week}
-            </span>
-          </Typography>
+          <div className={classes.headingTextGroup}>
+            <Typography variant="h4" className={classes.headingText} color="textPrimary">The Board</Typography>
+            <Typography color="textPrimary">Week {currentWeek && currentWeek.week}</Typography>
+          </div>
         </div>
         <div className={classes.tabPanel}>
-        <TabPanel/>
+          <TabPanel />
         </div>
       </div>
     );
