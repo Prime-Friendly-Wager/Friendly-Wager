@@ -8,6 +8,7 @@ import {
 
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import convertDate from '../../components/TheBoard/check-week';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
@@ -34,6 +35,9 @@ const darkTheme = createMuiTheme ({
 class App extends Component {
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_USER' });
+    const currentWeek = convertDate();
+    this.props.dispatch({ type: 'FETCH_GAMES', payload: currentWeek });
+    this.props.dispatch({ type: 'FETCH_BETS' })
   }
 
   render() {

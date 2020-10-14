@@ -31,7 +31,10 @@ class TheBoard extends Component {
 
   componentDidMount() {
     const currentWeek = convertDate();
-    this.props.dispatch({ type: 'FETCH_GAMES', payload: currentWeek });
+    //only fetchs games if games aren't already there
+    if(!this.props.store.games.length) {
+      this.props.dispatch({ type: 'FETCH_GAMES', payload: currentWeek });
+    }
     this.props.dispatch({ type: 'FETCH_BETS' });
   }
 

@@ -32,11 +32,6 @@ const styles = theme => ({
 
 class IndividualGame extends Component {
 
-
-  componentDidMount() {
-    this.props.dispatch({ type: 'FETCH_GAME_DETAILS', payload: this.props.match.params.id });
-  }
-
   handleBack = () => {
     this.props.dispatch({ type: 'SET_BACK_STATUS', payload: true });
     this.props.history.goBack();
@@ -45,9 +40,12 @@ class IndividualGame extends Component {
   render() {
 
     const { classes } = this.props;
-    const game = this.props.store.gameDetails;
+    const game = this.props.store.games.filter(game => game.id == this.props.match.params.id)[0];
+    console.log(game);
 
     return (
+      <>
+      {game &&
       <div>
         <div className={classes.header}>
             <Button onClick={this.handleBack}>
@@ -59,7 +57,8 @@ class IndividualGame extends Component {
         </div>
         {/* {JSON.stringify(this.props.store.gameDetails)} */}
         <TabPanel />
-      </div>
+      </div>}
+      </>
     );
   }
 }
