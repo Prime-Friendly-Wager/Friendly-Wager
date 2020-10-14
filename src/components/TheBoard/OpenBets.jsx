@@ -3,7 +3,7 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 import React from 'react';
 import OpenBetRow from './OpenBetRow';
 import { makeStyles } from '@material-ui/core/styles';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@material-ui/core';
+import { Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@material-ui/core';
 
 //2.1 
 const useStyles = makeStyles({
@@ -37,7 +37,9 @@ function OpenBets(props) {
           </Table>
         </TableContainer>
         :
-        <Typography color="textPrimary">Your friends haven't opened any bets yet.</Typography>
+        <Container>
+          <Typography color="textPrimary">Your friends haven't opened any bets yet.</Typography>
+        </Container>
       }
     </>
   );

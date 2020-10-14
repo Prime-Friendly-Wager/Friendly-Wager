@@ -76,9 +76,9 @@ function OpenBetRow(props) {
         {/* Bet */}
         {/* checks if proposer is home team */}
         {props.bet.proposers_team_is_home_team ?
-          <TableCell align="left">{props.bet.home_team_name} {props.bet.home_team_spread}</TableCell>
+          <TableCell align="left">{props.bet.home_team_name} {props.bet.home_team_spread > 0 && '+'}{props.bet.home_team_spread}</TableCell>
           :
-          <TableCell align="left">{props.bet.away_team_name} {props.bet.away_team_spread}</TableCell>
+          <TableCell align="left">{props.bet.away_team_name} {props.bet.away_team_spread > 0 && '+'}{props.bet.away_team_spread}</TableCell>
         }
         {/* Wager */}
         <TableCell align="center">{props.bet.wager}</TableCell>

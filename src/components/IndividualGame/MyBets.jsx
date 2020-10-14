@@ -145,11 +145,11 @@ function MyBets(props) {
           :
           <Typography color="textPrimary" className={classes.text}>You don't have any active bets for this game.</Typography>
         }
+      </div>
+      <Container className={classes.createBetForm}>
         <Typography variant="h5" color="textPrimary" className={classes.text}>Create Bet</Typography>
-      </div>
-      <div className={classes.createBetForm}>
         <CreateBetForm />
-      </div>
+      </Container>
     </div>
   );
 }

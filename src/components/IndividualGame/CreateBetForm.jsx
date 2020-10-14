@@ -94,7 +94,13 @@ function CreateBetForm(props) {
                     className={classes.formControlLabel}
                 />
             </RadioGroup>
-            <TextField type="number" value={bet.wager} placeholder="Enter number of units" variant="outlined" onChange={(event) => handleInputChange('wager', event)}/>
+            <TextField 
+                type="number" 
+                value={bet.wager} 
+                placeholder="Enter your wager" 
+                variant="outlined" 
+                onChange={(event) => handleInputChange('wager', event)}
+            />
             <Typography color="textPrimary" className={classes.text}>Units</Typography>
 
             <Button
