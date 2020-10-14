@@ -32,9 +32,9 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         paddingTop: '100px'
     },
-    heading: {
-        paddingLeft: '100px'
-    },
+    // heading: {
+    //     paddingLeft: '100px'
+    // },
     extendedIcon: {
       marginRight: theme.spacing(1),
     },
@@ -83,7 +83,7 @@ function FriendStatisticsHeader(props) {
     ))}
     </div>
 
-    <Grid container direction="row" justify="center" alignItems="center" spacing={5}>  
+    <Grid container direction="row" justify="center" alignItems="center" >  
       <Grid item>
         <Typography variant="h6">Total Bets</Typography>
         <br />
@@ -107,7 +107,7 @@ function FriendStatisticsHeader(props) {
     <Typography variant="h5">My History with Peter</Typography>
     </div>
 
-    <Grid container direction="row" justify="center" alignItems="center" spacing={5}>  
+    <Grid container direction="row" justify="center" alignItems="center" >  
       <Grid item>
       <Typography variant="h6">Completed Bets</Typography>
         <br />
