@@ -85,7 +85,7 @@ function FriendStatisticsHeader(props) {
 
     <Grid container direction="row" justify="center" alignItems="center" spacing={5}>  
       <Grid item>
-        <b>Total Bets</b>
+        <Typography variant="h6">Total Bets</Typography>
         <br />
         <center>
           <Typography color="textPrimary">{props.store.friendStatistics.length}</Typography>
@@ -95,7 +95,7 @@ function FriendStatisticsHeader(props) {
         <Avatar className={classes.orange}></Avatar>
       </Grid> 
       <Grid item>
-        <b>Open Bets</b>
+      <Typography variant="h6">Open Bets</Typography>
         <br />
         <center>
           <Typography color="textPrimary">{friendOpenBets.length}</Typography>
@@ -104,28 +104,30 @@ function FriendStatisticsHeader(props) {
     </Grid>
 
     <div className={classes.historyContainer}>
-      <h3>My History with Peter</h3>
+    <Typography variant="h5">My History with Peter</Typography>
     </div>
 
     <Grid container direction="row" justify="center" alignItems="center" spacing={5}>  
       <Grid item>
-        <b>Completed Bets</b>
+      <Typography variant="h6">Completed Bets</Typography>
         <br />
         <center>
           <Typography color="textPrimary">{ourCompletedBets.length}</Typography>
         </center>
       </Grid> 
       <Grid item>
-        <b>Active Bets</b>
+        <Typography variant="h6">Active Bets</Typography>
         <br />
         <center>
           <Typography color="textPrimary">{ourActiveBets.length}</Typography>
         </center>
       </Grid>
       <Grid item>
-        <b>Overall +/-</b>
+        <Typography variant="h6">Overall +/-</Typography>
         <br />
-        <center>{overall}</center>
+        <center>
+          <Typography>{overall}</Typography>
+        </center>
       </Grid> 
     </Grid>
    
