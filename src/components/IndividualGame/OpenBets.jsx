@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import OpenBetRow from './OpenBetRow';
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,6 +19,10 @@ const useStyles = makeStyles({
 });
 
 function OpenBets(props) {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const classes = useStyles();
   const game = props.store.games.filter(game => game.id == props.match.params.id)[0];

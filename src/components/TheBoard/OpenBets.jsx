@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import React from 'react';
+import React, {useEffect} from 'react';
 import OpenBetRow from './OpenBetRow';
 import { makeStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Container } from '@material-ui/core';
@@ -17,6 +17,10 @@ const useStyles = makeStyles({
 });
 
 function OpenBets(props) {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const classes = useStyles();
 

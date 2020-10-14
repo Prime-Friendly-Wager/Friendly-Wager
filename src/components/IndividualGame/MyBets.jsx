@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import CreateBetForm from './CreateBetForm';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
@@ -9,7 +9,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Table, TableBody, TableCell, TableContainer, TableRow, Paper, Typography, Button } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, TableRow, Paper, Typography, Button, TableHead } from '@material-ui/core';
 
 const useStyles = makeStyles({
   createBetForm: {
@@ -29,6 +29,10 @@ const useStyles = makeStyles({
 });
 
 function MyBets(props) {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -55,10 +59,17 @@ function MyBets(props) {
       <div>
         <Typography variant="h5" color="textPrimary" className={classes.openBets}>Open Bets</Typography>
         {props.store.betReducer.openBetReducer.filter(bet =>
-                  (bet.proposers_id === props.store.user.id && bet.game_id === game.id)).length
+          (bet.proposers_id === props.store.user.id && bet.game_id === game.id)).length
           ?
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="left">My Bet</TableCell>
+                  <TableCell align="center">Wager</TableCell>
+                  <TableCell align="center">Delete</TableCell>
+                </TableRow>
+              </TableHead>
               <TableBody>
                 {/* only shows your open bets for this particular game */}
                 {props.store.betReducer.openBetReducer.filter(bet =>
@@ -67,12 +78,15 @@ function MyBets(props) {
                       <TableCell align="left">
                         {/* determines if proposer has home team stats */}
                         {bet.proposers_team_is_home_team ?
-                          <Typography> You have {bet.home_team_name} {bet.home_team_spread} for {bet.wager} units.</Typography>
+                          <Typography variant="body2">{bet.home_team_name} {(bet.home_team_spread > 0) && '+'}{bet.home_team_spread}</Typography>
                           :
-                          <Typography> You have {bet.away_team_name} {bet.away_team_spread} for {bet.wager} units.</Typography>
+                          <Typography variant="body2">{bet.away_team_name} {(bet.away_team_spread > 0) && '+'}{bet.away_team_spread}</Typography>
                         }
                       </TableCell>
-                      <TableCell>
+                      <TableCell align="center">
+                        {bet.wager}
+                      </TableCell>
+                      <TableCell align="center">
                         <DeleteForeverIcon color="secondary" onClick={handleClickOpen} />
                       </TableCell>
                       <Dialog
@@ -104,34 +118,46 @@ function MyBets(props) {
           (bet.game_id === game.id)).length ?
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="left">My Bet</TableCell>
+                  <TableCell align="left">Against</TableCell>
+                  <TableCell align="center">Wager</TableCell>
+                </TableRow>
+              </TableHead>
               <TableBody>
                 {/* filters only active bets for this game */}
                 {props.store.betReducer.activeBetReducer.filter(bet =>
                   (bet.game_id === game.id)).map(bet => (
                     <TableRow key={bet.id}>
                       {bet.proposers_id === props.store.user.id ?
-                        bet.proposers_team_is_home_team ?
-                          //user is proposer and team is home
-                          <TableCell align="left">
-                            You have {bet.home_team_name} {bet.home_team_spread} for {bet.wager}, {bet.acceptors_first_name} {bet.acceptors_last_name} has taken {bet.away_team_name}.
-                            </TableCell>
-                          :
-                          //user is proposer and team is away
-                          <TableCell align="left">
-                            You have {bet.away_team_name} {bet.away_team_spread} for {bet.wager}, {bet.acceptors_first_name} {bet.acceptors_last_name} has taken {bet.home_team_name}.
-                            </TableCell>
-                        :
-                        bet.proposers_team_is_home_team ?
-                          //user is acceptor and team is away
-                          <TableCell align="left">
-                            You have {bet.away_team_name} {bet.away_team_spread} for {bet.wager}, {bet.proposers_first_name} {bet.proposers_last_name} has taken {bet.home_team_name}.
-                            </TableCell>
-                          :
-                          //user is acceptor and team is home
-                          <TableCell align="left">
-                            You have {bet.home_team_name} {bet.home_team_spread} for {bet.wager}, {bet.proposers_first_name} {bet.proposers_last_name} has taken {bet.away_team_name}.
-                            </TableCell>
-                      }
+                    bet.proposers_team_is_home_team ?
+                      //user is proposer and team is home
+                      <>
+                        <TableCell align="left">{bet.home_team_name} {(bet.home_team_spread > 0) && '+'}{bet.home_team_spread}</TableCell>
+                        <TableCell align="left">{bet.acceptors_first_name} {bet.acceptors_last_name}</TableCell>
+                      </>
+                      :
+                      //user is proposer and team is away
+                      <>
+                        <TableCell align="left">{bet.away_team_name} {(bet.away_team_spread > 0) && '+'}{bet.away_team_spread}</TableCell>
+                        <TableCell align="left">{bet.acceptors_first_name} {bet.acceptors_last_name}</TableCell>
+                      </>
+                    :
+                    bet.proposers_team_is_home_team ?
+                      //user is acceptor and team is away
+                      <>
+                        <TableCell align="left">{bet.away_team_name} {(bet.away_team_spread > 0) && '+'}{bet.away_team_spread}</TableCell>
+                        <TableCell align="left">{bet.proposers_first_name} {bet.proposers_last_name}</TableCell>
+                      </>
+                      :
+                      //user is acceptor and team is home
+                      <>
+                        <TableCell align="left">{bet.home_team_name} {(bet.home_team_spread > 0) && '+'}{bet.home_team_spread}</TableCell>
+                        <TableCell align="left">{bet.proposers_first_name} {bet.proposers_last_name}</TableCell>
+                      </>
+                  }
+                  <TableCell align="center">{bet.wager}</TableCell>
                     </TableRow>
                   )
                   )}

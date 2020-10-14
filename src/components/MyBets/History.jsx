@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { makeStyles, Table, TableContainer, TableBody, TableCell, TableHead, TableRow, Paper, Typography } from '@material-ui/core';
@@ -17,6 +17,10 @@ const useStyles = makeStyles({
 });
 
 function History(props) {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const classes = useStyles();
 
