@@ -10,6 +10,12 @@ const useStyles = makeStyles({
   table: {
     width: '100%',
   },
+  conditionalText: {
+    marginTop: '3em',
+  },
+  tableContainer: {
+    marginTop: '3em',
+  },
 });
 
 function OpenBets(props) {
@@ -21,7 +27,7 @@ function OpenBets(props) {
       {props.store.betReducer.openBetReducer.filter(bet => 
              (bet.proposers_id !== props.store.user.id && bet.game_id === props.store.gameDetails.id)).length
         ?
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} className={classes.tableContainer}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -40,7 +46,7 @@ function OpenBets(props) {
           </Table>
         </TableContainer>
         :
-        <Typography color="textPrimary">There aren't any open bets for this game.</Typography>
+        <Typography color="textPrimary" className={classes.conditionalText}>There aren't any open bets for this game.</Typography>
       }
     </>
   );

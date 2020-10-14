@@ -7,7 +7,6 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 
 //2.1 
 const useStyles = makeStyles({
- 
 });
 
 function OpenBets(props) {
