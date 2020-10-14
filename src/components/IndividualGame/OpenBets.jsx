@@ -15,11 +15,12 @@ const useStyles = makeStyles({
 function OpenBets(props) {
 
   const classes = useStyles();
+  const game = props.store.games.filter(game => game.id == props.match.params.id)[0];
 
   return (
     <>
       {props.store.betReducer.openBetReducer.filter(bet => 
-             (bet.proposers_id !== props.store.user.id && bet.game_id === props.store.gameDetails.id)).length
+             (bet.proposers_id !== props.store.user.id && bet.game_id === game.id)).length
         ?
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="simple table">
@@ -33,7 +34,7 @@ function OpenBets(props) {
             <TableBody>
              {/* only displays bets you didn't propose and belong to this game  */}
              {props.store.betReducer.openBetReducer.filter(bet => 
-             (bet.proposers_id !== props.store.user.id && bet.game_id === props.store.gameDetails.id)).map(bet => (
+             (bet.proposers_id !== props.store.user.id && bet.game_id === game.id)).map(bet => (
                 <OpenBetRow key={bet.id} bet={bet} />
               ))}
             </TableBody>

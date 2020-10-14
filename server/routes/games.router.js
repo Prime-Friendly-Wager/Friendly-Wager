@@ -7,14 +7,12 @@ const router = express.Router();
 require('dotenv').config();
 
 //the querytext in this route will need to be changed
-//as of now it's not getting the team names or logos, just displaying team id
-//need to change date column data type to time, time currently not displaying correctly
 router.get('/week/:week', rejectUnauthenticated, (req, res) => {
-    const queryText = `SELECT games.*, home_team."name" as home_team, away_team."name" as away_team
+    const queryText = `SELECT games.*, home_team."name" as home_team, away_team."name" as away_team, home_team."logo" as home_team_logo, away_team."logo" as away_team_logo
                     FROM "games"
                     LEFT JOIN "teams" as home_team ON "games".home_team_id = "home_team".id
                     LEFT JOIN "teams" as away_team ON "games".away_team_id = "away_team".id
-                    WHERE "games".week = $1;`
+                    WHERE "games".week = $1 AND home_team_spread IS NOT NULL;`
     pool.query(queryText, [req.params.week])
         .then((result) => {
             res.send(result.rows);
@@ -31,7 +29,7 @@ router.get('/details/:id', rejectUnauthenticated, (req, res) => {
                     FROM "games"
                     LEFT JOIN "teams" as home_team ON "games".home_team_id = "home_team".id
                     LEFT JOIN "teams" as away_team ON "games".away_team_id = "away_team".id
-                    WHERE "games".id = $1;`
+                    WHERE "games".id = $1 AND home_team_spread IS NOT NULL;`
     pool.query(queryText, [req.params.id])
         .then((result) => {
             res.send(result.rows[0]);

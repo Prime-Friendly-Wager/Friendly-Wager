@@ -45,19 +45,21 @@ function MyBets(props) {
     handleClose();
   }
 
+  const game = props.store.games.filter(game => game.id == props.match.params.id)[0];
+
   return (
     <div>
       <div>
         <Typography variant="h5" color="textPrimary">Open Bets</Typography>
         {props.store.betReducer.openBetReducer.filter(bet =>
-                  (bet.proposers_id === props.store.user.id && bet.game_id === props.store.gameDetails.id)).length
+                  (bet.proposers_id === props.store.user.id && bet.game_id === game.id)).length
           ?
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
               <TableBody>
                 {/* only shows your open bets for this particular game */}
                 {props.store.betReducer.openBetReducer.filter(bet =>
-                  (bet.proposers_id === props.store.user.id && bet.game_id === props.store.gameDetails.id)).map(bet =>
+                  (bet.proposers_id === props.store.user.id && bet.game_id === game.id)).map(bet =>
                     (<TableRow key={bet.id}>
                       <TableCell align="left">
                         {/* determines if proposer has home team stats */}
@@ -101,7 +103,7 @@ function MyBets(props) {
               <TableBody>
                 {/* filters only active bets for this game */}
                 {props.store.betReducer.activeBetReducer.filter(bet =>
-                  (bet.game_id === props.store.gameDetails.id)).map(bet => (
+                  (bet.game_id === game.id)).map(bet => (
                     <TableRow key={bet.id}>
                       {bet.proposers_id === props.store.user.id ?
                         bet.proposers_team_is_home_team ?

@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 function SimpleTable(props) {
 
   const classes = useStyles();
-
+  
   return (
     <>
       {props.store.games[0]
