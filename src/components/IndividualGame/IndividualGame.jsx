@@ -18,31 +18,24 @@ const styles = theme => ({
     color: 'white',
     padding: '.2em',
     position: 'relative',
-    
-
   },
-  date: {
-    color: 'white',
-    position: 'absolute',
-    top: '5.2em',
-    left: '7.5em',
-    
-  },
-  header: {
+  heading: {
     textAlign: 'center',
     display: 'flex',
     height: '5em',
     paddingTop: '.75em',
     paddingBottom: '.75em',
+    position: 'fixed',
+    width: '100%',
+    top: 0,
+    backgroundColor: '#424242',
+  },
+  tabPanel: {
+    marginTop: '6.5em',
   },
 });
 
 class IndividualGame extends Component {
-
-
-  componentDidMount() {
-    this.props.dispatch({ type: 'FETCH_GAME_DETAILS', payload: this.props.match.params.id });
-  }
 
   handleBack = () => {
     this.props.dispatch({ type: 'SET_BACK_STATUS', payload: true });
@@ -52,26 +45,26 @@ class IndividualGame extends Component {
   render() {
 
     const { classes } = this.props;
-    const game = this.props.store.gameDetails;
+    const game = this.props.store.games.filter(game => game.id == this.props.match.params.id)[0];
+    console.log(game);
 
     return (
+      <>
+      {game &&
       <div>
-        <div className={classes.header}>
-            <Button onClick={this.handleBack}>
-              <ArrowBackIcon className={classes.backButton} />
-            </Button>
-            <img src={game.away_team_logo} alt={game.away_team} width="75" height="75" />
-            <AlternateEmailIcon className={classes.atLogo}/>
-            <img src={game.home_team_logo} alt={game.home_team} width="75" height="75" />
-           
-  
-           
+        <div className={classes.heading}>
+          <Button onClick={this.handleBack}>
+            <ArrowBackIcon className={classes.backButton} />
+          </Button>
+          <img src={game.away_team_logo} alt={game.away_team} width="75" height="75" />
+          <AlternateEmailIcon className={classes.atLogo} />
+          <img src={game.home_team_logo} alt={game.home_team} width="75" height="75" />
         </div>
-            
-        
-        {/* {JSON.stringify(this.props.store.gameDetails)} */}
-        <TabPanel />
-      </div>
+        <div className={classes.tabPanel}>
+          <TabPanel />
+        </div>
+      </div>}
+      </>
     );
   }
 }

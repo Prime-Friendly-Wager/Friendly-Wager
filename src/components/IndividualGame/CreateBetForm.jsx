@@ -7,6 +7,7 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import { makeStyles } from '@material-ui/core/styles';
+import { withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles({
     createBetBtn: {
@@ -25,14 +26,14 @@ const useStyles = makeStyles({
 function CreateBetForm(props) {
 
     const classes = useStyles();
-    const gameDetails = props.store.gameDetails;
+    const game = props.store.games.filter(game => game.id == props.match.params.id)[0];
     const user = props.store.user;
 
     // state hook to package up bet
     const [bet, setBet] = useState({
         proposers_id: user.id,
         wager: '',
-        game_id: gameDetails.id,
+        game_id: game.id,
         proposers_team_id: '',
     });
 
@@ -77,19 +78,19 @@ function CreateBetForm(props) {
         <FormControl component="fieldset">
             <RadioGroup row aria-label="position" name="position" onChange={(event) => handleInputChange('proposers_team_id', event)}>
                 <FormControlLabel
-                    value={gameDetails.away_team_id}
+                    value={game.away_team_id}
                     control={<Radio color="primary" />}
-                    label={gameDetails.away_team + ' ' + gameDetails.away_team_spread}
+                    label={game.away_team + ' ' + game.away_team_spread}
                     labelPlacement="top"
-                    checked={bet.proposers_team_id === gameDetails.away_team_id}
+                    checked={bet.proposers_team_id === game.away_team_id}
                     className={classes.formControlLabel}
                 />
                 <FormControlLabel
-                    value={gameDetails.home_team_id}
+                    value={game.home_team_id}
                     control={<Radio color="primary" />}
-                    label={gameDetails.home_team + ' ' + gameDetails.home_team_spread}
+                    label={game.home_team + ' ' + game.home_team_spread}
                     labelPlacement="top"
-                    checked={bet.proposers_team_id === gameDetails.home_team_id}
+                    checked={bet.proposers_team_id === game.home_team_id}
                     className={classes.formControlLabel}
                 />
             </RadioGroup>
@@ -108,4 +109,4 @@ function CreateBetForm(props) {
     );
 }
 
-export default connect(mapStoreToProps)(CreateBetForm);
+export default connect(mapStoreToProps)(withRouter(CreateBetForm));

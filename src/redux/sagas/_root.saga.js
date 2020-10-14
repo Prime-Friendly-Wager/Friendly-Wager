@@ -4,7 +4,6 @@ import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
 import friendSaga from './friend.saga';
 import gamesSaga from './games.saga';
-import gameDetailsSaga from './gameDetail.saga';
 import makeBetsSaga from './bets.saga';
 import myBetSaga from './myBet.saga'
 
@@ -23,7 +22,6 @@ export default function* rootSaga() {
     userSaga(),
     friendSaga(),
     gamesSaga(),
-    gameDetailsSaga(),
     makeBetsSaga(),
     myBetSaga(),
   ]);
