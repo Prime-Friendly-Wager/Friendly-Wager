@@ -1,16 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import { Table, TableContainer, TableBody, TableCell, TableHead, TableRow, Paper, Typography } from '@material-ui/core';
+import { makeStyles, Table, TableContainer, TableBody, TableCell, TableHead, TableRow, Paper, Typography } from '@material-ui/core';
 import moment from 'moment';
 
+const useStyles = makeStyles({
+  tableContainer: {
+    marginTop: '2.5em',
+  }, 
+});
+
 function Active(props) {
+
+  const classes = useStyles();
 
   return (
     <>
       {props.store.betReducer.activeBetReducer[0]
         ?
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} className={classes.tableContainer}>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>

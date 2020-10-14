@@ -1,14 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import { Table, TableContainer, TableBody, TableCell, TableHead, TableRow, Paper, Typography, Button } from '@material-ui/core'
+import { makeStyles, Table, TableContainer, TableBody, TableCell, TableHead, TableRow, Paper, Typography, Button } from '@material-ui/core'
 import moment from 'moment';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+const useStyles = makeStyles({
+  tableContainer: {
+    marginTop: '2.5em',
+  }, 
+});
+
 function Open(props) {
+
+  const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
 
@@ -31,7 +39,7 @@ function Open(props) {
     <>
       {props.store.betReducer.openBetReducer.filter(bet => bet.proposers_id === props.store.user.id).length
         ?
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} className={classes.tableContainer}>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
