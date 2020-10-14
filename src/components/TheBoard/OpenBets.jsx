@@ -3,10 +3,17 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 import React from 'react';
 import OpenBetRow from './OpenBetRow';
 import { makeStyles } from '@material-ui/core/styles';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Container } from '@material-ui/core';
 
 //2.1 
 const useStyles = makeStyles({
+  tableContainer: {
+    marginTop: '1em',
+  },
+  conditionalText: {
+    padding: '24px',
+    paddingTop: '32px',
+  },
 });
 
 function OpenBets(props) {
@@ -17,7 +24,7 @@ function OpenBets(props) {
     <>
       {props.store.betReducer.openBetReducer.filter(bet => bet.proposers_id !== props.store.user.id).length
         ?
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} className={classes.tableContainer}>
           <Table aria-label="simple table" className={classes.tableContainer}>
             <TableHead>
               <TableRow>
@@ -28,16 +35,16 @@ function OpenBets(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-               {/* only displays open bets that you didn't propose */}
+              {/* only displays open bets that you didn't propose */}
               {props.store.betReducer.openBetReducer.filter(bet => bet.proposers_id !== props.store.user.id).map((bet) => (
-              <OpenBetRow key={bet.id} bet={bet} />
+                <OpenBetRow key={bet.id} bet={bet} />
               )
               )}
             </TableBody>
           </Table>
         </TableContainer>
         :
-        <Typography color="textPrimary">Your friends haven't opened any bets yet.</Typography>
+          <Typography color="textPrimary" className={classes.conditionalText}>Your friends haven't opened any bets yet.</Typography>
       }
     </>
   );
