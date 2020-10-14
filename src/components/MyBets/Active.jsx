@@ -1,16 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import { Table, TableContainer, TableBody, TableCell, TableHead, TableRow, Paper, Typography } from '@material-ui/core';
+import { makeStyles, Table, TableContainer, TableBody, TableCell, TableHead, TableRow, Paper, Typography } from '@material-ui/core';
 import moment from 'moment';
 
+const useStyles = makeStyles({
+  tableContainer: {
+    marginTop: '2.5em',
+  }, 
+  conditionalText: {
+    marginTop: '3em',
+  }
+});
+
 function Active(props) {
+
+  const classes = useStyles();
 
   return (
     <>
       {props.store.betReducer.activeBetReducer[0]
         ?
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} className={classes.tableContainer}>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -61,7 +72,7 @@ function Active(props) {
           </Table>
         </TableContainer>
         :
-        <Typography color="textPrimary">You don't have any active bets yet.</Typography>
+        <Typography color="textPrimary" className={classes.conditionalText}>You don't have any active bets yet.</Typography>
       }
     </>
   );

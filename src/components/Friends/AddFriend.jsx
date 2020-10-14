@@ -5,7 +5,9 @@ import { withStyles, TextField, List, ListItem, ListItemAvatar, Avatar, ListItem
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
-import { deepOrange } from '@material-ui/core/colors'
+import { deepOrange } from '@material-ui/core/colors';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 
 const styles = theme => ({
   rootContainer: {
@@ -26,6 +28,20 @@ const styles = theme => ({
 })
 
 class AddFriend extends Component {
+  state = {
+    open: false
+  }
+
+
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({
+      open: false
+    })
+  };
 
   componentDidMount() {
     this.props.dispatch({ type: "GET_MEMBERS", payload: { search: 'All' } });
@@ -45,12 +61,23 @@ class AddFriend extends Component {
 
   // function to add a friend
   addFriend = (id) => {
+    this.setState({
+      open: true
+    })
     this.props.dispatch({ type: "ADD_FRIEND", payload: { friendId: id } })
   }
 
   render() {
     const { classes } = this.props;
+    const item = this.props.store.memberReducer;
     return (
+      <>
+      <Snackbar open={this.state.open} autoHideDuration={6000} onClose={this.handleClose}>
+      <Alert onClose={this.handleClose} severity="success">
+      Added to Friends List!
+      </Alert>
+    </Snackbar>
+  
       <div className={classes.mainDiv}>
         <Button onClick={() => this.props.history.goBack()}>
           <ArrowBackIcon />
@@ -67,12 +94,15 @@ class AddFriend extends Component {
                   secondary={<Typography color="textSecondary">{member.username}</Typography>}/>
                 <ListItemSecondaryAction><IconButton onClick={() => this.addFriend(member.id)}><AddIcon /></IconButton></ListItemSecondaryAction>
               </ListItem>
+             
             ))}
           </List>
+       
           :
           <Typography color="textPrimary">There aren't any users to add.</Typography>
         }
       </div>
+      </>
     );
   }
 }
