@@ -18,8 +18,15 @@ const styles = theme => ({
     color: 'white',
     padding: '.2em',
     position: 'relative',
-    top: '1em',
+    
 
+  },
+  date: {
+    color: 'white',
+    position: 'absolute',
+    top: '5.2em',
+    left: '7.5em',
+    
   },
   header: {
     textAlign: 'center',
@@ -56,7 +63,12 @@ class IndividualGame extends Component {
             <img src={game.away_team_logo} alt={game.away_team} width="75" height="75" />
             <AlternateEmailIcon className={classes.atLogo}/>
             <img src={game.home_team_logo} alt={game.home_team} width="75" height="75" />
+           
+  
+           
         </div>
+            
+        
         {/* {JSON.stringify(this.props.store.gameDetails)} */}
         <TabPanel />
       </div>
