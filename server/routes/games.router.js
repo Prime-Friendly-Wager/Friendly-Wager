@@ -23,22 +23,5 @@ router.get('/week/:week', rejectUnauthenticated, (req, res) => {
         })
 });
 
-//goes to get individual game details
-router.get('/details/:id', rejectUnauthenticated, (req, res) => {
-    const queryText = `SELECT games.*, home_team."name" as home_team, away_team."name" as away_team, home_team."logo" as home_team_logo, away_team."logo" as away_team_logo
-                    FROM "games"
-                    LEFT JOIN "teams" as home_team ON "games".home_team_id = "home_team".id
-                    LEFT JOIN "teams" as away_team ON "games".away_team_id = "away_team".id
-                    WHERE "games".id = $1 AND home_team_spread IS NOT NULL;`
-    pool.query(queryText, [req.params.id])
-        .then((result) => {
-            res.send(result.rows[0]);
-        })
-        .catch((error) => {
-            console.log('ERROR GETTING GAME DETAILS', error);
-            res.sendStatus(500); //internal server error
-        })
-});
-
 module.exports = router;
 
