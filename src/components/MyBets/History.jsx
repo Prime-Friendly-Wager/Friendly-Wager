@@ -5,6 +5,9 @@ import { makeStyles, Table, TableContainer, TableBody, TableCell, TableHead, Tab
 import moment from 'moment';
 
 const useStyles = makeStyles({
+  table: {
+    flexGrow: 1
+  },
   tableContainer: {
     marginTop: '2.5em',
   },
@@ -46,7 +49,7 @@ function History(props) {
               ))}
             </TableBody>
           </Table>
-        </TableContainer>
+          </TableContainer>
         :
         <Typography color="textPrimary" className={classes.conditionalText}>You haven't completed any bets yet.</Typography>
       }

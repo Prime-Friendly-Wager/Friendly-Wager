@@ -2,9 +2,10 @@ import React, { Component, useEffect } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import TabPanel from './TabPanel';
-import { Button, withStyles } from '@material-ui/core';
+import { Button, Typography, withStyles } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
+import moment from 'moment';
 
 const styles = theme => ({
   backButton: {
@@ -18,8 +19,7 @@ const styles = theme => ({
     color: 'white',
     padding: '.2em',
     position: 'relative',
-    top: '1em',
-
+    top: '.65em',
   },
   heading: {
     textAlign: 'center',
@@ -35,14 +35,15 @@ const styles = theme => ({
   tabPanel: {
     marginTop: '6.5em',
   },
+  gameDate: {
+    position: 'absolute',
+    top: '4.9em',
+    left: '7.2em',
+    paddingTop: '.2em',
+  },
 });
 
 class IndividualGame extends Component {
-
-
-  componentDidMount() {
-    this.props.dispatch({ type: 'FETCH_GAME_DETAILS', payload: this.props.match.params.id });
-  }
 
   handleBack = () => {
     this.props.dispatch({ type: 'SET_BACK_STATUS', payload: true });
@@ -52,22 +53,27 @@ class IndividualGame extends Component {
   render() {
 
     const { classes } = this.props;
-    const game = this.props.store.gameDetails;
+    const game = this.props.store.games.filter(game => game.id == this.props.match.params.id)[0];
+    console.log(game);
 
     return (
+      <>
+      {game &&
       <div>
         <div className={classes.heading}>
           <Button onClick={this.handleBack}>
             <ArrowBackIcon className={classes.backButton} />
           </Button>
-          <img src={game.away_team_logo} alt={game.away_team} width="75" height="75" />
+          <img src={game.away_team_logo} alt={game.away_team} width="70" height="70" />
           <AlternateEmailIcon className={classes.atLogo} />
-          <img src={game.home_team_logo} alt={game.home_team} width="75" height="75" />
+          <img src={game.home_team_logo} alt={game.home_team} width="70" height="70" />
+          <Typography color="textPrimary" className={classes.gameDate}>{moment(game.date).format("ddd MMM D, h:mm a")}</Typography>
         </div>
         <div className={classes.tabPanel}>
           <TabPanel />
         </div>
-      </div>
+      </div>}
+      </>
     );
   }
 }
