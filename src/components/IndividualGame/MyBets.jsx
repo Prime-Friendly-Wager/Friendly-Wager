@@ -9,7 +9,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Table, TableBody, TableCell, TableContainer, TableRow, Paper, Typography, Button } from '@material-ui/core';
+import { Container, Table, TableBody, TableCell, TableContainer, TableRow, Paper, Typography, Button } from '@material-ui/core';
 
 const useStyles = makeStyles({
   createBetForm: {
@@ -50,11 +50,13 @@ function MyBets(props) {
   return (
     <div>
       <div>
-        <Typography variant="h5" color="textPrimary">Open Bets</Typography>
+        <Container>
+          <Typography variant="h5" color="textPrimary">Open Bets</Typography>
+        </Container>
         {props.store.betReducer.openBetReducer.filter(bet =>
                   (bet.proposers_id === props.store.user.id && bet.game_id === game.id)).length
           ?
-          <TableContainer component={Paper}>
+          <TableContainer id="myBetTableOne" component={Paper}>
             <Table aria-label="simple table">
               <TableBody>
                 {/* only shows your open bets for this particular game */}
@@ -96,11 +98,13 @@ function MyBets(props) {
           :
           <Typography color="textPrimary" className={classes.text}>You don't have any open bets for this game.</Typography>
         }
-        <Typography variant="h5" color="textPrimary">Active Bets</Typography>
+        <Container>
+          <Typography variant="h5" color="textPrimary">Active Bets</Typography>
+        </Container>
         {props.store.betReducer.activeBetReducer.filter(bet =>
                   (bet.game_id === game.id)).length ?
-          <TableContainer component={Paper}>
-            <Table aria-label="simple table">
+          <TableContainer id="myBetTableTwo" component={Paper}>
+            <Table  aria-label="simple table">
               <TableBody>
                 {/* filters only active bets for this game */}
                 {props.store.betReducer.activeBetReducer.filter(bet =>
