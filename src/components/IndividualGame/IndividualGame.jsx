@@ -21,12 +21,19 @@ const styles = theme => ({
     top: '1em',
 
   },
-  header: {
+  heading: {
     textAlign: 'center',
     display: 'flex',
     height: '5em',
     paddingTop: '.75em',
     paddingBottom: '.75em',
+    position: 'fixed',
+    width: '100%',
+    top: 0,
+    backgroundColor: '#424242',
+  },
+  tabPanel: {
+    marginTop: '6.5em',
   },
 });
 
@@ -47,16 +54,17 @@ class IndividualGame extends Component {
       <>
       {game &&
       <div>
-        <div className={classes.header}>
-            <Button onClick={this.handleBack}>
-              <ArrowBackIcon className={classes.backButton} />
-            </Button>
-            <img src={game.away_team_logo} alt={game.away_team} width="75" height="75" />
-            <AlternateEmailIcon className={classes.atLogo}/>
-            <img src={game.home_team_logo} alt={game.home_team} width="75" height="75" />
+        <div className={classes.heading}>
+          <Button onClick={this.handleBack}>
+            <ArrowBackIcon className={classes.backButton} />
+          </Button>
+          <img src={game.away_team_logo} alt={game.away_team} width="75" height="75" />
+          <AlternateEmailIcon className={classes.atLogo} />
+          <img src={game.home_team_logo} alt={game.home_team} width="75" height="75" />
         </div>
-        {/* {JSON.stringify(this.props.store.gameDetails)} */}
-        <TabPanel />
+        <div className={classes.tabPanel}>
+          <TabPanel />
+        </div>
       </div>}
       </>
     );

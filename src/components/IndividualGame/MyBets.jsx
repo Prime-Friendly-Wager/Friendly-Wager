@@ -23,6 +23,9 @@ const useStyles = makeStyles({
   creatBet: {
     marginBottom: '1em',
   },
+  openBets: {
+    marginTop: '2em',
+  },
 });
 
 function MyBets(props) {
@@ -50,7 +53,7 @@ function MyBets(props) {
   return (
     <div>
       <div>
-        <Typography variant="h5" color="textPrimary">Open Bets</Typography>
+        <Typography variant="h5" color="textPrimary" className={classes.openBets}>Open Bets</Typography>
         {props.store.betReducer.openBetReducer.filter(bet =>
                   (bet.proposers_id === props.store.user.id && bet.game_id === game.id)).length
           ?
@@ -98,7 +101,7 @@ function MyBets(props) {
         }
         <Typography variant="h5" color="textPrimary">Active Bets</Typography>
         {props.store.betReducer.activeBetReducer.filter(bet =>
-                  (bet.game_id === game.id)).length ?
+          (bet.game_id === game.id)).length ?
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
               <TableBody>

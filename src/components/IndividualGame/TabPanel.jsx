@@ -50,6 +50,12 @@ const useStyles = makeStyles((theme) => ({
   MyBets: {
     width: '100%',
   },
+  mainTab: {
+    position: 'fixed',
+    width: '100%',
+    backgroundColor: '#3f51b5',
+    marginTop: '0',
+  },
 }));
 
 export default function SimpleTabs() {
@@ -64,7 +70,7 @@ export default function SimpleTabs() {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" className={classes.mainTab}>
           <Tab label="Open Bets" {...a11yProps(0)} className={classes.tabs}/>
           <Tab label="My Bets" {...a11yProps(1)} className={classes.tabs}/>
         </Tabs>

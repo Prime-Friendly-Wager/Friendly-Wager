@@ -56,6 +56,12 @@ const useStyles = makeStyles((theme) => ({
   games: {
     width: '100%',
   },
+  mainTab: {
+    position: 'fixed',
+    width: '100%',
+    backgroundColor: '#3f51b5',
+    marginTop: '0',
+  },
 }));
 
 function SimpleTabs(props) {
@@ -72,7 +78,7 @@ function SimpleTabs(props) {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" className={classes.mainTab}>
           <Tab label={`Open (${openBetsLength})`} {...a11yProps(0)} className={classes.tabs}/>
           <Tab label={`Active (${props.store.betReducer.activeBetReducer.length})`} {...a11yProps(1)} className={classes.tabs}/>
           <Tab label={`History (${props.store.betReducer.completedBetReducer.length})`} {...a11yProps(2)} className={classes.tabs}/>
