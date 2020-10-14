@@ -98,7 +98,8 @@ function MyBets(props) {
           <Typography color="textPrimary" className={classes.text}>You don't have any open bets for this game.</Typography>
         }
         <Typography variant="h5" color="textPrimary">Active Bets</Typography>
-        {props.store.betReducer.activeBetReducer[0] ?
+        {props.store.betReducer.activeBetReducer.filter(bet =>
+                  (bet.game_id === props.store.gameDetails.id)).length ?
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
               <TableBody>
