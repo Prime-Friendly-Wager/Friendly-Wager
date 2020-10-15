@@ -10,10 +10,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles({
   tableContainer: {
-    marginTop: '2.5em',
+    marginTop: '3.5em',
   }, 
   conditionalText: {
-    marginTop: '3em',
+    marginTop: '4.5em',
+    paddingLeft: '24px',
+    paddingRight: '24px',
   }
 });
 

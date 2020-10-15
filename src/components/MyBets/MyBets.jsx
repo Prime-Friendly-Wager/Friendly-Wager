@@ -46,7 +46,7 @@ class MyBets extends Component {
         <div className={classes.heading}>
           <div className={classes.headingTextGroup}>
             <Typography variant="h4" className={classes.headingText} color="textPrimary">My Bets</Typography>
-            <Typography color="textPrimary">Overall (+/-) {overallSum}</Typography>
+            <Typography color="textPrimary">Lifetime Overall: {overallSum > 0 && '+'}{overallSum} units</Typography>
           </div>
         </div>
         <div className={classes.betsTabPanel}>

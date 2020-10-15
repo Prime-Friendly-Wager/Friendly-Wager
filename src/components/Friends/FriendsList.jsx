@@ -3,39 +3,39 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import FriendsListHeading from './FriendsListHeading'
 import FriendsListItem from './FriendsListItem'
+import { withStyles } from '@material-ui/core/styles';
 
-// Basic class component structure for React with default state
-// value setup. When making a new component be sure to replace
-// the component name FriendsList with the name for the new
-// component.
+const styles = theme => ({
+
+});
 
 class FriendsList extends Component {
-  state = {
-   
-  };
 
-  componentDidMount(){
-    this.props.dispatch({type: 'GET_FRIENDS'});
+  componentDidMount() {
+    this.props.dispatch({ type: 'GET_FRIENDS' });
   }
 
   //The reason for unmount is because searching changes friendsList reducer, 
   //so if the user leaves the page in the middle of the search we want friendsList reducer
   //to reset
-  componentWillUnmount(){
-    this.props.dispatch({type: 'GET_FRIENDS'});
+  componentWillUnmount() {
+    this.props.dispatch({ type: 'GET_FRIENDS' });
   }
 
   render() {
-    
+
+    const { classes } = this.props;
+
     return (
       <div>
-   
-      <FriendsListHeading />
-      <FriendsListItem />
+
+        <FriendsListHeading />
+        <FriendsListItem />
 
       </div>
     );
   }
 }
 
-export default connect(mapStoreToProps)(FriendsList);
+const FriendsListStyled = withStyles(styles)(FriendsList);
+export default connect(mapStoreToProps)(FriendsListStyled);

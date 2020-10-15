@@ -57,16 +57,16 @@ function OpenBetRow(props) {
                 <>
                   <TableRow hover classes={{ hover: classes.rowHover }} onClick={handleClickOpen}>
                     {/* Friend */}
-                    <TableCell align="right">{props.bet.proposers_first_name} {props.bet.proposers_last_name}</TableCell>
+                    <TableCell align="left">{props.bet.proposers_first_name} {props.bet.proposers_last_name}</TableCell>
                     {/* Bet */}
                     {/* checks if proposer is home team */}
                     {props.bet.proposers_team_is_home_team ? 
-                          <TableCell align="right">{props.bet.home_team_name} {props.bet.home_team_spread}</TableCell> 
+                          <TableCell align="left">{props.bet.home_team_name} {props.bet.home_team_spread}</TableCell> 
                           :
-                          <TableCell align="right">{props.bet.away_team_name} {props.bet.away_team_spread}</TableCell>
+                          <TableCell align="left">{props.bet.away_team_name} {props.bet.away_team_spread}</TableCell>
                         }
                     {/* Wager */}
-                    <TableCell align="right">{props.bet.wager}</TableCell>
+                    <TableCell align="center">{props.bet.wager}</TableCell>
                   </TableRow>
                   
                   <>
