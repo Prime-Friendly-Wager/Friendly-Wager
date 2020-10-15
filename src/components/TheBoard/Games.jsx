@@ -33,7 +33,7 @@ function SimpleTable(props) {
                 <TableCell align="right">Spread</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
+            <TableBody className={classes.tableBody}>
               {props.store.games.map((game, i) => {
                 return (
                   <TableRow key={game.id} onClick={() => props.history.push(`/game-details/${game.id}`)}>
