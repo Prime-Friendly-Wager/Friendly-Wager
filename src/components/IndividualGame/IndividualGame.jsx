@@ -53,7 +53,7 @@ class IndividualGame extends Component {
   render() {
 
     const { classes } = this.props;
-    const game = this.props.store.games.filter(game => game.id == this.props.match.params.id)[0];
+    const game = this.props.store.games.filter(game => game.id === Number(this.props.match.params.id))[0];
     console.log(game);
 
     return (

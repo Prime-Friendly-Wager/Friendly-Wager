@@ -46,26 +46,26 @@ function Active(props) {
                       //user is proposer and team is home
                       <>
                         <TableCell align="left">{bet.acceptors_first_name} {bet.acceptors_last_name}</TableCell>
-                        <TableCell align="left">{bet.home_team_name} {bet.home_team_spread}</TableCell>
+                        <TableCell align="left">{bet.home_team_name} {bet.home_team_spread > 0 && '+'}{bet.home_team_spread}</TableCell>
                       </>
                       :
                       //user is proposer and team is away
                       <>
                         <TableCell align="left">{bet.acceptors_first_name} {bet.acceptors_last_name}</TableCell>
-                        <TableCell align="left">{bet.away_team_name} {bet.away_team_spread}</TableCell>
+                        <TableCell align="left">{bet.away_team_name} {bet.away_team_spread > 0 && '+'}{bet.away_team_spread}</TableCell>
                       </>
                     :
                     bet.proposers_team_is_home_team ?
                       //user is acceptor and team is away
                       <>
                         <TableCell align="left">{bet.proposers_first_name} {bet.proposers_last_name}</TableCell>
-                        <TableCell align="left">{bet.away_team_name} {bet.away_team_spread}</TableCell>
+                        <TableCell align="left">{bet.away_team_name} {bet.away_team_spread > 0 && '+'}{bet.away_team_spread}</TableCell>
                       </>
                       :
                       //user is acceptor and team is home
                       <>
                         <TableCell align="left">{bet.proposers_first_name} {bet.proposers_last_name}</TableCell>
-                        <TableCell align="left">{bet.home_team_name} {bet.home_team_spread}</TableCell>
+                        <TableCell align="left">{bet.home_team_name} {bet.home_team_spread > 0 && '+'}{bet.home_team_spread}</TableCell>
                       </>
                   }
                   <TableCell align="left">{bet.wager}</TableCell>
