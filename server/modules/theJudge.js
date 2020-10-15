@@ -186,7 +186,7 @@ const updateOdds = async (req, res) => {
     //this query gets the available spread for the upcoming NFL games
     const oddsResponse = await axios.get(`https://api.the-odds-api.com/v3/odds/?apiKey=${process.env.ODDS_KEY}&sport=americanfootball_nfl&region=us&mkt=spreads&dateFormat=iso`);
     const gamesWithSpread = oddsResponse.data.data
-
+    
     //gets the current NFL week
     const currentWeek = await convertDate()
 
@@ -216,6 +216,26 @@ const updateOdds = async (req, res) => {
         let queryValues = [game.teams[0], game.teams[1], Number(game.sites[0].odds.spreads.points[0]), Number(game.sites[0].odds.spreads.points[1]), currentWeek]
         pool.query(queryText, queryValues)
         });
+
+        //this api query gets over unders for the games
+        const oddsTotalsResponse = await axios.get(`https://api.the-odds-api.com/v3/odds/?apiKey=${process.env.ODDS_KEY}&sport=americanfootball_nfl&region=us&mkt=totals&dateFormat=iso`);
+        const gamesWithTotals = oddsTotalsResponse.data.data
+
+        await gamesWithTotals.map(game => {
+            //matches game on home team, away team and week number
+            //will not update if game already has o/u
+            let queryText = `
+                UPDATE "games" 
+                SET 
+                over_under = $3
+                WHERE ((((SELECT id FROM teams WHERE $1 = "odds_api_ref") = "games".home_team_id) AND ((SELECT id FROM teams WHERE $2 = "odds_api_ref") = "games".away_team_id))
+                OR  (((SELECT id FROM teams WHERE $2 = "odds_api_ref") = "games".home_team_id) AND ((SELECT id FROM teams WHERE $1 = "odds_api_ref") = "games".away_team_id)))
+                AND games.week = $4 AND games.over_under IS NULL;
+                `
+            let queryValues = [game.teams[0], game.teams[1], Number(game.sites[0].odds.totals.points[0]), currentWeek]
+            pool.query(queryText, queryValues)
+            });
+            
         return true;
     } catch (error) {
         console.log('error getting odds', error);
