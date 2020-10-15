@@ -12,7 +12,9 @@ const useStyles = makeStyles({
     marginTop: '2.5em',
   },
   conditionalText: {
-    marginTop: '3em',
+    marginTop: '4.5em',
+    paddingLeft: '24px',
+    paddingRight: '24px',
   }
 });
 

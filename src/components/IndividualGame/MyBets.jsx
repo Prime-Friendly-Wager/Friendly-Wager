@@ -19,12 +19,14 @@ const useStyles = makeStyles({
   text: {
     marginTop: '1em',
     marginBottom: '1em',
+    paddingLeft: '24px',
+    paddingRight: '24px',
   },
   creatBet: {
     marginBottom: '1em',
   },
   openBets: {
-    marginTop: '2em',
+    marginTop: '2.75em',
   },
 });
 

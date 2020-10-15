@@ -23,8 +23,12 @@ const styles = theme => ({
   },
   textField: {
     align: "center"
-  }
- 
+  },
+  conditionalText: {
+    marginTop: '1.5em',
+    paddingLeft: '24px',
+    paddingRight: '24px',
+  },
 })
 
 class AddFriend extends Component {
@@ -99,7 +103,7 @@ class AddFriend extends Component {
           </List>
        
           :
-          <Typography color="textPrimary">There aren't any users to add.</Typography>
+          <Typography color="textPrimary"className={classes.conditionalText}>There aren't any users to add.</Typography>
         }
       </div>
       </>

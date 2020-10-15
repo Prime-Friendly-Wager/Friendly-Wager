@@ -26,6 +26,11 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
   },
+  conditionalText: {
+    marginTop: '1.5em',
+    paddingLeft: '24px',
+    paddingRight: '24px',
+  },
 }));
 
 function FriendsListItem(props) {
@@ -57,7 +62,7 @@ function FriendsListItem(props) {
           </Grid>
         </Grid>
         :
-        <Typography color="textPrimary">You haven't added any friends yet!</Typography>
+        <Typography color="textPrimary" className={classes.conditionalText}>You haven't added any friends yet.</Typography>
       }
     </div>
   );
