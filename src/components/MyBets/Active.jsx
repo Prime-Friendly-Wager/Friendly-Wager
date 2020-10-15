@@ -6,7 +6,7 @@ import moment from 'moment';
 
 const useStyles = makeStyles({
   tableContainer: {
-    marginTop: '2.5em',
+    marginTop: '3.5em',
   }, 
   conditionalText: {
     marginTop: '4.5em',
