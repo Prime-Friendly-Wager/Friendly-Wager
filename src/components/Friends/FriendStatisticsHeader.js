@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { makeStyles } from '@material-ui/core/styles';
-import {Button, Container,TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, } from '@material-ui/core';
+import {Button, Container,TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Box } from '@material-ui/core';
 import { withRouter } from "react-router";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Avatar from '@material-ui/core/Avatar';
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: '55px',
+        paddingTop: '25px',
         paddingBottom: '25px'
     },
     friendOpenBets: {
@@ -61,8 +61,21 @@ const useStyles = makeStyles((theme) => ({
     center: {
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    boxItem: {
+      backgroundColor:'#303030',
+      width: '100px',
+      borderRadius: '10px'
+    },
+    boxItemOverall: {
+      backgroundColor:'#303030',
+      width: '100px',
+      height: '75px',
+      borderRadius: '10px'
+    },
+    friendsBetsGrid: {
+      paddingBottom: '25px'
     }
-
     
   }));
 
@@ -91,7 +104,7 @@ function FriendStatisticsHeader(props) {
         ))}
       </div>
 
-      <Grid container direction="row" justify="center" alignItems="center" >  
+      <Grid className={classes.historyContainer} container direction="row" justify="center" alignItems="center" >  
         <Grid item>
           <Container>
             <Typography variant="h6">Total Bets</Typography>
@@ -117,34 +130,44 @@ function FriendStatisticsHeader(props) {
         </Grid>
       </Grid>
 
+      <hr></hr>
+
       <div className={classes.historyContainer}>
         {props.store.friendsList.filter(friend => friend.id === friendId).map(friend => (
           <Typography key={friend.id} variant="h5">My History with {friend.first_name}</Typography>
         ))}
       </div>
 
-      <Grid container direction="row" justify="center" alignItems="center" >  
+      <Grid className={classes.friendsBetsGrid} container direction="row" justify="center" alignItems="center" >  
         <Grid item xs={6}>
           <center>
-            <Typography variant="h6">Completed Bets</Typography>
-            <Typography color="textPrimary">{ourCompletedBets.length}</Typography>
+            <Box className={classes.boxItem}>
+              <Typography variant="h6">Completed Bets</Typography>
+              <Typography color="textPrimary">{ourCompletedBets.length}</Typography>
+            </Box>
           </center>
         </Grid> 
         <Grid item xs={6}>
           <center>
-            <Typography variant="h6">Active Bets</Typography>
-            <Typography color="textPrimary">{ourActiveBets.length}</Typography>
+            <Box className={classes.boxItem}>
+              <Typography variant="h6">Active Bets</Typography>
+              <Typography color="textPrimary">{ourActiveBets.length}</Typography>  
+            </Box>            
           </center>
         </Grid>
         <Grid item xs={12}>
           <Container>
             <center>
-              <Typography variant="h6">Overall +/-</Typography>
-              <Typography>{overall}</Typography>
+              <Box className={classes.boxItemOverall}>
+                <Typography variant="h6">Overall +/-</Typography>
+                <Typography color="textPrimary">{overall}</Typography>
+              </Box>
             </center>
           </Container>
         </Grid> 
       </Grid>
+
+      <hr></hr>
 
       {props.store.betReducer.openBetReducer.filter(bet => bet.proposers_id === friendId).length
         ?
