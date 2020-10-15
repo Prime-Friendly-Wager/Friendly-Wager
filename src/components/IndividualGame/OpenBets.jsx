@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 function OpenBets(props) {
 
   const classes = useStyles();
-  const game = props.store.games.filter(game => game.id == props.match.params.id)[0];
+  const game = props.store.games.filter(game => game.id === Number(props.match.params.id))[0];
 
   return (
     <>

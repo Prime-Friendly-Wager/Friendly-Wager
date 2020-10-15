@@ -42,7 +42,7 @@ function History(props) {
                   <TableCell align="left">{moment(bet.date).format("M/D")}</TableCell>
                   <TableCell align="left">{bet.home_team_name} @ {bet.away_team_name}</TableCell>
                   <TableCell align="left">{bet.opponent}</TableCell>
-                  <TableCell align="left">{bet.my_bet_team} {bet.my_spread}</TableCell>
+                  <TableCell align="left">{bet.my_bet_team} {bet.my_spread > 0 && '+'}{bet.my_spread}</TableCell>
                   <TableCell align="left">{bet.winner}</TableCell>
                   <TableCell align="left">{bet.wager}</TableCell>
                 </TableRow>

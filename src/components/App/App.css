@@ -121,3 +121,7 @@ input {
 .MuiBox-root {
   padding: 0;
 }
+
+#myBetTableOne, #myBetTableTwo {
+  margin-bottom: 1em;
+}

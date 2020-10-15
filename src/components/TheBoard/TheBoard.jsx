@@ -29,11 +29,14 @@ const styles = theme => ({
 class TheBoard extends Component {
 
   componentDidMount() {
-    const currentWeek = convertDate();
+    
     //only fetchs games if games aren't already there
-    if(!this.props.store.games.length) {
+    if(this.props.store.games.length === 0) {
+      const currentWeek = convertDate();
       this.props.dispatch({ type: 'FETCH_GAMES', payload: currentWeek });
     }
+    //only fetchs bets if bets aren't already there
+    if(this.props.store.betReducer.openBetReducer.length === 0)
     this.props.dispatch({ type: 'FETCH_BETS' });
   }
 
