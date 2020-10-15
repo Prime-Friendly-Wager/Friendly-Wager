@@ -8,6 +8,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { deepOrange } from '@material-ui/core/colors';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 const styles = theme => ({
   rootContainer: {
@@ -83,7 +84,20 @@ class AddFriend extends Component {
           <ArrowBackIcon />
         </Button>
         <h2>Add Friends</h2>
-        <SearchIcon fontSize="large" /><TextField id="friendSearch" label="Search" variant="outlined" onChange={this.handleSearch} />
+        <TextField
+        id="friendSearch"
+        onChange={this.handleSearch}
+        label= "Search Friends" 
+        margin="normal" 
+        variant="outlined"
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
+      />
         {this.props.store.memberReducer[0]
           ?
           <List>
