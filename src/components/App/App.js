@@ -21,6 +21,7 @@ import IndividualGame from '../IndividualGame/IndividualGame';
 import FriendsList from '../Friends/FriendsList'
 import FriendStatistics from '../Friends/FriendStatistics'
 import MyBets from '../MyBets/MyBets'
+import Profile from '../Profile/Profile'
 import { ThemeProvider, createMuiTheme} from '@material-ui/core/styles'
 
 
@@ -77,6 +78,12 @@ class App extends Component {
               exact
               path='/game-details/:id'
               component={IndividualGame}
+            />
+
+            <ProtectedRoute
+              exact
+              path='/profile/:id'
+              component={Profile}
             />
 
             <ProtectedRoute
