@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { makeStyles } from '@material-ui/core/styles';
-import {ListItem, ListItemAvatar, ListItemText, Grid, Typography, Avatar, Container} from '@material-ui/core';
+import { ListItem, ListItemAvatar, ListItemText, Grid, Typography, Avatar, Container, TableContainer, Table, TableBody, TableRow } from '@material-ui/core';
 import { withRouter } from "react-router";
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 
@@ -31,6 +31,12 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: '24px',
     paddingRight: '24px',
   },
+  tableContainer: {
+    marginTop: '7em',
+  },
+  mainContainer: {
+    marginTop: '13.5em',
+  },
 }));
 
 function FriendsListItem(props) {
@@ -39,31 +45,33 @@ function FriendsListItem(props) {
   // const [secondary, setSecondary] = React.useState(false);
 
   return (
-    <div className={classes.root}>
-      {props.store.friendsList[0]
-        ?
-        <Grid container spacing={0}>
-          <Grid item xs={12} md={6}>
-            
-            <div className={classes.demo}>
-              {props.store.friendsList.map((friend) =>
-                <ListItem key={friend.id} onClick={() => { props.history.push(`/friends/statistics/${friend.id}`) }}>
-                  <ListItemAvatar>
-                    <Avatar
-                      className={classes.orange}>{friend.first_name[0].toUpperCase()}</Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={<Typography color="textPrimary">{friend.first_name} {friend.last_name}</Typography>}
-                    secondary={<Typography color="textSecondary">{friend.username}</Typography>}
-                  />
-                </ListItem>,
-              )}
-            </div>
+    <div className={classes.mainContainer}>
+      <div className={classes.root}>
+        {props.store.friendsList[0]
+          ?
+          <Grid container spacing={0} className={classes.grids}>
+            <Grid item xs={12} md={6}>
+
+              <div className={classes.demo}>
+                {props.store.friendsList.map((friend) =>
+                  <ListItem key={friend.id} onClick={() => { props.history.push(`/friends/statistics/${friend.id}`) }}>
+                    <ListItemAvatar>
+                      <Avatar
+                        className={classes.orange}>{friend.first_name[0].toUpperCase()}</Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={<Typography color="textPrimary">{friend.first_name} {friend.last_name}</Typography>}
+                      secondary={<Typography color="textSecondary">{friend.username}</Typography>}
+                    />
+                  </ListItem>,
+                )}
+              </div>
+            </Grid>
           </Grid>
-        </Grid>
-        :
-        <Typography color="textPrimary" className={classes.conditionalText}>You haven't added any friends yet.</Typography>
-      }
+          :
+          <Typography color="textPrimary" className={classes.conditionalText}>You haven't added any friends yet.</Typography>
+        }
+      </div>
     </div>
   );
 }

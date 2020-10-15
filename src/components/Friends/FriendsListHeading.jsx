@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   search: {
-    marginTop: '1em',
+    marginTop: '.5em',
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     marginRight: theme.spacing(2),
@@ -58,14 +58,19 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     backgroundColor: '#303030',
   },
+  mainContainer: {
+    position: 'fixed',
+    zIndex: '20',
+    width: '100%',
+    top: 0,
+    backgroundColor: '#424242',
+  },
 }));
 
 
 function FriendsListHeading(props) {
   const classes = useStyles();
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
-  const [heading] = useState('My Friends');
+
 
   const handleSearch = (event) => {
     let nameSearch = event.target.value;
@@ -79,9 +84,9 @@ function FriendsListHeading(props) {
   }
 
   return (
-    <>
+    <div className={classes.mainContainer}>
       <div className={classes.headingContainer}>
-        <Typography variant="h4" color="textPrimary" className={classes.heading}>{heading}</Typography>
+        <Typography variant="h4" color="textPrimary" className={classes.heading}>My Friends</Typography>
         <AddIcon className={classes.addButton} onClick={() => props.history.push("/friends/add")} />
       </div>
       <div className={classes.breakDiv}></div>
@@ -95,7 +100,6 @@ function FriendsListHeading(props) {
               <TextField
                 id="searchfriend"
                 {...params}
-
                 onChange={handleSearch}
                 label="Search Friends"
                 margin="normal"
@@ -109,12 +113,11 @@ function FriendsListHeading(props) {
                   ),
                 }}
               />
-
             )}
           />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
