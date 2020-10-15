@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import Grid from '@material-ui/core/Grid';
 
 class RegisterForm extends Component {
   state = {
@@ -8,13 +9,14 @@ class RegisterForm extends Component {
     last_name: '',
     username: '',
     password: '',
+    confirmPassword: '',
   };
 
   
 
   registerUser = (event) => {
     event.preventDefault();
-
+    if(this.state.password == this.state.confirmPassword){
     this.props.dispatch({
       type: 'REGISTER',
       payload: {
@@ -23,8 +25,12 @@ class RegisterForm extends Component {
         username: this.state.username,
         password: this.state.password,
       },
-    });
-  }; // end registerUser
+    
+      
+    })}
+    else {
+      this.props.dispatch({ type: 'CONFIRM_PASSWORD_ERROR' });
+  }}; // end registerUser
 
   handleInputChangeFor = (propertyName) => (event) => {
     this.setState({
@@ -34,6 +40,7 @@ class RegisterForm extends Component {
 
   render() {
     return (
+    
       <form className="formPanel" onSubmit={this.registerUser}>
         <h2>Register User</h2>
         {this.props.store.errors.registrationMessage && (
@@ -41,22 +48,11 @@ class RegisterForm extends Component {
             {this.props.store.errors.registrationMessage}
           </h3>
         )}
-        <div>
-          <label htmlFor="username">
-            Email:
-            <input
-              type="text"
-              name="username"
-              value={this.state.username}
-              required
-              onChange={this.handleInputChangeFor('username')}
-            />
-          </label>
-        </div>
-         <div>
+         <Grid container spacing={1}>
+         <Grid item xs={12}>
           <label htmlFor="first_name">
-            First Name:
             <input
+              placeholder="First Name"
               type="text"
               name="first_name"
               value={this.state.first_name}
@@ -64,11 +60,12 @@ class RegisterForm extends Component {
               onChange={this.handleInputChangeFor('first_name')}
             />
           </label>
-        </div>
-        <div>
+        </Grid>
+        <Grid item xs={12}>
+    
           <label htmlFor="last_name">
-            Last Name:
             <input
+              placeholder="Last name"
               type="text"
               name="last_name"
               value={this.state.last_name}
@@ -76,11 +73,25 @@ class RegisterForm extends Component {
               onChange={this.handleInputChangeFor('last_name')}
             />
           </label>
-        </div>
-        <div>
-          <label htmlFor="password">
-            Password:
+         
+        </Grid>
+        <Grid item xs={12}>
+          <label htmlFor="username">
             <input
+              placeholder="Email"
+              type="text"
+              name="username"
+              value={this.state.username}
+              required
+              onChange={this.handleInputChangeFor('username')}
+            />
+          </label>
+          </Grid>
+       
+          <Grid item xs={6}>
+          <label htmlFor="password">
+            <input
+              placeholder="Password"
               type="password"
               name="password"
               value={this.state.password}
@@ -88,11 +99,28 @@ class RegisterForm extends Component {
               onChange={this.handleInputChangeFor('password')}
             />
           </label>
-        </div>
+          </Grid>
+          <Grid item xs={6}>
+          <label htmlFor="password">
+            <input
+              placeholder="Confirm Password"
+              type="password"
+              name="password"
+              value={this.state.confirmPassword}
+              required
+              onChange={this.handleInputChangeFor('confirmPassword')}
+            />
+          </label>
+          </Grid>
+    
+        </Grid>
         <div>
           <input className="btn" type="submit" name="submit" value="Register" />
         </div>
       </form>
+     
+      
+ 
     );
   }
 }

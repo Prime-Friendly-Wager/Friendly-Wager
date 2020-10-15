@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import './CreateAccountPage.css'
 
 // CUSTOM COMPONENTS
 import RegisterForm from './RegisterForm';
+
 
 class RegisterPage extends Component {
   state = {
@@ -17,15 +19,16 @@ class RegisterPage extends Component {
   componentWillUnmount(){
     this.props.dispatch({type: 'TOGGLE_NAV'})
   }
+  
 
   render() {
     return (
-      <div>
+      <div class='container'>
         <br/>
         <br/>
         <br/>
         <center>
-          <svg xmlns="http://www.w3.org/2000/svg" width="250" height="200" viewBox="0 0 1008.88 822.802">
+          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 1008.88 822.802">
               <path id="Path_76" data-name="Path 76" d="M1889.408-596.257c.225,2.307,6.223,26.156-38.147,34.217-72.306,13.137-228.245,
               10.706-387.456.719-49.807-3.124-112.71-1.116-222.195-11.159-18.178-2.624-58.091-7.3-80.809-14-31.258-10.159-24.673-10.855-40.245-14.066-6.578-3.861-19-9.809-27.741-14.066-15.33-7.469-30.55-17.3-41.417-21.1-29.167-10.2-39.2-7.541-39.2-7.541s-22.839-294.223.124-333.56c28.952-14.57,
               39.222-34.078,67.6-64.079,17.078-18.057,55.61-44.915,80.88-84.787,37.436-44.656,57.7-64.956,82.833-112.137,11.218-20.565,25.675-45.629,

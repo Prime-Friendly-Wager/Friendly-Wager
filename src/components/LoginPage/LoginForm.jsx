@@ -49,9 +49,9 @@ class LoginForm extends Component {
         <div>
           <center>
           <label htmlFor="username">
-            Email:
             <input
               type="text"
+              placeholder="Enter Email"
               name="username"
               required
               value={this.state.username}
@@ -63,8 +63,8 @@ class LoginForm extends Component {
         <div>
          <center>
           <label htmlFor="password">
-            Password:
             <input
+              placeholder="Enter Password"
               type="password"
               name="password"
               required
