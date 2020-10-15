@@ -19,8 +19,8 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(4, 0, 2),
   },
   orange: {
-    color: theme.palette.getContrastText(deepOrange[500]),
-    backgroundColor: deepOrange[500],
+    color: 'white',
+    backgroundColor: '#606060',
   },
   purple: {
     color: theme.palette.getContrastText(deepPurple[500]),

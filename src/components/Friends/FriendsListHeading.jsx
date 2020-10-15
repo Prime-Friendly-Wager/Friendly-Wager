@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { makeStyles } from '@material-ui/core/styles';
-import {Fab, Typography, Container} from '@material-ui/core';
+import { Fab, Typography, Container } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
 import TextField from '@material-ui/core/TextField';
@@ -11,48 +11,58 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import { withRouter } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        
-    },
-    headingContainer: {
-        display: 'flex',
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingTop: '15px'
-    },
-    heading: {
-        paddingRight: '100px'
-    },
-    extendedIcon: {
-      marginRight: theme.spacing(1),
-    },
-    addButton:{
-      float:"right"
-    },
-    margin: {
-        margin: theme.spacing(1),
-      },
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
 
-      search: {
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        marginRight: theme.spacing(2),
-        marginLeft: 0,
-        width: 300,
-        [theme.breakpoints.up('sm')]: {
-          marginLeft: theme.spacing(3),
-          width: 300,
-        },
-      },
-  }));
-  
+  },
+  headingContainer: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '6.5em',
+  },
+  heading: {
+    paddingRight: '20px'
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
+  },
+  addButton: {
+    float: "right",
+    color: 'white',
+    fontSize: '2.5em',
+    position: 'relative',
+    top: '2px',
+  },
+  margin: {
+    margin: theme.spacing(1),
+  },
+
+  search: {
+    marginTop: '1em',
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: 300,
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 300,
+    },
+  },
+  breakDiv: {
+    height: '1em',
+    width: '100%',
+    backgroundColor: '#303030',
+  },
+}));
+
 
 function FriendsListHeading(props) {
-    const classes = useStyles();
+  const classes = useStyles();
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
   const [heading] = useState('My Friends');
@@ -69,47 +79,42 @@ function FriendsListHeading(props) {
   }
 
   return (
-      <Container>
-      <center>
-    <div className={classes.headingContainer}>
-      <Typography variant="h4" color="textPrimary" className={classes.heading}>{heading}</Typography>
-      <Fab color="primary" className={classes.addButton} aria-label="add">
-        <AddIcon onClick={()=>props.history.push("/friends/add")}/>
-      </Fab>
-    </div>
-    </center>
-   
-    <div className={classes.root}>
-    <div className={classes.search}>
-    <Autocomplete
-      freeSolo
-      //Change mapping for friends
-      options={props.store.friendsList.map((option) => option.first_name + " " + option.last_name)}
-      renderInput={(params) => (
-        <TextField
-        id="searchfriend"
-        {...params} 
-        
-        onChange={handleSearch}
-        label= "Search Friends" 
-        margin="normal" 
-        variant="outlined"
-        InputProps={{
-        ...params.InputProps,
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          ),
-        }}
-      />
-        
-    )}
-    />
-    </div>
-    </div>
-   
-   </Container>
+    <>
+      <div className={classes.headingContainer}>
+        <Typography variant="h4" color="textPrimary" className={classes.heading}>{heading}</Typography>
+        <AddIcon className={classes.addButton} onClick={() => props.history.push("/friends/add")} />
+      </div>
+      <div className={classes.breakDiv}></div>
+      <div className={classes.root}>
+        <div className={classes.search}>
+          <Autocomplete
+            freeSolo
+            //Change mapping for friends
+            options={props.store.friendsList.map((option) => option.first_name + " " + option.last_name)}
+            renderInput={(params) => (
+              <TextField
+                id="searchfriend"
+                {...params}
+
+                onChange={handleSearch}
+                label="Search Friends"
+                margin="normal"
+                variant="outlined"
+                InputProps={{
+                  ...params.InputProps,
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+
+            )}
+          />
+        </div>
+      </div>
+    </>
   );
 }
 
