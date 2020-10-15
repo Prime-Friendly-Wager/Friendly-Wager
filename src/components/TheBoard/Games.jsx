@@ -11,6 +11,9 @@ const useStyles = makeStyles({
   table: {
     width: '100%',
   },
+  tableContainer: {
+    marginTop: '3.5em',
+  },
 });
 
 function SimpleTable(props) {
@@ -21,7 +24,7 @@ function SimpleTable(props) {
     <>
       {props.store.games[0]
         ?
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} className={classes.tableContainer}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
