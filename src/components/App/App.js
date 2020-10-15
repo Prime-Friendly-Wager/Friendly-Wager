@@ -30,7 +30,7 @@ const darkTheme = createMuiTheme ({
   palette: {
     type: "dark"
   }
-})
+});
 
 class App extends Component {
   componentDidMount() {
