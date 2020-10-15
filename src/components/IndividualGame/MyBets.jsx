@@ -7,9 +7,9 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
 import { makeStyles } from '@material-ui/core/styles';
-import { Table, TableBody, TableCell, TableContainer, TableRow, Paper, Typography, Button, TableHead } from '@material-ui/core';
+import { Container, Table, TableBody, TableCell, TableContainer, TableRow, Paper, Typography, Button, TableHead } from '@material-ui/core';
+
 
 const useStyles = makeStyles({
   createBetForm: {
@@ -52,16 +52,18 @@ function MyBets(props) {
     handleClose();
   }
 
-  const game = props.store.games.filter(game => game.id == props.match.params.id)[0];
+  const game = props.store.games.filter(game => game.id === Number(props.match.params.id))[0];
 
   return (
     <div>
       <div>
-        <Typography variant="h5" color="textPrimary" className={classes.openBets}>Open Bets</Typography>
+        <Container>
+          <Typography variant="h5" color="textPrimary" className={classes.openBets}>Open Bets</Typography>
+        </Container>
         {props.store.betReducer.openBetReducer.filter(bet =>
           (bet.proposers_id === props.store.user.id && bet.game_id === game.id)).length
           ?
-          <TableContainer component={Paper}>
+          <TableContainer id="myBetTableOne" component={Paper}>
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -113,10 +115,12 @@ function MyBets(props) {
           :
           <Typography color="textPrimary" className={classes.text}>You don't have any open bets for this game.</Typography>
         }
-        <Typography variant="h5" color="textPrimary">Active Bets</Typography>
+        <Container>
+          <Typography variant="h5" color="textPrimary">Active Bets</Typography>
+        </Container>
         {props.store.betReducer.activeBetReducer.filter(bet =>
           (bet.game_id === game.id)).length ?
-          <TableContainer component={Paper}>
+          <TableContainer id="myBetTableTwo" component={Paper}>
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -167,11 +171,11 @@ function MyBets(props) {
           :
           <Typography color="textPrimary" className={classes.text}>You don't have any active bets for this game.</Typography>
         }
+      </div>
+      <Container className={classes.createBetForm}>
         <Typography variant="h5" color="textPrimary" className={classes.text}>Create Bet</Typography>
-      </div>
-      <div className={classes.createBetForm}>
         <CreateBetForm />
-      </div>
+      </Container>
     </div>
   );
 }

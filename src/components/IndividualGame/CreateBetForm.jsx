@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 function CreateBetForm(props) {
 
     const classes = useStyles();
-    const game = props.store.games.filter(game => game.id == props.match.params.id)[0];
+    const game = props.store.games.filter(game => game.id === Number(props.match.params.id))[0];
     const user = props.store.user;
 
     // state hook to package up bet
@@ -94,7 +94,13 @@ function CreateBetForm(props) {
                     className={classes.formControlLabel}
                 />
             </RadioGroup>
-            <TextField type="number" value={bet.wager} placeholder="Enter number of units" variant="outlined" onChange={(event) => handleInputChange('wager', event)}/>
+            <TextField 
+                type="number" 
+                value={bet.wager} 
+                placeholder="Enter your wager" 
+                variant="outlined" 
+                onChange={(event) => handleInputChange('wager', event)}
+            />
             <Typography color="textPrimary" className={classes.text}>Units</Typography>
 
             <Button
