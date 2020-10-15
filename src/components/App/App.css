@@ -125,3 +125,6 @@ input {
 #myBetTableOne, #myBetTableTwo {
   margin-bottom: 1em;
 }
+
+hr 
+{width: 300px; margin-left: auto; margin-right: auto; background-color:#666;opacity: 0.5;}

@@ -92,28 +92,19 @@ function FriendsListHeading(props) {
       <div className={classes.breakDiv}></div>
       <div className={classes.root}>
         <div className={classes.search}>
-          <Autocomplete
-            freeSolo
-            //Change mapping for friends
-            options={props.store.friendsList.map((option) => option.first_name + " " + option.last_name)}
-            renderInput={(params) => (
-              <TextField
-                id="searchfriend"
-                {...params}
-                onChange={handleSearch}
-                label="Search Friends"
-                margin="normal"
-                variant="outlined"
-                InputProps={{
-                  ...params.InputProps,
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            )}
+          <TextField
+            id="searchfriend"
+            onChange={handleSearch}
+            label="Search Friends"
+            margin="normal"
+            variant="outlined"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
           />
         </div>
       </div>
