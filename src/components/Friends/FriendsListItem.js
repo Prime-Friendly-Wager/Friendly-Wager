@@ -69,7 +69,7 @@ function FriendsListItem(props) {
             </Grid>
           </Grid>
           :
-          <Typography color="textPrimary" className={classes.conditionalText}>You haven't added any friends yet.</Typography>
+          <Typography color="textPrimary" className={classes.conditionalText}>There are no friend results.</Typography>
         }
       </div>
     </div>
