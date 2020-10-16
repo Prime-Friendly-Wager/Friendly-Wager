@@ -76,23 +76,23 @@ function OpenBetRow(props) {
               {/* Bet */}
               {/* determines if bet is spread or O/U */}
               {props.bet.proposers_team_id ? 
-                <TableCell align="left">
-                  {/* checks if proposer is home team */}
+                  // {/* checks if proposer is home team */}
+                  <>
                   {props.bet.proposers_team_is_home_team ?
-                    <Typography variant="body2">{props.bet.home_team_name} <br/>{props.bet.home_team_spread > 0 && '+'}{props.bet.home_team_spread}</Typography>
+                    <TableCell align="left">{props.bet.home_team_name} <br/>{props.bet.home_team_spread > 0 && '+'}{props.bet.home_team_spread}</TableCell>
                     :
-                    <Typography variant="body2">{props.bet.away_team_name} <br/>{props.bet.away_team_spread > 0 && '+'}{props.bet.away_team_spread}</Typography>
+                    <TableCell align="left">{props.bet.away_team_name} <br/>{props.bet.away_team_spread > 0 && '+'}{props.bet.away_team_spread}</TableCell>
                   }
-                </TableCell>
+                  </>
               :
-                <TableCell align="left">
-                  {/* determines if proposer has over */}
+                  // {/* determines if proposer has over */}
+                  <>
                   {props.bet.proposers_bet_is_over ?
-                    <Typography variant="body2">Over <br/>{props.bet.over_under}</Typography>
+                    <TableCell align="left">Over <br/>{props.bet.over_under}</TableCell>
                     :
-                    <Typography variant="body2">Under <br/>{props.bet.over_under}</Typography>
+                    <TableCell align="left">Under <br/>{props.bet.over_under}</TableCell>
                   } 
-                </TableCell>
+                  </>
             }
               {/* Wager */}
               <TableCell align="center">{props.bet.wager}</TableCell>

@@ -85,8 +85,8 @@ function Open(props) {
                       } 
                     </TableCell>
                   }
-                  <TableCell align="left">{bet.wager}</TableCell>
-                  <TableCell align="left">
+                  <TableCell align="center">{bet.wager}u</TableCell>
+                  <TableCell align="center">
                     <DeleteForeverIcon color="secondary" onClick={handleClickOpen} />
                   </TableCell>
                   <Dialog

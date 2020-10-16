@@ -81,23 +81,23 @@ function MyBets(props) {
                     (<TableRow key={bet.id}>
                       {/* determines if bet is spread or O/U */}
                       {bet.proposers_team_id ?                      
-                        <TableCell align="left">
+                        <>
                           {/* determines if proposer has home team stats */}
                           {bet.proposers_team_is_home_team ?
-                            <Typography variant="body2">{bet.home_team_name} {(bet.home_team_spread > 0) && '+'}{bet.home_team_spread}</Typography>
+                            <TableCell align="left">{bet.home_team_name} {(bet.home_team_spread > 0) && '+'}{bet.home_team_spread}</TableCell>
                             :
-                            <Typography variant="body2">{bet.away_team_name} {(bet.away_team_spread > 0) && '+'}{bet.away_team_spread}</Typography>
+                            <TableCell align="left">{bet.away_team_name} {(bet.away_team_spread > 0) && '+'}{bet.away_team_spread}</TableCell>
                           } 
-                        </TableCell>
+                        </>
                       :
-                        <TableCell align="left">
+                        <>
                           {/* determines if proposer has over */}
                           {bet.proposers_bet_is_over ?
-                            <Typography variant="body2">Over {bet.over_under}</Typography>
+                            <TableCell align="left">Over {bet.over_under}</TableCell>
                             :
-                            <Typography variant="body2">Under {bet.over_under}</Typography>
+                            <TableCell align="left">Under {bet.over_under}</TableCell>
                           } 
-                        </TableCell>
+                        </>
                       }
                       <TableCell align="center">
                         {bet.wager}
