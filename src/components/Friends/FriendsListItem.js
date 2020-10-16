@@ -52,8 +52,7 @@ function FriendsListItem(props) {
           ?
           <Grid container spacing={0} className={classes.grids}>
             <Grid item xs={12} md={6}>
-
-              <div className={classes.demo}>
+              <div>
                 {props.store.friendsList.map((friend) =>
                   <ListItem key={friend.id} onClick={() => { props.history.push(`/friends/statistics/${friend.id}`) }}>
                     <ListItemAvatar>
