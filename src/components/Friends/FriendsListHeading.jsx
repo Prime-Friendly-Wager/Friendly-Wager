@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
     height: '6.5em',
   },
   heading: {
-    paddingRight: '20px'
+    paddingRight: '20px',
+    color: 'white',
   },
   extendedIcon: {
     marginRight: theme.spacing(1),
@@ -72,7 +73,7 @@ function FriendsListHeading(props) {
   return (
     <div className={classes.mainContainer}>
       <div className={classes.headingContainer}>
-        <Typography variant="h4" color="textPrimary" className={classes.heading}>My Friends</Typography>
+        <Typography variant="h4" className={classes.heading}>My Friends</Typography>
         <AddIcon className={classes.addButton} onClick={() => props.history.push("/friends/add")} />
       </div>
       <div className={classes.root}>

@@ -28,6 +28,7 @@ const styles = theme => ({
     marginTop: '1.5em',
     paddingLeft: '24px',
     paddingRight: '24px',
+    color: 'white',
   },
   backButton: {
     fontSize: '3em',
@@ -148,15 +149,15 @@ class AddFriend extends Component {
                 {this.props.store.memberReducer.map(member => (
                   <ListItem key={member.id}>
                     <ListItemAvatar><Avatar className={classes.avatar}>{member.first_name[0].toUpperCase()}</Avatar></ListItemAvatar>
-                    <ListItemText primary={<Typography color="textPrimary">{member.first_name} {member.last_name}</Typography>}
-                      secondary={<Typography color="textSecondary">{member.username}</Typography>} />
-                    <ListItemSecondaryAction><IconButton onClick={() => this.addFriend(member.id)}><AddIcon /></IconButton></ListItemSecondaryAction>
+                    <ListItemText primary={<Typography style={{color: 'white'}}>{member.first_name} {member.last_name}</Typography>}
+                      secondary={<Typography style={{color: 'white'}}>{member.username}</Typography>} />
+                    <ListItemSecondaryAction><IconButton onClick={() => this.addFriend(member.id)}><AddIcon style={{color: 'white'}}/></IconButton></ListItemSecondaryAction>
                   </ListItem>
 
                 ))}
               </List>
               :
-              <Typography color="textPrimary" className={classes.conditionalText}>There aren't any users to add.</Typography>
+              <Typography className={classes.conditionalText}>There aren't any users to add.</Typography>
             }
           </div>
         </div>
