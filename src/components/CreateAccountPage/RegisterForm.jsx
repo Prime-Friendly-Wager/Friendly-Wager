@@ -78,7 +78,7 @@ class RegisterForm extends Component {
           <Grid item xs={12}>
             <label htmlFor="first_name">
               <TextField
-                placeholder="First Name"
+                placeholder="first name"
                 size="small"
                 className={classes.textField}
                 variant="outlined"
@@ -93,7 +93,7 @@ class RegisterForm extends Component {
           <Grid item xs={12}>
             <label htmlFor="last_name">
               <TextField
-                placeholder="Last name"
+                placeholder="last name"
                 size="small"
                 className={classes.textField}
                 variant="outlined"
@@ -108,7 +108,7 @@ class RegisterForm extends Component {
           <Grid item xs={12}>
             <label htmlFor="username">
               <TextField
-                placeholder="Email"
+                placeholder="email"
                 size="small"
                 className={classes.textField}
                 variant="outlined"
@@ -123,7 +123,7 @@ class RegisterForm extends Component {
           <Grid item xs={12}>
             <label htmlFor="password">
               <TextField
-                placeholder="Password"
+                placeholder="password"
                 size="small"
                 className={classes.textField}
                 variant="outlined"
@@ -138,7 +138,7 @@ class RegisterForm extends Component {
           <Grid item xs={12}>
             <label htmlFor="password">
               <TextField
-                placeholder="Confirm Password"
+                placeholder="confirm password"
                 size="small"
                 className={classes.textField}
                 variant="outlined"
