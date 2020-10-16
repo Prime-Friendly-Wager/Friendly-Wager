@@ -47,12 +47,22 @@ const styles = theme => ({
     zIndex: '20',
   },
   searchAbility: {
-    marginTop: '7em',
+    marginTop: '6em',
   },
   addFriendText: {
     marginLeft: '1em',
     color: 'white',
     marginTop: '.5em',
+  },
+  mainHeading: {
+    position: 'fixed',
+    zIndex: '20',
+    backgroundColor: '#424242',
+    width: '100%',
+    top: 0,
+  },
+  listContainer: {
+    marginTop: '13.5em',
   },
 });
 
@@ -107,45 +117,48 @@ class AddFriend extends Component {
       </Alert>
         </Snackbar>
         <div className={classes.mainDiv}>
-          <div className={classes.heading}>
-            <Button onClick={() => this.props.history.goBack()}>
-              <ArrowBackIcon className={classes.backButton} />
-            </Button>
-            <Typography variant="h4" className={classes.addFriendText}>Add Friends</Typography>
+          <div className={classes.mainHeading}>
+            <div className={classes.heading}>
+              <Button onClick={() => this.props.history.goBack()}>
+                <ArrowBackIcon className={classes.backButton} />
+              </Button>
+              <Typography variant="h4" className={classes.addFriendText}>Add Friends</Typography>
+            </div>
+            <div className={classes.searchAbility}>
+              <TextField
+                id="friendSearch"
+                onChange={this.handleSearch}
+                label="Search Friends"
+                margin="normal"
+                variant="outlined"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </div>
           </div>
-          <div className={classes.searchAbility}>
-            <TextField
-              id="friendSearch"
-              onChange={this.handleSearch}
-              label="Search Friends"
-              margin="normal"
-              variant="outlined"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
+          <div className={classes.listContainer}>
+            {this.props.store.memberReducer[0]
+              ?
+              <List>
+                {this.props.store.memberReducer.map(member => (
+                  <ListItem key={member.id}>
+                    <ListItemAvatar><Avatar className={classes.avatar}>{member.first_name[0].toUpperCase()}</Avatar></ListItemAvatar>
+                    <ListItemText primary={<Typography color="textPrimary">{member.first_name} {member.last_name}</Typography>}
+                      secondary={<Typography color="textSecondary">{member.username}</Typography>} />
+                    <ListItemSecondaryAction><IconButton onClick={() => this.addFriend(member.id)}><AddIcon /></IconButton></ListItemSecondaryAction>
+                  </ListItem>
+
+                ))}
+              </List>
+              :
+              <Typography color="textPrimary" className={classes.conditionalText}>There aren't any users to add.</Typography>
+            }
           </div>
-          {this.props.store.memberReducer[0]
-            ?
-            <List>
-              {this.props.store.memberReducer.map(member => (
-                <ListItem key={member.id}>
-                  <ListItemAvatar><Avatar className={classes.avatar}>{member.first_name[0].toUpperCase()}</Avatar></ListItemAvatar>
-                  <ListItemText primary={<Typography color="textPrimary">{member.first_name} {member.last_name}</Typography>}
-                    secondary={<Typography color="textSecondary">{member.username}</Typography>} />
-                  <ListItemSecondaryAction><IconButton onClick={() => this.addFriend(member.id)}><AddIcon /></IconButton></ListItemSecondaryAction>
-                </ListItem>
-
-              ))}
-            </List>
-
-            :
-            <Typography color="textPrimary" className={classes.conditionalText}>There aren't any users to add.</Typography>
-          }
         </div>
       </>
     );

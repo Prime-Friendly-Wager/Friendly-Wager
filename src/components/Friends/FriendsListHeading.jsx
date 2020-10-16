@@ -40,23 +40,9 @@ const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
   },
-
   search: {
     marginTop: '.5em',
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: 300,
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 300,
-    },
-  },
-  breakDiv: {
-    height: '1em',
-    width: '100%',
-    backgroundColor: '#303030',
+    paddingRight: '4em',
   },
   mainContainer: {
     position: 'fixed',
@@ -89,7 +75,6 @@ function FriendsListHeading(props) {
         <Typography variant="h4" color="textPrimary" className={classes.heading}>My Friends</Typography>
         <AddIcon className={classes.addButton} onClick={() => props.history.push("/friends/add")} />
       </div>
-      <div className={classes.breakDiv}></div>
       <div className={classes.root}>
         <div className={classes.search}>
           <TextField
