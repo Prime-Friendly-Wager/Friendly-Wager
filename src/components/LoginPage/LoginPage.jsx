@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import LoginForm from './LoginForm';
-import { Container, Grid, Button, Typography } from '@material-ui/core'
+import { withStyles, Container, Grid, Button, Typography } from '@material-ui/core'
 
+const styles = theme => ({
+  
+});
 
 class LoginPage extends Component {
   componentDidMount(){
@@ -14,6 +17,8 @@ class LoginPage extends Component {
   }
   render() {
     
+    const { classes } = this.props;
+
     return (
       <Container>
         <Grid container justify="center" alignItems="center" spacing={4}>
@@ -21,7 +26,7 @@ class LoginPage extends Component {
             <Typography variant="h3" style={{marginTop: "120px"}}>Friendly Wager</Typography>
           </Grid>
           <Grid item xs={12} style={{textAlign: "center", marginTop: "5px"}}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 1008.88 822.802">
+            <svg xmlns="http://www.w3.org/2000/svg" width="130" height="130" viewBox="0 0 1008.88 822.802">
               <path id="Path_76" data-name="Path 76" d="M1889.408-596.257c.225,2.307,6.223,26.156-38.147,34.217-72.306,13.137-228.245,
               10.706-387.456.719-49.807-3.124-112.71-1.116-222.195-11.159-18.178-2.624-58.091-7.3-80.809-14-31.258-10.159-24.673-10.855-40.245-14.066-6.578-3.861-19-9.809-27.741-14.066-15.33-7.469-30.55-17.3-41.417-21.1-29.167-10.2-39.2-7.541-39.2-7.541s-22.839-294.223.124-333.56c28.952-14.57,
               39.222-34.078,67.6-64.079,17.078-18.057,55.61-44.915,80.88-84.787,37.436-44.656,57.7-64.956,82.833-112.137,11.218-20.565,25.675-45.629,
@@ -41,22 +46,11 @@ class LoginPage extends Component {
           <Grid item xs={12} style={{textAlign: "center"}}>
             <LoginForm />
           </Grid>
-          <Grid item xs={12} style={{textAlign: "center"}}>
-            <Button
-              variant="contained"
-              color="primary"
-              className="btn btn_asLink"
-              onClick={() => {
-                this.props.history.push('/create-account');
-              }}
-            >
-              Register
-            </Button>
-          </Grid>
         </Grid>
       </Container>
     );
   }
 }
 
-export default connect(mapStoreToProps)(LoginPage);
+const LoginPageStyled = withStyles(styles)(LoginPage);
+export default connect(mapStoreToProps)(LoginPageStyled);

@@ -2,7 +2,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { withRouter } from 'react-router-dom';
-import {Typography} from '@material-ui/core'
+import { withStyles, Typography, TextField, Button } from '@material-ui/core'
+
+const styles = theme => ({
+  textField: {
+    backgroundColor: 'white',
+    borderRadius: '.5em',
+    margin: '.3em',
+    width: '15em',
+    marginTop: '.7em',
+  },
+  loginBtn: {
+    marginTop: '1.5em',
+    marginBottom: '1em',
+    width: '140px',
+  },
+  registerBtn: {
+    width: '140px',
+  },
+});
 
 class LoginForm extends Component {
   state = {
@@ -34,55 +52,83 @@ class LoginForm extends Component {
   };
 
   render() {
+
+    const { classes } = this.props;
+
     return (
-     
-      <form className="formPanel" onSubmit={this.login}>
-         <center>
-        <h2>Login</h2>
-        {this.props.store.errors.loginMessage && (
-          <h3 className="alert" role="alert">
-            {this.props.store.errors.loginMessage}
-          </h3>
-        
-        )}
+
+      <form onSubmit={this.login}>
+        <center>
+          {this.props.store.errors.loginMessage && (
+            <h3 className="alert" role="alert">
+              {this.props.store.errors.loginMessage}
+            </h3>
+
+          )}
         </center>
         <div>
           <center>
-          <label htmlFor="username">
-            <input
-              type="text"
-              placeholder="Enter Email"
-              name="username"
-              required
-              value={this.state.username}
-              onChange={this.handleInputChangeFor('username')}
-            />
-          </label>
+            <label htmlFor="username">
+              <TextField
+                size="small"
+                className={classes.textField}
+                type="text"
+                placeholder="email"
+                name="username"
+                variant="outlined"
+                required
+                value={this.state.username}
+                onChange={this.handleInputChangeFor('username')}
+              />
+            </label>
           </center>
         </div>
         <div>
-         <center>
-          <label htmlFor="password">
-            <input
-              placeholder="Enter Password"
-              type="password"
-              name="password"
-              required
-              value={this.state.password}
-              onChange={this.handleInputChangeFor('password')}
-            />
-          </label>
+          <center>
+            <label htmlFor="password">
+              <TextField
+                className={classes.textField}
+                placeholder="password"
+                size="small"
+                type="password"
+                name="password"
+                variant="outlined"
+                required
+                value={this.state.password}
+                onChange={this.handleInputChangeFor('password')}
+              />
+            </label>
           </center>
-        
         </div>
         <center>
-        <div>
-          <input className="btn" type="submit" name="submit" value="Log In" />
-        </div>
+          <div>
+            <Button
+              className={classes.loginBtn}
+              color="primary"
+              variant="contained"
+              type="submit"
+              name="submit"
+              value="Log In">
+              Log In
+            </Button>
+            <div>
+              <Button
+                className={classes.registerBtn}
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  this.props.history.push('/create-account');
+                }}
+                >
+                Register
+              </Button>
+            </div>
+          </div>
         </center>
       </form>
     );
   }
 }
 
-export default connect(mapStoreToProps)(withRouter(LoginForm));
+const LoginFormStyled = withStyles(styles)(LoginForm);
+export default connect(mapStoreToProps)(withRouter(LoginFormStyled));
