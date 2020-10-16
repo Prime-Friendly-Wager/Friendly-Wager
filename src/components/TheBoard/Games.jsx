@@ -32,6 +32,7 @@ function SimpleTable(props) {
                 <TableCell style={{color: 'white'}} align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Game</TableCell>
                 <TableCell style={{color: 'white'}} align="left">Time</TableCell>
                 <TableCell style={{color: 'white'}} align="right">Spread</TableCell>
+                <TableCell style={{color: 'white'}} align="right">O/U</TableCell>
               </TableRow>
             </TableHead>
             <TableBody className={classes.tableBody}>
@@ -54,6 +55,7 @@ function SimpleTable(props) {
                       :
                       <TableCell style={{color: 'white'}} align="right">{game.away_team} <br/> {game.away_team_spread}</TableCell>
                     }
+                    <TableCell align="right">{game.over_under}</TableCell>
                   </TableRow>
                 )
               })}

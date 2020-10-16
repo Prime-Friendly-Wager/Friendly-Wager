@@ -8,7 +8,7 @@ require('dotenv').config();
 
 //the querytext in this route will need to be changed
 router.get('/week/:week', rejectUnauthenticated, (req, res) => {
-    const queryText = `SELECT games.*, home_team."name" as home_team, away_team."name" as away_team, home_team."logo" as home_team_logo, away_team."logo" as away_team_logo
+    const queryText = `SELECT games.*, home_team."name" as home_team, away_team."name" as away_team, home_team."nfl_api_ref" as home_team_abbr, away_team."nfl_api_ref" as away_team_abbr, home_team."logo" as home_team_logo, away_team."logo" as away_team_logo
                     FROM "games"
                     LEFT JOIN "teams" as home_team ON "games".home_team_id = "home_team".id
                     LEFT JOIN "teams" as away_team ON "games".away_team_id = "away_team".id

@@ -65,11 +65,25 @@ function Open(props) {
                 <TableRow key={bet.id}>
                   <TableCell align="left">{moment(bet.date_played).format("M/D")}</TableCell>
                   <TableCell align="left">{bet.away_team_abbr} @ {bet.home_team_abbr}</TableCell>
-                  {/* checks if proposer is home team */}
-                  {bet.proposers_team_is_home_team ?
-                    <TableCell align="left">{bet.home_team_name} {bet.home_team_spread > 0 && '+'}{bet.home_team_spread}</TableCell>
-                    :
-                    <TableCell align="left">{bet.away_team_name} {bet.away_team_spread > 0 && '+'}{bet.away_team_spread}</TableCell>
+                  {/* determines if bet is spread or O/U */}
+                  {bet.proposers_team_id ? 
+                    <>
+                      {/* checks if proposer is home team */}
+                      {bet.proposers_team_is_home_team ?
+                        <TableCell align="left">{bet.home_team_name} <br/>{bet.home_team_spread > 0 && '+'}{bet.home_team_spread}</TableCell>
+                        :
+                        <TableCell align="left">{bet.away_team_name} <br/>{bet.away_team_spread > 0 && '+'}{bet.away_team_spread}</TableCell>
+                      }
+                    </>
+                  :
+                    <TableCell align="left">
+                      {/* determines if proposer has over */}
+                      {bet.proposers_bet_is_over ?
+                        <Typography variant="body2">Over <br/>{bet.over_under}</Typography>
+                        :
+                        <Typography variant="body2">Under <br/>{bet.over_under}</Typography>
+                      } 
+                    </TableCell>
                   }
                   <TableCell align="left">{bet.wager}</TableCell>
                   <TableCell align="left">
