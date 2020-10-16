@@ -39,7 +39,7 @@ class App extends Component {
     const currentWeek = convertDate();
     this.props.dispatch({ type: 'FETCH_GAMES', payload: currentWeek });
     this.props.dispatch({ type: 'FETCH_BETS' })
-  }
+  };
 
   render() {
     return (
