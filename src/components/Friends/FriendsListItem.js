@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '1.5em',
     paddingLeft: '24px',
     paddingRight: '24px',
+    color: 'white',
   },
   tableContainer: {
     marginTop: '7em',
@@ -60,8 +61,8 @@ function FriendsListItem(props) {
                         className={classes.orange}>{friend.first_name[0].toUpperCase()}</Avatar>
                     </ListItemAvatar>
                     <ListItemText
-                      primary={<Typography color="textPrimary">{friend.first_name} {friend.last_name}</Typography>}
-                      secondary={<Typography color="textSecondary">{friend.username}</Typography>}
+                      primary={<Typography style={{color: 'white'}}>{friend.first_name} {friend.last_name}</Typography>}
+                      secondary={<Typography style={{color: 'white'}}>{friend.username}</Typography>}
                     />
                   </ListItem>,
                 )}
@@ -69,7 +70,7 @@ function FriendsListItem(props) {
             </Grid>
           </Grid>
           :
-          <Typography color="textPrimary" className={classes.conditionalText}>There are no friend results.</Typography>
+          <Typography className={classes.conditionalText}>There are no friend results.</Typography>
         }
       </div>
     </div>

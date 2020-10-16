@@ -53,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         marginLeft: '.25em',
         marginRight: '1em',
+        color: 'white',
     },
     orange: {
         color: theme.palette.getContrastText(deepOrange[500]),
