@@ -16,7 +16,7 @@ const useStyles = makeStyles({
         marginRight: '20%',
     },
     formControlLabel: {
-        color: 'white',
+        color: 'black',
     },
     text: {
         margin: '1em',

@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     width: '100%',
   },
   tableContainer: {
-    marginTop: '3.5em',
+    marginTop: '2.9em',
     backgroundColor: '#151515',
   },
 });
@@ -55,7 +55,7 @@ function SimpleTable(props) {
                       :
                       <TableCell style={{color: 'white'}} align="right">{game.away_team} <br/> {game.away_team_spread}</TableCell>
                     }
-                    <TableCell align="right">{game.over_under}</TableCell>
+                    <TableCell style={{color: 'white'}} align="right">{game.over_under}</TableCell>
                   </TableRow>
                 )
               })}
