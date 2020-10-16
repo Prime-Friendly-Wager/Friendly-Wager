@@ -17,6 +17,7 @@ router.get('/open', rejectUnauthenticated, (req, res) => {
             "user".last_name AS proposers_last_name,
             "games".home_team_spread,
             "games".away_team_spread,
+            "games".over_under,
             "games".home_team_id,
             "games".away_team_id,
             "games".date,
@@ -71,6 +72,7 @@ router.get('/active', rejectUnauthenticated, (req, res) => {
                 "proposer".last_name AS proposers_last_name,
                 "acceptor".first_name AS acceptors_first_name,
                 "acceptor".last_name AS acceptors_last_name,
+                "games".over_under,
                 "games".home_team_spread,
                 "games".away_team_spread,
                 "games".home_team_id,
@@ -178,11 +180,12 @@ router.get('/my-unit-history', rejectUnauthenticated, (req, res) => {
 
 //3.2 creating bet, posting bet to bets table
 router.post('/', rejectUnauthenticated, (req, res) => {
-    const { proposers_id, wager, game_id, proposers_team_id } = req.body;
-    const queryText = `INSERT INTO "bets" ("proposers_id", "wager", "game_id", "proposers_team_id")
-                        VALUES ($1, $2, $3, $4);`
-    
-    pool.query(queryText, [proposers_id, wager, game_id, proposers_team_id])
+    const { proposers_id, wager, game_id, proposers_team_id, proposers_bet_is_over } = req.body;
+
+    if ( proposers_team_id ) {
+        let queryText = `INSERT INTO "bets" ("proposers_id", "wager", "game_id", "proposers_team_id")
+                            VALUES ($1, $2, $3, $4);`
+        pool.query(queryText, [proposers_id, wager, game_id, proposers_team_id])
         .then(() => {
             console.log('BET CREATED')
             res.sendStatus(201); //created status
@@ -190,22 +193,50 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         .catch((error) => {
             console.log('ERROR CREATING BET', error);
         })
+    } else {
+        let queryText = `INSERT INTO "bets" ("proposers_id", "wager", "game_id", "proposers_bet_is_over")
+                            VALUES ($1, $2, $3, $4);`
+        pool.query(queryText, [proposers_id, wager, game_id, proposers_bet_is_over])
+        .then(() => {
+            console.log('BET CREATED')
+            res.sendStatus(201); //created status
+        })
+        .catch((error) => {
+            console.log('ERROR CREATING BET', error);
+        })
+    }
+    
+
 });
 
 //2.1/3.1 accepting bets
 router.put('/accept', rejectUnauthenticated, (req, res) => {
     const { bet_id, acceptors_team_id } = req.body;
     const acceptors_id = req.user.id
-    const queryText = `UPDATE "bets" SET "accepted" = true, "acceptors_id" = $1, acceptors_team_id = $2 WHERE "bets".id = $3;`
-    
-    pool.query(queryText, [acceptors_id, acceptors_team_id, bet_id])
-        .then(() => {
-            console.log('BET ACCEPTED')
-            res.sendStatus(200);
-        })
-        .catch((error) => {
-            console.log('ERROR ACCEPTING BET', error);
-        })
+
+    if (req.body.bet_is_over_under) {
+        const queryText = `UPDATE "bets" SET "accepted" = true, "acceptors_id" = $1 WHERE "bets".id = $2;`
+        
+        pool.query(queryText, [acceptors_id, bet_id])
+            .then(() => {
+                console.log('BET ACCEPTED')
+                res.sendStatus(200);
+            })
+            .catch((error) => {
+                console.log('ERROR ACCEPTING BET', error);
+            })
+    } else {
+        const queryText = `UPDATE "bets" SET "accepted" = true, "acceptors_id" = $1, acceptors_team_id = $2 WHERE "bets".id = $3;`
+        
+        pool.query(queryText, [acceptors_id, acceptors_team_id, bet_id])
+            .then(() => {
+                console.log('BET ACCEPTED')
+                res.sendStatus(200);
+            })
+            .catch((error) => {
+                console.log('ERROR ACCEPTING BET', error);
+            })
+    }
 });
 
 //3.2 and 5.2 deleting bets
