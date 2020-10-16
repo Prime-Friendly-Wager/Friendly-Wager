@@ -24,7 +24,7 @@ function automationFunction(){
     });
 
     //deletes unaccepted bets if game has started
-    //scheduled to run every half hour between 10am and 9pm Monday, Tuesday, Thursday, and Sunday
+    //scheduled to run every 30 minutes between 10am and 9pm Monday, Tuesday, Thursday, and Sunday
     cron.schedule('0,30 10-21 * * 1,2,4,7', function(){
         closeBets();
     });
