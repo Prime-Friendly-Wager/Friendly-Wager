@@ -28,23 +28,12 @@ class RegisterPage extends Component {
     const { classes } = this.props;
 
     return (
-      <div class='container'>
-        <br/>
-        <br/>
-        <br/>
+      <div>
         <center>
+        <br/>
+        <br/>
+        <br/>
         <RegisterForm />
-        </center>
-        <center>
-          <button
-            type="button"
-            className="btn btn_asLink"
-            onClick={() => {
-              this.props.history.push('/login');
-            }}
-          >
-            Login
-          </button>
         </center>
       </div>
     );

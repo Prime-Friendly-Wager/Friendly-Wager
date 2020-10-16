@@ -9,6 +9,8 @@ const styles = theme => ({
     backgroundColor: 'white',
     borderRadius: '.5em',
     margin: '.3em',
+    width: '15em',
+    marginTop: '.7em',
   },
   loginBtn: {
     marginTop: '1.5em',

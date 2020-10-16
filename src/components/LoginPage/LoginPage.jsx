@@ -5,11 +5,7 @@ import LoginForm from './LoginForm';
 import { withStyles, Container, Grid, Button, Typography } from '@material-ui/core'
 
 const styles = theme => ({
-  registerBtn: {
-    marginTop: 0,
-    width: '100%',
-    marginLeft: '20em',
-  },
+  
 });
 
 class LoginPage extends Component {
