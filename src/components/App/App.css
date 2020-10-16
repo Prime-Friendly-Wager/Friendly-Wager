@@ -128,3 +128,7 @@ input {
 
 hr 
 {width: 300px; margin-left: auto; margin-right: auto; background-color:#666;opacity: 0.5;}
+
+p, h1, h2, h3 {
+  color: white;
+}

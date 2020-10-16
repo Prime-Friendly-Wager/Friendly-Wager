@@ -10,66 +10,32 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { withRouter } from "react-router";
 
-
-
 const useStyles = makeStyles({
-  root: {
-    backgroundColor: '#424242',
+  navBar: {
+    backgroundColor: '#404040',
     width: '100%',
     position: 'fixed',
     bottom: 0,
   },
 });
+
 function BottomNavBar(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState('recents');
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-  
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const handleLogout = () => {
-    props.dispatch({ type: 'LOGOUT' })
-    setMobileMoreAnchorEl(null);
-  }
-
-  
   return (
-    <>
-    <BottomNavigation position="fixed" value={value} onChange={handleChange} className={classes.root}>
-      <BottomNavigationAction label="The Board" style={{color: 'white'}} onClick={() => {props.history.push('/the-board')}} value="recents" icon={<DashboardIcon fontSize="large"/>} />
-      <BottomNavigationAction label="My Bets" style={{color: 'white'}} onClick={() => {props.history.push('/mybets')}} value="nearby" icon={ <img alt="ticket icon" src={process.env.PUBLIC_URL + '/Images/Ticket.svg'} />} />
-      <BottomNavigationAction label="Friends" style={{color: 'white'}}onClick={() => {props.history.push('/friends')}} value="favorites" icon={ <img alt="friend icon" src={process.env.PUBLIC_URL + '/Images/friends.svg'} />} />
-      <BottomNavigationAction label="My Profile" style={{color: 'white'}} value="folder" onClick={() => {props.history.push(`/profile/${props.store.user.id}`)}} icon={<AccountCircleIcon fontSize="large"/>} />
-    </BottomNavigation>
-    <Menu
-        id="menu-appbar"
-        anchorEl={mobileMoreAnchorEl}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        keepMounted
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        open={isMobileMenuOpen}
-        onClose={handleMobileMenuClose}
-      >
-      <MenuItem onClick={handleLogout}>Log Out</MenuItem>
-    </Menu>
-  </>
+    <div className={classes.shadow}>
+      <BottomNavigation position="fixed" value={value} onChange={handleChange} className={classes.navBar}>
+        <BottomNavigationAction label="The Board" className={classes.navIcons} style={{ color: 'white' }} onClick={() => { props.history.push('/the-board') }} value="recents" icon={<DashboardIcon fontSize="large" />} />
+        <BottomNavigationAction label="My Bets" style={{ color: 'white' }} onClick={() => { props.history.push('/mybets') }} value="nearby" icon={<img alt="ticket icon" src={process.env.PUBLIC_URL + '/Images/Ticket.svg'} />} />
+        <BottomNavigationAction label="Friends" style={{ color: 'white' }} onClick={() => { props.history.push('/friends') }} value="favorites" icon={<img alt="friend icon" src={process.env.PUBLIC_URL + '/Images/friends.svg'} />} />
+        <BottomNavigationAction label="My Profile" style={{ color: 'white' }} value="folder" onClick={() => { props.history.push(`/profile/${props.store.user.id}`) }} icon={<AccountCircleIcon fontSize="large" />} />
+      </BottomNavigation>
+    </div>
   );
 }
 export default connect(mapStoreToProps)(withRouter(BottomNavBar));

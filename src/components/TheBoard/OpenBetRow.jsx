@@ -6,16 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-
-
 import { Button, TableCell, TableRow, Paper } from '@material-ui/core';
-
-
-
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
@@ -31,7 +22,6 @@ const StyledTableRow = withStyles((theme) => ({
     }
   }
 }))(TableRow);
-
 
 const useStyles = makeStyles({
   table: {
@@ -52,7 +42,6 @@ function OpenBetRow(props) {
     setOpen(false);
   };
 
-
   function acceptBet() {
     props.dispatch({
       type: 'ACCEPT_BET',
@@ -65,23 +54,22 @@ function OpenBetRow(props) {
     handleClose();
   }
 
-
   return (
     <>
       <TableRow hover classes={{ hover: classes.rowHover }} onClick={handleClickOpen}>
         {/* Friend */}
-        <TableCell align="left">{props.bet.proposers_first_name} {props.bet.proposers_last_name}</TableCell>
+        <TableCell style={{color: 'white'}} align="left">{props.bet.proposers_first_name} {props.bet.proposers_last_name}</TableCell>
         {/* Game */}
-        <TableCell align="left">{props.bet.away_team_abbr} @ {props.bet.home_team_abbr}</TableCell>
+        <TableCell style={{color: 'white'}} align="left">{props.bet.away_team_abbr} @ {props.bet.home_team_abbr}</TableCell>
         {/* Bet */}
         {/* checks if proposer is home team */}
         {props.bet.proposers_team_is_home_team ?
-          <TableCell align="left">{props.bet.home_team_name} {props.bet.home_team_spread > 0 && '+'}{props.bet.home_team_spread}</TableCell>
+          <TableCell style={{color: 'white'}} align="left">{props.bet.home_team_name} {props.bet.home_team_spread > 0 && '+'}{props.bet.home_team_spread}</TableCell>
           :
-          <TableCell align="left">{props.bet.away_team_name} {props.bet.away_team_spread > 0 && '+'}{props.bet.away_team_spread}</TableCell>
+          <TableCell style={{color: 'white'}} align="left">{props.bet.away_team_name} {props.bet.away_team_spread > 0 && '+'}{props.bet.away_team_spread}</TableCell>
         }
         {/* Wager */}
-        <TableCell align="center">{props.bet.wager}</TableCell>
+        <TableCell style={{color: 'white'}} align="center">{props.bet.wager}</TableCell>
       </TableRow>
       <>
         <Dialog
@@ -109,7 +97,6 @@ function OpenBetRow(props) {
         </Dialog>
       </>
     </>
-
   );
 }
 

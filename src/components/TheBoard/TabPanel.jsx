@@ -52,8 +52,9 @@ const useStyles = makeStyles((theme) => ({
   mainTab: {
     position: 'fixed',
     width: '100%',
-    backgroundColor: '#3f51b5',
+    backgroundColor: '#404040',
     marginTop: '0',
+    boxShadow: '0px -5px 0px #151515',
   },
   tabs: {
     width: '50%',

@@ -9,6 +9,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 const useStyles = makeStyles({
   tableContainer: {
     marginTop: '1em',
+    backgroundColor: '#151515',
   },
   conditionalText: {
     padding: '24px',
@@ -32,10 +33,10 @@ function OpenBets(props) {
           <Table aria-label="simple table" className={classes.tableContainer}>
             <TableHead>
               <TableRow>
-                <TableCell align="left">Friend</TableCell>
-                <TableCell align="left">Game</TableCell>
-                <TableCell align="left">Bet</TableCell>
-                <TableCell align="center">Wager</TableCell>
+                <TableCell align="left" style={{color: 'white'}}>Friend</TableCell>
+                <TableCell align="left" style={{color: 'white'}}>Game</TableCell>
+                <TableCell align="left" style={{color: 'white'}}>Bet</TableCell>
+                <TableCell align="center" style={{color: 'white'}}>Wager</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
