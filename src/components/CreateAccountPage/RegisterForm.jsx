@@ -25,6 +25,16 @@ const styles = theme => ({
   },  
 });
 
+function emailValidation (email)  {
+  let emailIsValid = false;
+  for(let i = 0; i < email.length; i++){
+    if (email[i] === '@'){
+      emailIsValid = true;
+    }
+  }
+  return emailIsValid;
+}
+
 class RegisterForm extends Component {
   state = {
     first_name: '',
@@ -38,7 +48,8 @@ class RegisterForm extends Component {
 
   registerUser = (event) => {
     event.preventDefault();
-    if (this.state.password == this.state.confirmPassword) {
+    let checkEmail = emailValidation(this.state.username);
+    if ((this.state.password == this.state.confirmPassword) && checkEmail) {
       this.props.dispatch({
         type: 'REGISTER',
         payload: {
@@ -47,9 +58,10 @@ class RegisterForm extends Component {
           username: this.state.username,
           password: this.state.password,
         },
-
-
       })
+    }
+    else if (!checkEmail){
+      this.props.dispatch({type: 'EMAIL_IS_INVALID'})
     }
     else {
       this.props.dispatch({ type: 'CONFIRM_PASSWORD_ERROR' });

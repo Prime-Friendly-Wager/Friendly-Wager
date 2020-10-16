@@ -101,17 +101,17 @@ function FriendStatisticsHeader(props) {
       </Button>
       <div className={classes.headingContainer}>
         {props.store.friendsList.filter(friend => friend.id === friendId).map(friend => (
-          <Typography key={friend.id} variant="h4" color="textPrimary">{friend.first_name} {friend.last_name}</Typography>
+          <Typography key={friend.id} variant="h4" color="white">{friend.first_name} {friend.last_name}</Typography>
         ))}
       </div>
 
       <Grid className={classes.historyContainer} container direction="row" justify="center" alignItems="center" >  
         <Grid item>
           <Container>
-            <Typography variant="h6">Total Bets</Typography>
+            <Typography color="white" variant="h6">Total Bets</Typography>
             <br />
             <center>
-              <Typography color="textPrimary">{props.store.friendStatistics.length}</Typography>
+              <Typography color="white">{props.store.friendStatistics.length}</Typography>
             </center>
             </Container>
         </Grid>
@@ -122,10 +122,10 @@ function FriendStatisticsHeader(props) {
         </Grid>
         <Grid item>
           <Container>
-            <Typography variant="h6">Open Bets</Typography>
+            <Typography color="white" variant="h6">Open Bets</Typography>
             <br />
             <center>
-              <Typography color="textPrimary">{friendOpenBets.length}</Typography>
+              <Typography color="white">{friendOpenBets.length}</Typography>
             </center>
           </Container>
         </Grid>
@@ -135,7 +135,7 @@ function FriendStatisticsHeader(props) {
 
       <div className={classes.historyContainer}>
         {props.store.friendsList.filter(friend => friend.id === friendId).map(friend => (
-          <Typography key={friend.id} variant="h5">My History with {friend.first_name}</Typography>
+          <Typography key={friend.id} color="white" variant="h5">My History with {friend.first_name}</Typography>
         ))}
       </div>
 
@@ -143,8 +143,8 @@ function FriendStatisticsHeader(props) {
         <Grid item xs={6}>
           <center>
             <Box className={classes.boxItem}>
-              <Typography variant="h6">Completed Bets</Typography>
-              <Typography color="textPrimary">{ourCompletedBets.length}</Typography>
+              <Typography color="white"  variant="h6">Completed Bets</Typography>
+              <Typography color="white">{ourCompletedBets.length}</Typography>
             </Box>
           </center>
         </Grid> 

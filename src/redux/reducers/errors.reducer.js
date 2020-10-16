@@ -29,6 +29,8 @@ const registrationMessage = (state = '', action) => {
       return "Oops! That didn't work. The username might already be taken. Try again!";
     case 'CONFIRM_PASSWORD_ERROR':
       return "Oops! Make sure both passwords match."
+    case 'EMAIL_IS_INVALID':
+      return 'Please enter a valid email.';
     default:
       return state;
   }
