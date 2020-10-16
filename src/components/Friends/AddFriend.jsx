@@ -149,8 +149,7 @@ class AddFriend extends Component {
                 {this.props.store.memberReducer.map(member => (
                   <ListItem key={member.id}>
                     <ListItemAvatar><Avatar className={classes.avatar}>{member.first_name[0].toUpperCase()}</Avatar></ListItemAvatar>
-                    <ListItemText primary={<Typography style={{color: 'white'}}>{member.first_name} {member.last_name}</Typography>}
-                      secondary={<Typography style={{color: 'white'}}>{member.username}</Typography>} />
+                    <ListItemText primary={<Typography style={{color: 'white'}}>{member.first_name} {member.last_name}</Typography>} />
                     <ListItemSecondaryAction><IconButton onClick={() => this.addFriend(member.id)}><AddIcon style={{color: 'white'}}/></IconButton></ListItemSecondaryAction>
                   </ListItem>
 
