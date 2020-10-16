@@ -83,8 +83,8 @@ class AddFriend extends Component {
     })
   };
 
-  componentDidMount() {
-    this.props.dispatch({ type: "GET_MEMBERS", payload: { search: 'All' } });
+  componentWillUnmount() {
+    this.props.dispatch({ type: "UNSET_MEMBERS"});
   }
 
   // function to handle searching for a member by name
@@ -95,7 +95,7 @@ class AddFriend extends Component {
       this.props.dispatch({ type: "GET_MEMBERS", payload: { search: nameSearch, type: 'members' } })
     }
     if (nameSearch === '') {
-      this.props.dispatch({ type: "GET_MEMBERS", payload: { search: 'All', type: 'members' } })
+      this.props.dispatch({ type: "UNSET_MEMBERS"})
     }
   }
 
@@ -157,7 +157,7 @@ class AddFriend extends Component {
                 ))}
               </List>
               :
-              <Typography className={classes.conditionalText}>There aren't any users to add.</Typography>
+              <Typography className={classes.conditionalText}>Search for friends by name.</Typography>
             }
           </div>
         </div>
