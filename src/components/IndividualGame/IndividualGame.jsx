@@ -48,7 +48,7 @@ class IndividualGame extends Component {
   handleBack = () => {
     this.props.dispatch({ type: 'SET_BACK_STATUS', payload: true });
     this.props.history.goBack();
-  }
+  };
 
   render() {
 

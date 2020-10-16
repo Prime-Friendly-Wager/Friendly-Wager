@@ -13,6 +13,7 @@ const useStyles = makeStyles({
   },
   tableContainer: {
     marginTop: '3.5em',
+    backgroundColor: '#151515',
   },
 });
 
@@ -28,17 +29,17 @@ function SimpleTable(props) {
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Game</TableCell>
-                <TableCell align="left">Time</TableCell>
-                <TableCell align="right">Spread</TableCell>
-                <TableCell align="right">O/U</TableCell>
+                <TableCell style={{color: 'white'}} align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Game</TableCell>
+                <TableCell style={{color: 'white'}} align="left">Time</TableCell>
+                <TableCell style={{color: 'white'}} align="right">Spread</TableCell>
+                <TableCell style={{color: 'white'}} align="right">O/U</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
+            <TableBody className={classes.tableBody}>
               {props.store.games.map((game, i) => {
                 return (
                   <TableRow key={game.id} onClick={() => props.history.push(`/game-details/${game.id}`)}>
-                    <TableCell align="left">
+                    <TableCell style={{color: 'white'}} align="left">
                       <Grid container alignItems="center" >
                         <Grid item style={{verticalAlign: "middle"}} xs={12}>
                           <img style={{verticalAlign: "middle"}} src={game.away_team_logo} alt={game.away_team} width="20" height="20" />  {game.away_team} 
@@ -48,11 +49,11 @@ function SimpleTable(props) {
                         </Grid>
                       </Grid>
                     </TableCell>
-                    <TableCell align="left">{moment(game.date).format("ddd MMM D h:mm a")}</TableCell>
+                    <TableCell style={{color: 'white'}} align="left">{moment(game.date).format("ddd MMM D h:mm a")}</TableCell>
                     {(game.home_team_spread < 0) ?
-                      <TableCell align="right">{game.home_team} <br/> {game.home_team_spread}</TableCell>
+                      <TableCell style={{color: 'white'}} align="right">{game.home_team} <br/> {game.home_team_spread}</TableCell>
                       :
-                      <TableCell align="right">{game.away_team} <br/> {game.away_team_spread}</TableCell>
+                      <TableCell style={{color: 'white'}} align="right">{game.away_team} <br/> {game.away_team_spread}</TableCell>
                     }
                     <TableCell align="right">{game.over_under}</TableCell>
                   </TableRow>

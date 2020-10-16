@@ -12,7 +12,7 @@ const styles = theme => ({
     position: 'fixed',
     width: '100%',
     top: 0,
-    backgroundColor: '#424242',
+    backgroundColor: '#404040',
     height: '4.5em',
   },
   tabPanel: {
@@ -23,6 +23,7 @@ const styles = theme => ({
   },
   headingTextGroup: {
     paddingRight: '1em',
+    color: 'white',
   },
 });
 
@@ -49,8 +50,8 @@ class TheBoard extends Component {
       <div>
         <div className={classes.heading}>
           <div className={classes.headingTextGroup}>
-            <Typography variant="h4" className={classes.headingText} color="textPrimary">The Board</Typography>
-            <Typography color="textPrimary">Week {currentWeek && currentWeek.week}</Typography>
+            <Typography variant="h4" className={classes.headingText}>The Board</Typography>
+            <Typography>Week {currentWeek && currentWeek.week}</Typography>
           </div>
         </div>
         <div className={classes.tabPanel}>

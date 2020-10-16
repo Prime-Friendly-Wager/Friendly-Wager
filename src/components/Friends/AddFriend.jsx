@@ -8,24 +8,64 @@ import AddIcon from '@material-ui/icons/Add';
 import { deepOrange } from '@material-ui/core/colors';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 const styles = theme => ({
   rootContainer: {
     padding: 10,
   },
   mainDiv: {
-
     marginBottom: '3.5em',
   },
   avatar: {
-    color: theme.palette.getContrastText(deepOrange[500]),
-    backgroundColor: deepOrange[500],
+    color: 'white',
+    backgroundColor: '#606060',
   },
   textField: {
     align: "center"
-  }
- 
-})
+  },
+  conditionalText: {
+    marginTop: '1.5em',
+    paddingLeft: '24px',
+    paddingRight: '24px',
+    color: 'white',
+  },
+  backButton: {
+    fontSize: '3em',
+    position: 'relative',
+    paddingLeft: '.25em',
+  },
+  heading: {
+    textAlign: 'center',
+    display: 'flex',
+    height: '5em',
+    paddingTop: '.75em',
+    paddingBottom: '.75em',
+    position: 'fixed',
+    width: '100%',
+    top: 0,
+    backgroundColor: '#424242',
+    zIndex: '20',
+  },
+  searchAbility: {
+    marginTop: '6em',
+  },
+  addFriendText: {
+    marginLeft: '1em',
+    color: 'white',
+    marginTop: '.5em',
+  },
+  mainHeading: {
+    position: 'fixed',
+    zIndex: '20',
+    backgroundColor: '#424242',
+    width: '100%',
+    top: 0,
+  },
+  listContainer: {
+    marginTop: '13.5em',
+  },
+});
 
 class AddFriend extends Component {
   state = {
@@ -72,36 +112,55 @@ class AddFriend extends Component {
     const item = this.props.store.memberReducer;
     return (
       <>
-      <Snackbar open={this.state.open} autoHideDuration={6000} onClose={this.handleClose}>
-      <Alert onClose={this.handleClose} severity="success">
-      Added to Friends List!
+        <Snackbar open={this.state.open} autoHideDuration={6000} onClose={this.handleClose}>
+          <Alert onClose={this.handleClose} severity="success">
+            Added to Friends List!
       </Alert>
-    </Snackbar>
-  
-      <div className={classes.mainDiv}>
-        <Button onClick={() => this.props.history.goBack()}>
-          <ArrowBackIcon />
-        </Button>
-        <h2>Add Friends</h2>
-        <SearchIcon fontSize="large" /><TextField id="friendSearch" label="Search" variant="outlined" onChange={this.handleSearch} />
-        {this.props.store.memberReducer[0]
-          ?
-          <List>
-            {this.props.store.memberReducer.map(member => (
-              <ListItem key={member.id}>
-                <ListItemAvatar><Avatar className={classes.avatar}>{member.first_name[0].toUpperCase()}</Avatar></ListItemAvatar>
-                <ListItemText primary={<Typography color="textPrimary">{member.first_name} {member.last_name}</Typography>} 
-                  secondary={<Typography color="textSecondary">{member.username}</Typography>}/>
-                <ListItemSecondaryAction><IconButton onClick={() => this.addFriend(member.id)}><AddIcon /></IconButton></ListItemSecondaryAction>
-              </ListItem>
-             
-            ))}
-          </List>
-       
-          :
-          <Typography color="textPrimary">There aren't any users to add.</Typography>
-        }
-      </div>
+        </Snackbar>
+        <div className={classes.mainDiv}>
+          <div className={classes.mainHeading}>
+            <div className={classes.heading}>
+              <Button onClick={() => this.props.history.goBack()}>
+                <ArrowBackIcon className={classes.backButton} />
+              </Button>
+              <Typography variant="h4" className={classes.addFriendText}>Add Friends</Typography>
+            </div>
+            <div className={classes.searchAbility}>
+              <TextField
+                id="friendSearch"
+                onChange={this.handleSearch}
+                label="Search Friends"
+                margin="normal"
+                variant="outlined"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </div>
+          </div>
+          <div className={classes.listContainer}>
+            {this.props.store.memberReducer[0]
+              ?
+              <List>
+                {this.props.store.memberReducer.map(member => (
+                  <ListItem key={member.id}>
+                    <ListItemAvatar><Avatar className={classes.avatar}>{member.first_name[0].toUpperCase()}</Avatar></ListItemAvatar>
+                    <ListItemText primary={<Typography style={{color: 'white'}}>{member.first_name} {member.last_name}</Typography>}
+                      secondary={<Typography style={{color: 'white'}}>{member.username}</Typography>} />
+                    <ListItemSecondaryAction><IconButton onClick={() => this.addFriend(member.id)}><AddIcon style={{color: 'white'}}/></IconButton></ListItemSecondaryAction>
+                  </ListItem>
+
+                ))}
+              </List>
+              :
+              <Typography className={classes.conditionalText}>There aren't any users to add.</Typography>
+            }
+          </div>
+        </div>
       </>
     );
   }

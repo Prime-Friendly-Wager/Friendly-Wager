@@ -11,12 +11,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import { Typography } from '@material-ui/core';
-
-
 import { Button, TableCell, TableRow, Paper } from '@material-ui/core';
-
-
-
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
@@ -32,7 +27,6 @@ const StyledTableRow = withStyles((theme) => ({
     }
   }
 }))(TableRow);
-
 
 const useStyles = makeStyles({
   table: {
@@ -52,7 +46,6 @@ function OpenBetRow(props) {
   const handleClose = () => {
     setOpen(false);
   };
-
 
   function acceptBet() {
     //sends this payload if spread bet
@@ -80,18 +73,17 @@ function OpenBetRow(props) {
     handleClose();
   }
 
-
   return (
     <>
       <TableRow hover classes={{ hover: classes.rowHover }} onClick={handleClickOpen}>
         {/* Friend */}
-        <TableCell align="left">{props.bet.proposers_first_name} {props.bet.proposers_last_name}</TableCell>
+        <TableCell style={{color: 'white'}} align="left">{props.bet.proposers_first_name} {props.bet.proposers_last_name}</TableCell>
         {/* Game */}
-        <TableCell align="left">{props.bet.away_team_abbr} @ {props.bet.home_team_abbr}</TableCell>
+        <TableCell style={{color: 'white'}} align="left">{props.bet.away_team_abbr} @ {props.bet.home_team_abbr}</TableCell>
         {/* Bet */}
         {/* determines if bet is spread or O/U */}
         {props.bet.proposers_team_id ? 
-          <TableCell align="left">
+          <TableCell align="left" style={{color: 'white'}}>
             {/* checks if proposer is home team */}
             {props.bet.proposers_team_is_home_team ?
               <Typography variant="body2">{props.bet.home_team_name} <br/>{props.bet.home_team_spread > 0 && '+'}{props.bet.home_team_spread}</Typography>
@@ -100,7 +92,7 @@ function OpenBetRow(props) {
             }
           </TableCell>
         :
-          <TableCell align="left">
+          <TableCell align="left" style={{color: 'white'}}>
             {/* determines if proposer has over */}
             {props.bet.proposers_bet_is_over ?
               <Typography variant="body2">Over <br/>{props.bet.over_under}</Typography>
@@ -110,7 +102,7 @@ function OpenBetRow(props) {
           </TableCell>
       }
         {/* Wager */}
-        <TableCell align="center">{props.bet.wager}</TableCell>
+        <TableCell style={{color: 'white'}} align="center">{props.bet.wager}</TableCell>
       </TableRow>
       <>
         <Dialog
@@ -169,7 +161,6 @@ function OpenBetRow(props) {
         </Dialog>
       </>
     </>
-
   );
 }
 
