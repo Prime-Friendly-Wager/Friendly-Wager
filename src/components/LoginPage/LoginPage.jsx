@@ -2,8 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import LoginForm from './LoginForm';
-import { Container, Grid, Button, Typography } from '@material-ui/core'
+import { withStyles, Container, Grid, Button, Typography } from '@material-ui/core'
 
+const styles = theme => ({
+  registerBtn: {
+    marginTop: 0,
+    width: '100%',
+    marginLeft: '20em',
+  },
+});
 
 class LoginPage extends Component {
   componentDidMount(){
@@ -14,6 +21,8 @@ class LoginPage extends Component {
   }
   render() {
     
+    const { classes } = this.props;
+
     return (
       <Container>
         <Grid container justify="center" alignItems="center" spacing={4}>
@@ -41,22 +50,11 @@ class LoginPage extends Component {
           <Grid item xs={12} style={{textAlign: "center"}}>
             <LoginForm />
           </Grid>
-          <Grid item xs={12} style={{textAlign: "center"}}>
-            <Button
-              variant="contained"
-              color="primary"
-              className="btn btn_asLink"
-              onClick={() => {
-                this.props.history.push('/create-account');
-              }}
-            >
-              Register
-            </Button>
-          </Grid>
         </Grid>
       </Container>
     );
   }
 }
 
-export default connect(mapStoreToProps)(LoginPage);
+const LoginPageStyled = withStyles(styles)(LoginPage);
+export default connect(mapStoreToProps)(LoginPageStyled);
