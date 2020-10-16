@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import Grid from '@material-ui/core/Grid';
+import { withStyles, Typography } from '@material-ui/core';
 
 class RegisterForm extends Component {
   state = {
@@ -41,8 +42,8 @@ class RegisterForm extends Component {
   render() {
     return (
     
-      <form className="formPanel" onSubmit={this.registerUser}>
-        <h2>Register User</h2>
+      <form onSubmit={this.registerUser}>
+        <Typography style={{color: 'white'}} variant="h4">Register Account</Typography>
         {this.props.store.errors.registrationMessage && (
           <h3 className="alert" role="alert">
             {this.props.store.errors.registrationMessage}
