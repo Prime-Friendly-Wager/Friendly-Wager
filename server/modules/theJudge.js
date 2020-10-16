@@ -91,6 +91,7 @@ const theJudge = () => {
                         THEN proposers_id
                     WHEN bets.acceptors_team_id = games.bet_winning_team_id 
                         THEN acceptors_id
+                    WHEN bets.proposers_bet_is_over
                     END, completed = true
                 FROM games WHERE accepted = true AND bets.game_id = games.id AND completed = false AND games.bet_winning_team_id IS NOT NULL;`)
 };
