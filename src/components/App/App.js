@@ -34,6 +34,21 @@ const theme = createMuiTheme({
         borderBottom: '1px solid #404040',
       },
     },
+    MuiTabs: {
+      root: {
+        backgroundColor: '#303030',
+        marginTop: '0',
+        boxShadow: '0px -4px 0px #151515',
+      },
+    },
+    MuiTypography: {
+      root: {
+        color: '#ffffff',
+      },
+      colorTextPrimary: {
+        color: '#ffffff',
+      },
+    },
   },
   palette: {
     primary: {
@@ -41,6 +56,9 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: '#01FF70',
+    },
+    textPrimary: {
+      main: '#ffffff',
     },
   },
 });

@@ -30,7 +30,7 @@ const styles = theme => ({
     position: 'fixed',
     width: '100%',
     top: 0,
-    backgroundColor: '#424242',
+    backgroundColor: '#303030',
   },
   tabPanel: {
     marginTop: '6.5em',

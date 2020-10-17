@@ -11,7 +11,7 @@ import Menu from '@material-ui/core/Menu';
 import { withRouter } from "react-router";
 const useStyles = makeStyles({
   navBar: {
-    backgroundColor: '#404040',
+    backgroundColor: '#303030',
     width: '100%',
     position: 'fixed',
     bottom: 0,
