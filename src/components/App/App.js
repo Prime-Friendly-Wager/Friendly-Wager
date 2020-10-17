@@ -27,10 +27,20 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 import './App.css';
 
-const darkTheme = createMuiTheme({
+const theme = createMuiTheme({
+  overrides: {
+    MuiTableCell: {
+      root: {
+        borderBottom: '1px solid #404040',
+      },
+    },
+  },
   palette: {
     primary: {
       main: '#505050',
+    },
+    secondary: {
+      main: '#01FF70',
     },
   },
 });
@@ -45,7 +55,7 @@ class App extends Component {
 
   render() {
     return (
-      <ThemeProvider theme={darkTheme}>
+      <ThemeProvider theme={theme}>
         <Router>
           <div>
             <Switch>
