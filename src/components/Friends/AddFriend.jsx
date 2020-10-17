@@ -85,6 +85,7 @@ class AddFriend extends Component {
 
   componentDidMount() {
     this.props.dispatch({ type: "GET_MEMBERS", payload: { search: 'All' } });
+    window.scrollTo(0, 0);
   }
 
   // function to handle searching for a member by name

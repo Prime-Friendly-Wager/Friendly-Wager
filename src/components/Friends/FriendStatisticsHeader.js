@@ -83,17 +83,11 @@ const useStyles = makeStyles((theme) => ({
 function FriendStatisticsHeader(props) {
     const classes = useStyles();
     let friendId = Number(props.match.params.id);
-    let overall = 0;
     let friendOpenBets = props.store.betReducer.openBetReducer.filter(bet => bet.proposers_id === friendId);
     let ourActiveBets = props.store.betReducer.activeBetReducer.filter(bet => bet.proposers_id === friendId || bet.acceptors_id === friendId);
-    let ourCompletedBets = props.store.betReducer.completedBetReducer.filter(bet => bet.oppenent_id === friendId);
-    for(let i = 0; i < ourCompletedBets.length; i++){
-      if(ourCompletedBets[i].winner === 'W'){
-            overall += ourCompletedBets[i].wager;
-      } else{
-        overall -= ourCompletedBets[i].wager
-      }
-    }
+    let ourCompletedBets = props.store.betReducer.completedBetReducer.filter(bet => bet.proposers_id === friendId || bet.acceptors_id === friendId);
+    let overall = ourCompletedBets.reduce((sum, bet) => {return bet.winners_id === props.store.user.id ? sum += bet.wager : sum -= bet.wager}, 0)
+
   return (
     <>
       <Button onClick={() => {props.history.push('/friends')}} >

@@ -15,7 +15,6 @@ import { Button, TableCell, TableRow, Paper } from '@material-ui/core';
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
-
     backgroundColor: theme.palette.action.hover,
     height: 5
 

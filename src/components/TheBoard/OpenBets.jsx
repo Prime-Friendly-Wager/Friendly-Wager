@@ -8,12 +8,13 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 //2.1 
 const useStyles = makeStyles({
   tableContainer: {
-    marginTop: '1em',
+    marginTop: '2.9em',
     backgroundColor: '#151515',
   },
   conditionalText: {
     padding: '24px',
     paddingTop: '32px',
+    backgroundColor: '#151515'
   },
 });
 
@@ -30,7 +31,7 @@ function OpenBets(props) {
       {props.store.betReducer.openBetReducer.filter(bet => bet.proposers_id !== props.store.user.id).length
         ?
         <TableContainer component={Paper} className={classes.tableContainer}>
-          <Table aria-label="simple table" className={classes.tableContainer}>
+          <Table aria-label="simple table" className={classes.table}>
             <TableHead>
               <TableRow>
                 <TableCell align="left" style={{color: 'white'}}>Friend</TableCell>

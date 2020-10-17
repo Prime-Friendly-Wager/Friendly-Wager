@@ -42,7 +42,6 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
   },
   tabs: {
     width: '50%',
@@ -53,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
   mainTab: {
     position: 'fixed',
     width: '100%',
-    backgroundColor: '#3f51b5',
     marginTop: '0',
   },
 }));

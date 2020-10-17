@@ -5,7 +5,7 @@ import LoginForm from './LoginForm';
 import { withStyles, Container, Grid, Button, Typography } from '@material-ui/core'
 
 const styles = theme => ({
-  
+  //not using
 });
 
 class LoginPage extends Component {
@@ -17,8 +17,6 @@ class LoginPage extends Component {
   }
   render() {
     
-    const { classes } = this.props;
-
     return (
       <Container>
         <Grid container justify="center" alignItems="center" spacing={4}>
