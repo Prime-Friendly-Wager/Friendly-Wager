@@ -79,6 +79,7 @@ function FriendsListHeading(props) {
       <div className={classes.root}>
         <div className={classes.search}>
           <TextField
+          className={classes.searchfield}
             id="searchfriend"
             onChange={handleSearch}
             label="Search Friends"
