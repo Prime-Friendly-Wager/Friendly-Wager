@@ -83,8 +83,11 @@ class AddFriend extends Component {
     })
   };
 
+  componentWillUnmount() {
+    this.props.dispatch({ type: "UNSET_MEMBERS"});
+  }
+  
   componentDidMount() {
-    this.props.dispatch({ type: "GET_MEMBERS", payload: { search: 'All' } });
     window.scrollTo(0, 0);
   }
 
@@ -96,7 +99,7 @@ class AddFriend extends Component {
       this.props.dispatch({ type: "GET_MEMBERS", payload: { search: nameSearch, type: 'members' } })
     }
     if (nameSearch === '') {
-      this.props.dispatch({ type: "GET_MEMBERS", payload: { search: 'All', type: 'members' } })
+      this.props.dispatch({ type: "UNSET_MEMBERS"})
     }
   }
 
@@ -150,15 +153,13 @@ class AddFriend extends Component {
                 {this.props.store.memberReducer.map(member => (
                   <ListItem key={member.id}>
                     <ListItemAvatar><Avatar className={classes.avatar} src={member.image_url}>{member.first_name[0].toUpperCase()}{member.last_name[0].toUpperCase()}</Avatar></ListItemAvatar>
-                    <ListItemText primary={<Typography style={{color: 'white'}}>{member.first_name} {member.last_name}</Typography>}
-                      secondary={<Typography style={{color: 'white'}}>{member.username}</Typography>} />
+                    <ListItemText primary={<Typography style={{color: 'white'}}>{member.first_name} {member.last_name}</Typography>}/>
                     <ListItemSecondaryAction><IconButton onClick={() => this.addFriend(member.id)}><AddIcon style={{color: 'white'}}/></IconButton></ListItemSecondaryAction>
                   </ListItem>
-
                 ))}
               </List>
               :
-              <Typography className={classes.conditionalText}>There aren't any users to add.</Typography>
+              <Typography className={classes.conditionalText}>Search for friends by name.</Typography>
             }
           </div>
         </div>
