@@ -48,8 +48,9 @@ class RegisterForm extends Component {
 
   registerUser = (event) => {
     event.preventDefault();
+    //check email will be returned as false if no @ symbol in username
     let checkEmail = emailValidation(this.state.username);
-    if ((this.state.password == this.state.confirmPassword) && checkEmail) {
+    if ((this.state.password === this.state.confirmPassword) && checkEmail) {
       this.props.dispatch({
         type: 'REGISTER',
         payload: {

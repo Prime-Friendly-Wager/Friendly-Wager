@@ -44,9 +44,13 @@ function FriendsListItem(props) {
   const classes = useStyles();
   // const [dense, setDense] = React.useState(false);
   // const [secondary, setSecondary] = React.useState(false);
-
+  let avatarLogo;
+  
   return (
     <div className={classes.mainContainer}>
+      <center>
+     <Typography variant='h5' style={{color: 'white'}}>Friends List ({props.store.friendsList.length})</Typography>
+     </center>
       <div className={classes.root}>
         {props.store.friendsList[0]
           ?
@@ -56,8 +60,8 @@ function FriendsListItem(props) {
                 {props.store.friendsList.map((friend) =>
                   <ListItem key={friend.id} onClick={() => { props.history.push(`/friends/statistics/${friend.id}`) }}>
                     <ListItemAvatar>
-                      <Avatar
-                        className={classes.orange}>{friend.first_name[0].toUpperCase()}</Avatar>
+                      <Avatar src={friend.image_url}
+                        className={classes.orange}>{friend.first_name[0].toUpperCase()}{friend.last_name[0].toUpperCase()}</Avatar>
                     </ListItemAvatar>
                     <ListItemText
                       primary={<Typography style={{color: 'white'}}>{friend.first_name} {friend.last_name}</Typography>}
