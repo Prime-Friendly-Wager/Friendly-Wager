@@ -109,7 +109,7 @@ function MyBets(props) {
                         {bet.wager}
                       </TableCell>
                       <TableCell align="center">
-                        <DeleteIcon color="secondary" onClick={handleClickOpen} />
+                        <DeleteIcon style={{color: '#662424'}} onClick={handleClickOpen} />
                       </TableCell>
                       <Dialog
                         open={open}
@@ -117,12 +117,12 @@ function MyBets(props) {
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
                       >
-                        <DialogTitle id="alert-dialog-title">{`Delete open bet?`}</DialogTitle>
-                        <DialogActions>
-                          <Button onClick={handleClose} color="primary">
+                        <DialogTitle style={{backgroundColor: '#303030'}} id="alert-dialog-title">{`Delete open bet?`}</DialogTitle>
+                        <DialogActions style={{backgroundColor: '#303030'}}>
+                          <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={handleClose} color="primary">
                             Cancel
                           </Button>
-                          <Button onClick={() => handleDelete(bet.id)} color="primary" autoFocus>
+                          <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={() => handleDelete(bet.id)} color="primary" autoFocus>
                             Yes
                         </Button>
                         </DialogActions>

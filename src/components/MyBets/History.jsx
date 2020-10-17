@@ -9,12 +9,13 @@ const useStyles = makeStyles({
     flexGrow: 1
   },
   tableContainer: {
-    marginTop: '3.5em',
+    marginTop: '2.9em',
   },
   conditionalText: {
     marginTop: '4.5em',
     paddingLeft: '24px',
     paddingRight: '24px',
+    backgroundColor: '#151515',
   }
 });
 
