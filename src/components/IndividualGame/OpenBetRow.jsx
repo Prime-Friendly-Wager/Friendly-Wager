@@ -8,22 +8,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    
-      backgroundColor: theme.palette.action.hover,
-      height: 5
-  
-  },
-  rowHover: {
-    "&:hover": {
-        cursor: "pointer",
-        backgroundColor: "rgba(87, 197, 111, 0.13) !important"
-     }
-}
-}))(TableRow);
-
-
 const useStyles = makeStyles({
   table: {
     width: 600,
@@ -95,7 +79,7 @@ function OpenBetRow(props) {
                   </>
             }
               {/* Wager */}
-              <TableCell align="center">{props.bet.wager}</TableCell>
+              <TableCell align="center">{props.bet.wager}u</TableCell>
             </TableRow>  
             <>
           <Dialog
