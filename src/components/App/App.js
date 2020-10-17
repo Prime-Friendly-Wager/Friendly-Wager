@@ -65,13 +65,18 @@ const theme = createMuiTheme({
     },
     MuiGrid: {
       root: {
-        color: 'white',
+        color: '#ffffff',
+      },
+    },
+    MuiRadio: {
+      root: {
+        color: '01FF70'
       },
     },
   },
   palette: {
     primary: {
-      main: '#505050',
+      main: '#303030',
     },
     secondary: {
       main: '#01FF70',
