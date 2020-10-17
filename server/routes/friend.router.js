@@ -21,7 +21,7 @@ router.get('/:search/:type', rejectUnauthenticated, async (req, res) => {
             JOIN "friends" ON "friends".user1_id = "user".id
             WHERE "friends".user2_id = $1;`;
             let friends =  await client.query(firstQuery, [req.user.id]);
-            let secondQuery = `SELECT id, username, first_name, last_name FROM "user"
+            let secondQuery = `SELECT id, username, first_name, last_name, image_url FROM "user"
             WHERE "id" != $1
             ORDER BY "first_name" ASC;`;
             let members = await client.query(secondQuery, [req.user.id]);
@@ -51,7 +51,7 @@ router.get('/:search/:type', rejectUnauthenticated, async (req, res) => {
             JOIN "friends" ON "friends".user1_id = "user".id
             WHERE "friends".user2_id = $1;`;
             let friends =  await client.query(firstQuery, [req.user.id]);
-            let secondQuery = `SELECT id, username, first_name, last_name FROM "user"
+            let secondQuery = `SELECT id, username, first_name, last_name, image_url FROM "user"
             WHERE ("first_name" ILIKE '%' || $1 || '%'
             OR "last_name" ILIKE '%' || $1 || '%')
             AND "id" != $2
@@ -88,11 +88,11 @@ router.get('/:search/:type', rejectUnauthenticated, async (req, res) => {
 // 4.2 route to get the current logged in user's friends
 router.get('/', rejectUnauthenticated, (req, res) => {
         let queryText = `
-        SELECT "user".id, "user".username, "user".first_name, "user".last_name FROM "user"
+        SELECT "user".id, "user".username, "user".first_name, "user".last_name, "user".image_url FROM "user"
         JOIN "friends" ON "friends".user2_id = "user".id
         WHERE "friends".user1_id = $1
         UNION
-        SELECT "user".id, "user".username, "user".first_name, "user".last_name FROM "user"
+        SELECT "user".id, "user".username, "user".first_name, "user".last_name, "user".image_url FROM "user"
         JOIN "friends" ON "friends".user1_id = "user".id
         WHERE "friends".user2_id = $1
         ORDER BY first_name ASC;

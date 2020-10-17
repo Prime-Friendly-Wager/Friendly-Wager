@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
@@ -9,6 +10,8 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { withRouter } from "react-router";
+import Badge from '@material-ui/core/Badge';
+
 
 const useStyles = makeStyles({
   navBar: {
@@ -19,8 +22,11 @@ const useStyles = makeStyles({
   },
 });
 
+
 function BottomNavBar(props) {
+
   const classes = useStyles();
+
   const [value, setValue] = React.useState('recents');
   const [iconColor, setIconColor] = React.useState({
     boardColor: 'white',

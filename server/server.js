@@ -18,7 +18,6 @@ const gamesRouter = require('./routes/games.router');
 const betsRouter = require('./routes/bets.router');
 
 
-
 // Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,7 +34,6 @@ app.use('/api/user', userRouter);
 app.use('/api/friend', friendRouter);
 app.use('/api/games', gamesRouter);
 app.use('/api/bets', betsRouter);
-
 
 
 // Serve static files
