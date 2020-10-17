@@ -91,9 +91,16 @@ const theJudge = () => {
                         THEN proposers_id
                     WHEN bets.acceptors_team_id = games.bet_winning_team_id 
                         THEN acceptors_id
-                    WHEN bets.proposers_bet_is_over
+                    WHEN bets.proposers_bet_is_over = true AND ((games.home_team_score + games.away_team_score) > games.over_under)
+                    THEN proposers_id
+                    WHEN bets.proposers_bet_is_over = false AND ((games.home_team_score + games.away_team_score) > games.over_under)
+                        THEN acceptors_id
+                    WHEN bets.proposers_bet_is_over = true AND ((games.home_team_score + games.away_team_score) < games.over_under)
+                        THEN acceptors_id
+                    WHEN bets.proposers_bet_is_over = false AND ((games.home_team_score + games.away_team_score) < games.over_under)
+                        THEN proposers_id
                     END, completed = true
-                FROM games WHERE accepted = true AND bets.game_id = games.id AND completed = false AND games.bet_winning_team_id IS NOT NULL;`)
+                FROM games WHERE accepted = true AND bets.game_id = games.id AND bets.completed = false AND games.game_completed = true;`)
 };
 
 //deletes all unaccepted open bets from games that have already started 

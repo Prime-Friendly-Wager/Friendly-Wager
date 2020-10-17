@@ -63,7 +63,7 @@ function Open(props) {
               {/* only displays your proposed bets */}
               {props.store.betReducer.openBetReducer.filter(bet => bet.proposers_id === props.store.user.id).map(bet => (
                 <TableRow key={bet.id}>
-                  <TableCell align="left">{moment(bet.date_played).format("M/D")}</TableCell>
+                  <TableCell align="left">{moment(bet.date).format("M/D")}</TableCell>
                   <TableCell align="left">{bet.away_team_abbr} @ {bet.home_team_abbr}</TableCell>
                   {/* determines if bet is spread or O/U */}
                   {bet.proposers_team_id ? 
