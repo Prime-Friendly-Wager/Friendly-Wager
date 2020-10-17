@@ -11,7 +11,7 @@ const styles = theme => ({
     position: 'fixed',
     width: '100%',
     top: 0,
-    backgroundColor: '#424242',
+    backgroundColor: '#303030',
     height: '4.5em',
   },
   betsTabPanel: {
@@ -35,18 +35,15 @@ class MyBets extends Component {
 
     const { classes } = this.props;
 
-    let overallSum = this.props.store.betReducer.overallPlusMinusReducer.sum
-    //displaying overall sum as 0 if no completed history
-    if (overallSum === null) {
-      overallSum = 0;
-    };
+    //calculates your lifetime overunder
+    let overallSum = this.props.store.betReducer.completedBetReducer.reduce((sum, bet) => {return bet.winners_id == this.props.store.user.id ? sum += bet.wager : sum -= bet.wager}, 0)
 
     return (
       <div>
         <div className={classes.heading}>
           <div className={classes.headingTextGroup}>
             <Typography variant="h4" className={classes.headingText} color="textPrimary">My Bets</Typography>
-            <Typography color="textPrimary">Lifetime Overall: {overallSum > 0 && '+'}{overallSum} units</Typography>
+            <Typography color="textPrimary">Lifetime Overall: {overallSum > 0 && '+'}{overallSum} Units</Typography>
           </div>
         </div>
         <div className={classes.betsTabPanel}>

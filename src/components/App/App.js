@@ -27,10 +27,62 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 import './App.css';
 
-const darkTheme = createMuiTheme({
+const theme = createMuiTheme({
+  overrides: {
+    MuiTableCell: {
+      root: {
+        borderBottom: '1px solid #404040',
+      },
+      body: {
+        color: 'white',
+        backgroundColor: '#151515',
+      },
+      head: {
+        color: 'white',
+        backgroundColor: '#151515',
+      },
+    },
+    MuiContainer: {
+      root: {
+        backgroundColor: '#151515'
+      },
+    },
+    MuiTabs: {
+      root: {
+        backgroundColor: '#303030',
+        marginTop: '0',
+        boxShadow: '0px -4px 0px #151515',
+      },
+    },
+    MuiTypography: {
+      root: {
+        color: '#ffffff',
+      },
+      colorTextPrimary: {
+        color: '#ffffff',
+        backgroundColor: '#303030',
+      },
+    },
+    MuiGrid: {
+      root: {
+        color: '#ffffff',
+      },
+    },
+    MuiRadio: {
+      root: {
+        color: '01FF70'
+      },
+    },
+  },
   palette: {
     primary: {
-      main: '#505050',
+      main: '#303030',
+    },
+    secondary: {
+      main: '#01FF70',
+    },
+    textPrimary: {
+      main: '#ffffff',
     },
   },
 });
@@ -45,7 +97,7 @@ class App extends Component {
 
   render() {
     return (
-      <ThemeProvider theme={darkTheme}>
+      <ThemeProvider theme={theme}>
         <Router>
           <div>
             <Switch>

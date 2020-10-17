@@ -86,6 +86,10 @@ class AddFriend extends Component {
   componentWillUnmount() {
     this.props.dispatch({ type: "UNSET_MEMBERS"});
   }
+  
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
 
   // function to handle searching for a member by name
   handleSearch = () => {

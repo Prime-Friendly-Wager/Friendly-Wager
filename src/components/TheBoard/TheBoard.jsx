@@ -12,7 +12,7 @@ const styles = theme => ({
     position: 'fixed',
     width: '100%',
     top: 0,
-    backgroundColor: '#404040',
+    backgroundColor: '#303030',
     height: '4.5em',
   },
   tabPanel: {
