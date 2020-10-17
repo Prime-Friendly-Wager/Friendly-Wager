@@ -3,7 +3,7 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import CreateBetForm from './CreateBetForm';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -15,18 +15,24 @@ const useStyles = makeStyles({
   createBetForm: {
     textAlign: 'center',
     marginBottom: '3.5em',
+    backgroundColor: '#151515',
   },
   text: {
     marginTop: '1em',
     marginBottom: '1em',
     paddingLeft: '24px',
     paddingRight: '24px',
+    backgroundColor: '#151515',
   },
   creatBet: {
     marginBottom: '1em',
   },
   openBets: {
     marginTop: '2.75em',
+    backgroundColor: '#151515',
+  },
+  tableContainer: {
+    marginBottom: '1.5em',
   },
 });
 
@@ -65,7 +71,7 @@ function MyBets(props) {
         {props.store.betReducer.openBetReducer.filter(bet =>
           (bet.proposers_id === props.store.user.id && bet.game_id === game.id)).length
           ?
-          <TableContainer id="myBetTableOne" component={Paper}>
+          <TableContainer component={Paper} className={classes.tableContainer}>
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -103,7 +109,7 @@ function MyBets(props) {
                         {bet.wager}
                       </TableCell>
                       <TableCell align="center">
-                        <DeleteForeverIcon color="secondary" onClick={handleClickOpen} />
+                        <DeleteIcon style={{color: '#662424'}} onClick={handleClickOpen} />
                       </TableCell>
                       <Dialog
                         open={open}
@@ -111,12 +117,12 @@ function MyBets(props) {
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
                       >
-                        <DialogTitle id="alert-dialog-title">{`Delete open bet?`}</DialogTitle>
-                        <DialogActions>
-                          <Button onClick={handleClose} color="primary">
+                        <DialogTitle style={{backgroundColor: '#303030'}} id="alert-dialog-title">{`Delete open bet?`}</DialogTitle>
+                        <DialogActions style={{backgroundColor: '#303030'}}>
+                          <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={handleClose} color="primary">
                             Cancel
                           </Button>
-                          <Button onClick={() => handleDelete(bet.id)} color="primary" autoFocus>
+                          <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={() => handleDelete(bet.id)} color="primary" autoFocus>
                             Yes
                         </Button>
                         </DialogActions>
@@ -130,7 +136,7 @@ function MyBets(props) {
           <Typography color="textPrimary" className={classes.text}>You don't have any open bets for this game.</Typography>
         }
         <Container>
-          <Typography variant="h5" color="textPrimary">Active Bets</Typography>
+          <Typography variant="h5" color="textPrimary" style={{backgroundColor: '#151515'}}>Active Bets</Typography>
         </Container>
         {props.store.betReducer.activeBetReducer.filter(bet =>
           (bet.game_id === game.id)).length ?

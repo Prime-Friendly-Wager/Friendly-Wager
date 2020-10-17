@@ -13,6 +13,7 @@ const styles = theme => ({
     position: 'relative',
     marginLeft: '.25em',
     marginRight: '1em',
+    color: 'white',
   },
   atLogo: {
     fontSize: '1.5em',
@@ -30,14 +31,14 @@ const styles = theme => ({
     position: 'fixed',
     width: '100%',
     top: 0,
-    backgroundColor: '#424242',
+    backgroundColor: '#303030',
   },
   tabPanel: {
     marginTop: '6.5em',
   },
   gameDate: {
     position: 'absolute',
-    top: '4.9em',
+    top: '4.8em',
     left: '7.2em',
     paddingTop: '.2em',
   },

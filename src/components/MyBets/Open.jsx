@@ -3,19 +3,20 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { makeStyles, Table, TableContainer, TableBody, TableCell, TableHead, TableRow, Paper, Typography, Button } from '@material-ui/core'
 import moment from 'moment';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles({
   tableContainer: {
-    marginTop: '3.5em',
+    marginTop: '2.9em',
   }, 
   conditionalText: {
     marginTop: '4.5em',
     paddingLeft: '24px',
     paddingRight: '24px',
+    backgroundColor: '#151515',
   }
 });
 
@@ -87,7 +88,7 @@ function Open(props) {
                   }
                   <TableCell align="center">{bet.wager}u</TableCell>
                   <TableCell align="center">
-                    <DeleteForeverIcon color="secondary" onClick={handleClickOpen} />
+                    <DeleteIcon style={{color: '#662424'}} onClick={handleClickOpen} />
                   </TableCell>
                   <Dialog
                     open={open}
@@ -95,12 +96,12 @@ function Open(props) {
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                   >
-                    <DialogTitle id="alert-dialog-title">{`Delete open bet?`}</DialogTitle>
-                    <DialogActions>
-                      <Button onClick={handleClose} color="primary">
+                    <DialogTitle style={{backgroundColor: '#303030'}}id="alert-dialog-title">{`Delete open bet?`}</DialogTitle>
+                    <DialogActions style={{backgroundColor: '#303030'}}>
+                      <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={handleClose} color="primary">
                         Cancel
                           </Button>
-                      <Button onClick={() => handleDelete(bet.id)} color="primary" autoFocus>
+                      <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={() => handleDelete(bet.id)} color="primary" autoFocus>
                         Yes
                         </Button>
                     </DialogActions>
