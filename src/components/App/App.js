@@ -33,6 +33,19 @@ const theme = createMuiTheme({
       root: {
         borderBottom: '1px solid #404040',
       },
+      body: {
+        color: 'white',
+        backgroundColor: '#151515',
+      },
+      head: {
+        color: 'white',
+        backgroundColor: '#151515',
+      },
+    },
+    MuiContainer: {
+      root: {
+        backgroundColor: '#151515'
+      },
     },
     MuiTabs: {
       root: {
@@ -47,6 +60,12 @@ const theme = createMuiTheme({
       },
       colorTextPrimary: {
         color: '#ffffff',
+        backgroundColor: '#303030',
+      },
+    },
+    MuiGrid: {
+      root: {
+        color: 'white',
       },
     },
   },
