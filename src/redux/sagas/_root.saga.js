@@ -5,8 +5,6 @@ import userSaga from './user.saga';
 import friendSaga from './friend.saga';
 import gamesSaga from './games.saga';
 import makeBetsSaga from './bets.saga';
-import myBetSaga from './myBet.saga'
-
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -23,6 +21,5 @@ export default function* rootSaga() {
     friendSaga(),
     gamesSaga(),
     makeBetsSaga(),
-    myBetSaga(),
   ]);
 }
