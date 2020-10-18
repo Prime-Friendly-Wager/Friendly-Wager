@@ -14,7 +14,8 @@ const useStyles = makeStyles({
   conditionalText: {
     padding: '24px',
     paddingTop: '32px',
-    backgroundColor: '#151515'
+    backgroundColor: '#151515',
+    textAlign: 'center'
   },
 });
 
@@ -50,7 +51,7 @@ function OpenBets(props) {
           </Table>
         </TableContainer>
         :
-          <Typography color="textPrimary" className={classes.conditionalText}>Your friends haven't opened any bets yet.</Typography>
+          <Typography color="textPrimary" className={classes.conditionalText}>Your friends don't have any open bets yet. Try offering one!</Typography>
       }
     </>
   );

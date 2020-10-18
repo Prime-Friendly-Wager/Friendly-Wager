@@ -101,7 +101,7 @@ function OpenBetRow(props) {
           </TableCell>
       }
         {/* Wager */}
-        <TableCell style={{color: 'white'}} align="center">{props.bet.wager}</TableCell>
+        <TableCell style={{color: 'white'}} align="center">{props.bet.wager}u</TableCell>
       </TableRow>
       <>
         <Dialog
