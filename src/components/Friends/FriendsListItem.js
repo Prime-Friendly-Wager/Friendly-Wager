@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { makeStyles } from '@material-ui/core/styles';
@@ -45,6 +45,7 @@ function FriendsListItem(props) {
   // const [dense, setDense] = React.useState(false);
   // const [secondary, setSecondary] = React.useState(false);
   let avatarLogo;
+  
   
   return (
     <div className={classes.mainContainer}>

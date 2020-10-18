@@ -14,8 +14,24 @@ const styles = theme => ({
   rootContainer: {
     padding: 10,
   },
+  multilineColor: {
+    color: 'white',
+    borderColor: 'green !important'
+    
+  },
+  borderColor: {
+    color: 'white !important',
+    borderColor: 'white !important',
+  },
+  cssLabel: {
+    color: 'white'
+  },
   mainDiv: {
     marginBottom: '3.5em',
+  },
+  notchedOutline: {
+    borderWidth: '1px',
+    borderColor: 'white !important'
   },
   avatar: {
     color: 'white',
@@ -44,11 +60,13 @@ const styles = theme => ({
     position: 'fixed',
     width: '100%',
     top: 0,
-    backgroundColor: '#424242',
+    backgroundColor: '#303030',
     zIndex: '20',
   },
   searchAbility: {
-    marginTop: '6em',
+    marginTop: '6.5em',
+    width: '100%',
+    backgroundColor: '#151515',
   },
   addFriendText: {
     marginLeft: '1em',
@@ -56,15 +74,16 @@ const styles = theme => ({
     marginTop: '.5em',
   },
   mainHeading: {
-    position: 'fixed',
     zIndex: '20',
-    backgroundColor: '#424242',
+    backgroundColor: '#303030',
     width: '100%',
     top: 0,
+    position: 'fixed'
   },
   listContainer: {
-    marginTop: '13.5em',
-  },
+    marginTop: '12em'
+  }
+ 
 });
 
 class AddFriend extends Component {
@@ -101,6 +120,7 @@ class AddFriend extends Component {
     if (nameSearch === '') {
       this.props.dispatch({ type: "UNSET_MEMBERS"})
     }
+    
   }
 
   // function to add a friend
@@ -109,6 +129,8 @@ class AddFriend extends Component {
       open: true
     })
     this.props.dispatch({ type: "ADD_FRIEND", payload: { friendId: id } })
+   
+    document.getElementById('friendSearch').value = '';
   }
 
   render() {
@@ -116,7 +138,7 @@ class AddFriend extends Component {
     const item = this.props.store.memberReducer;
     return (
       <>
-        <Snackbar open={this.state.open} autoHideDuration={6000} onClose={this.handleClose}>
+        <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }}open={this.state.open} autoHideDuration={3000} onClose={this.handleClose}>
           <Alert onClose={this.handleClose} severity="success">
             Added to Friends List!
       </Alert>
@@ -130,20 +152,36 @@ class AddFriend extends Component {
               <Typography variant="h4" className={classes.addFriendText}>Add Friends</Typography>
             </div>
             <div className={classes.searchAbility}>
-              <TextField
-                id="friendSearch"
-                onChange={this.handleSearch}
-                label="Search Friends"
-                margin="normal"
-                variant="outlined"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon />
-                    </InputAdornment>
-                  ),
-                }}
-              />
+              <center>
+            <TextField
+            ref={'textForm'}
+          className={classes.searchfield}
+            id="friendSearch"
+            onChange={this.handleSearch}
+            style={{color: '#01FF70'}}
+            label="Search Members"
+            margin="normal"
+            variant="outlined"
+            InputProps={{
+              classes: {
+                root: classes.notchedOutline,
+                focused: classes.multilineColor,
+                notchedOutline: classes.notchedOutline
+              },
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon style={{color: '#01FF70'}}/>
+                </InputAdornment>
+              ),
+            }}
+            InputLabelProps={{
+              classes: {
+                root: classes.cssLabel,
+                focused: classes.borderColor,
+              }
+            }}
+          />
+          </center>
             </div>
           </div>
           <div className={classes.listContainer}>
