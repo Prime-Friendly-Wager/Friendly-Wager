@@ -162,8 +162,8 @@ function CreateBetForm(props) {
                         }
                     </DialogContent>
                     <DialogActions>
-                            <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={cancelBet}>Cancel</Button>
-                            <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={handleCreateBet}>Confirm</Button>
+                            <Button onClick={cancelBet}>Cancel</Button>
+                            <Button onClick={handleCreateBet}>Confirm</Button>
                     </DialogActions>
                 </Dialog>
                 </>
@@ -196,8 +196,8 @@ function CreateBetForm(props) {
                             <DialogContentText>Bet to placed on <b>UNDER</b> {game.over_under} for {bet.wager} units</DialogContentText>}
                     </DialogContent>
                     <DialogActions>
-                            <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={cancelBet}>Cancel</Button>
-                            <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={handleCreateBet}>Confirm</Button>
+                            <Button onClick={cancelBet}>Cancel</Button>
+                            <Button onClick={handleCreateBet}>Confirm</Button>
                     </DialogActions>
                 </Dialog>
                 </>
