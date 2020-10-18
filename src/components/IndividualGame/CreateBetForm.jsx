@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
-import { Button, TextField, Typography, Switch, Grid } from '@material-ui/core';
+import { Button, TextField, Typography, Switch, Grid, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions} from '@material-ui/core';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -41,6 +41,9 @@ function CreateBetForm(props) {
     const game = props.store.games.filter(game => game.id === Number(props.match.params.id))[0];
     const user = props.store.user;
 
+    // state hook to handle opening dialog
+    const [open, setOpen] = useState(false);
+
     // state hook to package up bet
     const [bet, setBet] = useState({
         proposers_id: user.id,
@@ -49,6 +52,16 @@ function CreateBetForm(props) {
         proposers_team_id: '',
         proposers_bet_is_over: '',
     });
+
+    // opens the dialog to confirm bet
+    const handleClickOpen = () => {
+        setOpen(true);
+    }
+
+    // cancels the bet and closed dialog
+    const cancelBet = () => {
+        setOpen(false);
+    }
 
     //handles the toggle switch
     const [ modeSwitch, toggleSwitch ] = useState({
@@ -105,6 +118,8 @@ function CreateBetForm(props) {
             proposers_team_id: '',
             proposers_bet_is_over: '',
         })
+
+        setOpen(false);
     };
 
     return (
@@ -120,6 +135,7 @@ function CreateBetForm(props) {
                 <Grid item>Spread</Grid>
                 <Grid item xs={12}>
             {modeSwitch.spread_mode ? 
+                <>
                 <RadioGroup row aria-label="position" name="position" onChange={(event) => handleInputChange('proposers_team_id', event)}>
                     <FormControlLabel
                         value={game.away_team_id}
@@ -138,7 +154,23 @@ function CreateBetForm(props) {
                         className={classes.formControlLabel}
                     />               
                 </RadioGroup>
+                <Dialog open={open} onClose={handleCreateBet} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+                    <DialogTitle id="alert-dialog-title">Confirm Bet</DialogTitle>
+                    <DialogContent>
+                        {bet.proposers_team_id === game.home_team_id ?
+                            <DialogContentText>Bet to placed on {game.home_team} {game.home_team_spread} for {bet.wager} units</DialogContentText>
+                        :
+                            <DialogContentText>Bet to placed on {game.away_team} {game.away_team_spread} for {bet.wager} units</DialogContentText>
+                        }
+                    </DialogContent>
+                    <DialogActions>
+                            <Button onClick={cancelBet}>Cancel</Button>
+                            <Button onClick={handleCreateBet}>Confirm</Button>
+                    </DialogActions>
+                </Dialog>
+                </>
             :
+                <>
                 <RadioGroup row aria-label="position" name="position" onChange={(event) => handleOverUnderChange( event )}>
                     <FormControlLabel
                         value={true}
@@ -157,6 +189,21 @@ function CreateBetForm(props) {
                         className={classes.formControlLabel}
                     />
                 </RadioGroup>
+                <Dialog open={open} onClose={handleCreateBet} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+                    <DialogTitle id="alert-dialog-title">Confirm Bet</DialogTitle>
+                    <DialogContent>
+                        {bet.proposers_bet_is_over === "true" ?
+                            <DialogContentText>Bet to placed on <b>OVER</b> {game.over_under} for {bet.wager} units</DialogContentText>
+                        :
+                            <DialogContentText>Bet to placed on <b>UNDER</b> {game.over_under} for {bet.wager} units</DialogContentText>}
+                    </DialogContent>
+                    <DialogActions>
+                            <Button onClick={cancelBet}>Cancel</Button>
+                            <Button onClick={handleCreateBet}>Confirm</Button>
+                    </DialogActions>
+                </Dialog>
+                </>
+                
             }
             </Grid>
             <Grid item xs={12}>
@@ -174,7 +221,7 @@ function CreateBetForm(props) {
                 variant="contained"
                 color="primary"
                 className={classes.createBetBtn}
-                onClick={handleCreateBet}
+                onClick={handleClickOpen}
             >
                 Create Bet
       </Button>
