@@ -30,7 +30,7 @@ const useStyles = makeStyles({
         backgroundColor: 'white',
         borderRadius: '.5em',
         marginTop: '1em',
-        width: "75px"
+        width: "120px",
     },
 
 });
