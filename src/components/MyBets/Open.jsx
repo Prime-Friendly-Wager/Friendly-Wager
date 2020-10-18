@@ -56,16 +56,16 @@ function Open(props) {
                 <TableCell align="left">Date</TableCell>
                 <TableCell align="center">Game</TableCell>
                 <TableCell align="left">My Bet</TableCell>
-                <TableCell align="left">Wager</TableCell>
-                <TableCell align="left">Delete</TableCell>
+                <TableCell align="center">Wager</TableCell>
+                <TableCell align="center">Delete</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {/* only displays your proposed bets */}
               {props.store.betReducer.openBetReducer.filter(bet => bet.proposers_id === props.store.user.id).map(bet => (
                 <TableRow key={bet.id}>
-                  <TableCell align="left">{moment(bet.date_played).format("M/D")}</TableCell>
-                  <TableCell align="left">{bet.away_team_abbr} @ {bet.home_team_abbr}</TableCell>
+                  <TableCell align="left">{moment(bet.date).format("M/D")}</TableCell>
+                  <TableCell align="center">{bet.away_team_abbr} @ <br/> {bet.home_team_abbr}</TableCell>
                   {/* determines if bet is spread or O/U */}
                   {bet.proposers_team_id ? 
                     <>
@@ -112,7 +112,7 @@ function Open(props) {
           </Table>
         </TableContainer>
         :
-        <Typography color="textPrimary" className={classes.conditionalText}>You haven't opened any bets yet.</Typography>
+        <Typography color="textPrimary" className={classes.conditionalText}>You haven't opened any bets right now.</Typography>
       }
     </>
   );

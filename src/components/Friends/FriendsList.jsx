@@ -13,6 +13,7 @@ class FriendsList extends Component {
 
   componentDidMount() {
     this.props.dispatch({ type: 'GET_FRIENDS' });
+    window.scrollTo(0, 0);
   }
 
   //The reason for unmount is because searching changes friendsList reducer, 

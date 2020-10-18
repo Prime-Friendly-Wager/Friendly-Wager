@@ -30,7 +30,9 @@ const useStyles = makeStyles({
         backgroundColor: 'white',
         borderRadius: '.5em',
         marginTop: '1em',
+        width: "75px"
     },
+
 });
 
 function CreateBetForm(props) {
@@ -106,24 +108,24 @@ function CreateBetForm(props) {
     };
 
     return (
-        <FormControl component="fieldset">
+        <FormControl margin="normal" component="fieldset">
             <Grid container spacing={1} justify="center" alignItems="center">
-                <Grid item>O/U {game.over_under}</Grid>
+                <Grid item>O/U</Grid>
                 <Grid item>
                     <Switch
                         checked={modeSwitch.spread_mode}
                         onChange={handleSwitchClick}
                     />
                 </Grid>
-                <Grid item>Spread {game.home_team_spread < 0 ? game.home_team_abbr + ' ' + game.home_team_spread : game.away_team_abbr + ' ' + game.away_team_spread}</Grid>
-            </Grid>
+                <Grid item>Spread</Grid>
+                <Grid item xs={12}>
             {modeSwitch.spread_mode ? 
                 <RadioGroup row aria-label="position" name="position" onChange={(event) => handleInputChange('proposers_team_id', event)}>
                     <FormControlLabel
                         value={game.away_team_id}
                         control={<Radio />}
                         label={game.away_team + ' ' + game.away_team_spread}
-                        labelPlacement="top"
+                        labelPlacement="bottom"
                         checked={bet.proposers_team_id === game.away_team_id}
                         className={classes.formControlLabel}
                     />
@@ -131,7 +133,7 @@ function CreateBetForm(props) {
                         value={game.home_team_id}
                         control={<Radio />}
                         label={game.home_team + ' ' + game.home_team_spread}
-                        labelPlacement="top"
+                        labelPlacement="bottom"
                         checked={bet.proposers_team_id === game.home_team_id}
                         className={classes.formControlLabel}
                     />               
@@ -142,7 +144,7 @@ function CreateBetForm(props) {
                         value={true}
                         control={<Radio />}
                         label={'Over ' + game.over_under}
-                        labelPlacement="top"
+                        labelPlacement="bottom"
                         checked={bet.proposers_bet_is_over === "true"}
                         className={classes.formControlLabel}
                     />
@@ -150,12 +152,14 @@ function CreateBetForm(props) {
                         value={false}
                         control={<Radio />}
                         label={'Under ' + game.over_under}
-                        labelPlacement="top"
+                        labelPlacement="bottom"
                         checked={bet.proposers_bet_is_over === "false"}
                         className={classes.formControlLabel}
                     />
                 </RadioGroup>
             }
+            </Grid>
+            <Grid item xs={12}>
             <TextField 
                 type="number" 
                 value={bet.wager} 
@@ -165,7 +169,7 @@ function CreateBetForm(props) {
                 className={classes.unitsInput}
             />
             <Typography color="textPrimary" className={classes.text}>Units</Typography>
-
+            </Grid>
             <Button
                 variant="contained"
                 color="primary"
@@ -174,6 +178,8 @@ function CreateBetForm(props) {
             >
                 Create Bet
       </Button>
+      </Grid>
+
         </FormControl>
     );
 }

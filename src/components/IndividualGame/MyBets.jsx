@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   },
   text: {
     marginTop: '1em',
-    marginBottom: '1em',
+    marginBottom: '.25em',
     paddingLeft: '24px',
     paddingRight: '24px',
     backgroundColor: '#151515',
@@ -66,7 +66,7 @@ function MyBets(props) {
     <div>
       <div>
         <Container>
-          <Typography variant="h5" color="textPrimary" className={classes.openBets}>Open Bets</Typography>
+          <Typography variant="h5" color="textPrimary" className={classes.openBets}>My Open Bets</Typography>
         </Container>
         {props.store.betReducer.openBetReducer.filter(bet =>
           (bet.proposers_id === props.store.user.id && bet.game_id === game.id)).length
@@ -106,7 +106,7 @@ function MyBets(props) {
                         </>
                       }
                       <TableCell align="center">
-                        {bet.wager}
+                        {bet.wager}u
                       </TableCell>
                       <TableCell align="center">
                         <DeleteIcon style={{color: '#662424'}} onClick={handleClickOpen} />
@@ -136,7 +136,7 @@ function MyBets(props) {
           <Typography color="textPrimary" className={classes.text}>You don't have any open bets for this game.</Typography>
         }
         <Container>
-          <Typography variant="h5" color="textPrimary" style={{backgroundColor: '#151515'}}>Active Bets</Typography>
+          <Typography variant="h5" color="textPrimary" style={{backgroundColor: '#151515'}}>My Active Bets</Typography>
         </Container>
         {props.store.betReducer.activeBetReducer.filter(bet =>
           (bet.game_id === game.id)).length ?
@@ -193,14 +193,14 @@ function MyBets(props) {
                       {bet.proposers_bet_is_over ?
                         //user is proposer and bet is over
                         <>
-                          <TableCell align="left">{bet.acceptors_first_name} {bet.acceptors_last_name}</TableCell>
                           <TableCell align="left">Over {bet.over_under}</TableCell>
+                          <TableCell align="left">{bet.acceptors_first_name} {bet.acceptors_last_name}</TableCell>
                         </>
                         :
                         //user is proposer and bet is under
                         <>                          
-                          <TableCell align="left">{bet.acceptors_first_name} {bet.acceptors_last_name}</TableCell>
                           <TableCell align="left">Under {bet.over_under}</TableCell>
+                          <TableCell align="left">{bet.acceptors_first_name} {bet.acceptors_last_name}</TableCell>
                         </>
                       } 
                     </>
@@ -209,20 +209,20 @@ function MyBets(props) {
                       {bet.proposers_bet_is_over ?
                         //user is acceptor and proposers bet is over
                         <>
-                          <TableCell align="left">{bet.proposers_first_name} {bet.proposers_last_name}</TableCell>
                           <TableCell align="left">Under {bet.over_under}</TableCell>
+                          <TableCell align="left">{bet.proposers_first_name} {bet.proposers_last_name}</TableCell>
                         </>
                         :                        
                         //user is acceptor and proposers bet is under
                         <>                          
-                          <TableCell align="left">{bet.proposers_first_name} {bet.proposers_last_name}</TableCell>
                           <TableCell align="left">Over {bet.over_under}</TableCell>
+                          <TableCell align="left">{bet.proposers_first_name} {bet.proposers_last_name}</TableCell>
                         </>
                       } 
                     </>}
                   </>
                 }
-                  <TableCell align="center">{bet.wager}</TableCell>
+                  <TableCell align="center">{bet.wager}u</TableCell>
                     </TableRow>
                   )
                   )}

@@ -22,15 +22,17 @@ const styles = theme => ({
   },
 });
 
+
+
 class LoginForm extends Component {
   state = {
     username: '',
     password: '',
   };
 
+  
   login = (event) => {
     event.preventDefault();
-
     if (this.state.username && this.state.password) {
       this.props.dispatch({
         type: 'LOGIN',
@@ -40,7 +42,8 @@ class LoginForm extends Component {
         },
       });
       this.props.history.push('/the-board')
-    } else {
+    } 
+    else {
       this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }
   }; // end login

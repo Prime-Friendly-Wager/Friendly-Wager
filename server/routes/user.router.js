@@ -44,6 +44,24 @@ router.post('/login', userStrategy.authenticate('local'), (req, res) => {
   res.sendStatus(200);
 });
 
+
+
+router.put('/imageupload', (req, res) => {
+  // Use passport's built-in method to log out the user
+  let values = [req.body.image_url, req.body.id]
+  console.log(values);
+  console.log(req.body.image_url)
+  const queryText = `UPDATE "user" SET "image_url" = $1 WHERE "user".id = $2 RETURNING image_url AS new_image_url;`
+    pool.query(queryText, values)
+    .then(() => {
+      console.log('IMAGE UPLOADED'); 
+      res.sendStatus(201)
+    })
+    .catch(() => res.sendStatus(500));
+
+});
+
+
 // clear all server session information about this user
 router.post('/logout', (req, res) => {
   // Use passport's built-in method to log out the user

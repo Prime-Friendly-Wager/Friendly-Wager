@@ -32,6 +32,7 @@ const theme = createMuiTheme({
     MuiTableCell: {
       root: {
         borderBottom: '1px solid #404040',
+        padding: '11px'
       },
       body: {
         color: 'white',
@@ -39,7 +40,9 @@ const theme = createMuiTheme({
       },
       head: {
         color: 'white',
-        backgroundColor: '#151515',
+        backgroundColor: '#222222',
+        paddingTop: '9px',
+        paddingBottom: '9px',
       },
     },
     MuiContainer: {
@@ -71,6 +74,16 @@ const theme = createMuiTheme({
     MuiRadio: {
       root: {
         color: '01FF70'
+      },
+    },
+    MuiPaper: {
+      root: {
+        backgroundColor: "#151515"
+      },
+    },
+    MuiFormGroup: {
+      root: {
+        display: 'block'
       },
     },
   },

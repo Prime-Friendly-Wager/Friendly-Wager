@@ -38,20 +38,69 @@ function History(props) {
                 <TableCell align="left">Date</TableCell>
                 <TableCell align="center">Game</TableCell>
                 <TableCell align="left">Against</TableCell>
-                <TableCell align="left">My Bet</TableCell>
-                <TableCell align="left">W/L</TableCell>
-                <TableCell align="left">Wager</TableCell>
+                <TableCell align="left">Bet</TableCell>
+                <TableCell align="center">W/L</TableCell>
+                <TableCell align="center">Wager</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {props.store.betReducer.completedBetReducer.map(bet => (
                 <TableRow key={bet.id}>
                   <TableCell align="left">{moment(bet.date).format("M/D")}</TableCell>
-                  <TableCell align="left">{bet.home_team_name} @ {bet.away_team_name}</TableCell>
-                  <TableCell align="left">{bet.opponent}</TableCell>
-                  <TableCell align="left">{bet.my_bet_team} {bet.my_spread > 0 && '+'}{bet.my_spread}</TableCell>
-                  <TableCell align="left">{bet.winner}</TableCell>
-                  <TableCell align="left">{bet.wager}</TableCell>
+                  <TableCell align="left">{bet.home_team_abbr + ' @'}<br/>{' ' + bet.away_team_abbr}</TableCell>
+                  {bet.proposers_id === props.store.user.id ?
+                    <TableCell align="left">{bet.acceptors_first_name}</TableCell>
+                    :
+                    <TableCell align="left">{bet.proposers_first_name}</TableCell>
+                  } 
+                  {/* determines if bet is spread or O/U */}
+                  {bet.proposers_team_id ? 
+                  <>
+                  {bet.proposers_id === props.store.user.id ?
+                    bet.proposers_team_is_home_team ?
+                      //user is proposer and team is home
+                        <TableCell align="left">{bet.home_team_abbr} {bet.home_team_spread > 0 && '+'}{bet.home_team_spread}</TableCell>
+                      :
+                      //user is proposer and team is away
+                        <TableCell align="left">{bet.away_team_abbr} {bet.away_team_spread > 0 && '+'}{bet.away_team_spread}</TableCell>
+                    :
+                    bet.proposers_team_is_home_team ?
+                      //user is acceptor and team is away
+                        <TableCell align="left">{bet.away_team_abbr} {bet.away_team_spread > 0 && '+'}{bet.away_team_spread}</TableCell>
+                      :
+                      //user is acceptor and team is home
+                        <TableCell align="left">{bet.home_team_abbr} {bet.home_team_spread > 0 && '+'}{bet.home_team_spread}</TableCell>
+                  }
+                  </>
+                  :
+                  <>
+                    {bet.proposers_id === props.store.user.id ?
+                    <>
+                      {bet.proposers_bet_is_over ?
+                        //user is proposer and bet is over
+                          <TableCell align="left">Over {bet.over_under}</TableCell>
+                        :
+                        //user is proposer and bet is under
+                          <TableCell align="left">Under {bet.over_under}</TableCell>
+                      } 
+                    </>
+                    :
+                    <>
+                      {bet.proposers_bet_is_over ?
+                        //user is acceptor and proposers bet is over
+                          <TableCell align="left">Under {bet.over_under}</TableCell>
+                        :                        
+                        //user is acceptor and proposers bet is under
+                          <TableCell align="left">Over {bet.over_under}</TableCell>
+                      } 
+                    </>}
+                  </>
+                }
+                {bet.winners_id === props.store.user.id ? 
+                  <TableCell align="center" style={{color: "#01FF70"}}>W</TableCell>
+                :
+                  <TableCell align="center" style={{color: "#ff1f01"}}>L</TableCell>}
+                  <TableCell align="center">{bet.wager}u</TableCell>
                 </TableRow>
               ))}
             </TableBody>
