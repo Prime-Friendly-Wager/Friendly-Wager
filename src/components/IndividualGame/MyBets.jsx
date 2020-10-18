@@ -117,7 +117,7 @@ function MyBets(props) {
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
                       >
-                        <DialogTitle style={{backgroundColor: '#303030'}} id="alert-dialog-title">{`Delete open bet?`}</DialogTitle>
+                        <DialogTitle style={{backgroundColor: '#303030'}}>{`Delete open bet?`}</DialogTitle>
                         <DialogActions style={{backgroundColor: '#303030'}}>
                           <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={handleClose} color="primary">
                             Cancel

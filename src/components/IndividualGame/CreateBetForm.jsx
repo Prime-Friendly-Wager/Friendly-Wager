@@ -30,7 +30,7 @@ const useStyles = makeStyles({
         backgroundColor: 'white',
         borderRadius: '.5em',
         marginTop: '1em',
-        width: "75px"
+        width: "120px",
     },
 
 });
@@ -158,9 +158,9 @@ function CreateBetForm(props) {
                     <DialogTitle id="alert-dialog-title">Confirm Bet</DialogTitle>
                     <DialogContent>
                         {bet.proposers_team_id === game.home_team_id ?
-                            <DialogContentText>Bet to placed on {game.home_team} {game.home_team_spread} for {bet.wager} units</DialogContentText>
+                            <DialogContentText>Bet will be placed on {game.home_team} {game.home_team_spread} for {bet.wager} units.</DialogContentText>
                         :
-                            <DialogContentText>Bet to placed on {game.away_team} {game.away_team_spread} for {bet.wager} units</DialogContentText>
+                            <DialogContentText>Bet will be placed on {game.away_team} {game.away_team_spread} for {bet.wager} units.</DialogContentText>
                         }
                     </DialogContent>
                     <DialogActions>
@@ -193,9 +193,9 @@ function CreateBetForm(props) {
                     <DialogTitle id="alert-dialog-title">Confirm Bet</DialogTitle>
                     <DialogContent>
                         {bet.proposers_bet_is_over === "true" ?
-                            <DialogContentText>Bet to placed on <b>OVER</b> {game.over_under} for {bet.wager} units</DialogContentText>
+                            <DialogContentText>Bet will be placed on <b>OVER</b> {game.over_under} for {bet.wager} units.</DialogContentText>
                         :
-                            <DialogContentText>Bet to placed on <b>UNDER</b> {game.over_under} for {bet.wager} units</DialogContentText>}
+                            <DialogContentText>Bet will be placed on <b>UNDER</b> {game.over_under} for {bet.wager} units.</DialogContentText>}
                     </DialogContent>
                     <DialogActions>
                             <Button onClick={cancelBet}>Cancel</Button>

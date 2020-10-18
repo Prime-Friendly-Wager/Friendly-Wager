@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { makeStyles } from '@material-ui/core/styles';
-import { Fab, Typography, Container } from '@material-ui/core';
+import { Typography} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
 import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { withRouter } from "react-router";
 
@@ -55,7 +54,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
   search: {
-    
     
   },
   notchedOutline: {

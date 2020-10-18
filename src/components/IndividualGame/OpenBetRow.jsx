@@ -128,10 +128,10 @@ function OpenBetRow(props) {
           }
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose} >
             Cancel
           </Button>
-          <Button onClick={acceptBet} color="primary" autoFocus>
+          <Button onClick={acceptBet} >
             Accept Bet
           </Button>
         </DialogActions>
