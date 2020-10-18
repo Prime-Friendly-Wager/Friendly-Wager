@@ -86,6 +86,32 @@ const theme = createMuiTheme({
         display: 'block'
       },
     },
+    MuiDialogTitle: {
+      root: {
+        backgroundColor: '#303030',
+      },
+    },
+    MuiDialogActions: {
+      root: {
+        backgroundColor: '#303030',
+      },
+    },
+    MuiDialogContent: {
+      root: {
+        backgroundColor: '#303030',
+      },
+    },
+    MuiDialogContentText: {
+      root: {
+        color: '#ffffff',
+      },
+    },
+    MuiButton: {
+      root: {
+        backgroundColor: '#303030',
+        color: '#ffffff',
+      },
+    },
   },
   palette: {
     primary: {

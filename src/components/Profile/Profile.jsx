@@ -182,10 +182,10 @@ this.verifyImageURL(image, function (imageExists) {
                 />
               </DialogContent>
               <DialogActions>
-                <Button onClick={this.handleClose} color="primary">
+                <Button onClick={this.handleClose}>
                   Cancel
                 </Button>
-                <Button onClick={this.handleImageUpload} color="primary">
+                <Button onClick={this.handleImageUpload}>
                   Upload
                 </Button>
               </DialogActions>
