@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#151515',
 
   },
   headingContainer: {
@@ -31,6 +32,18 @@ const useStyles = makeStyles((theme) => ({
   extendedIcon: {
     marginRight: theme.spacing(1),
   },
+  multilineColor: {
+    color: 'white',
+    borderColor: 'green !important'
+    
+  },
+  borderColor: {
+    color: 'white !important',
+    borderColor: 'white !important',
+  },
+  cssLabel: {
+    color: 'white'
+  },
   addButton: {
     float: "right",
     color: 'white',
@@ -42,15 +55,19 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
   search: {
-    marginTop: '.5em',
-    paddingRight: '4em',
+    
+    
+  },
+  notchedOutline: {
+    borderWidth: '1px',
+    borderColor: 'white !important'
   },
   mainContainer: {
     position: 'fixed',
     zIndex: '20',
     width: '100%',
     top: 0,
-    backgroundColor: '#424242',
+    backgroundColor: '#303030'
   },
 }));
 
@@ -82,15 +99,27 @@ function FriendsListHeading(props) {
           className={classes.searchfield}
             id="searchfriend"
             onChange={handleSearch}
+            style={{color: '#01FF70'}}
             label="Search Friends"
             margin="normal"
             variant="outlined"
             InputProps={{
+              classes: {
+                root: classes.notchedOutline,
+                focused: classes.multilineColor,
+                notchedOutline: classes.notchedOutline
+              },
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchIcon />
+                  <SearchIcon style={{color: '#01FF70'}}/>
                 </InputAdornment>
               ),
+            }}
+            InputLabelProps={{
+              classes: {
+                root: classes.cssLabel,
+                focused: classes.borderColor,
+              }
             }}
           />
         </div>

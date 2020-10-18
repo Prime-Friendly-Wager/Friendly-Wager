@@ -87,6 +87,7 @@ function FriendStatisticsHeader(props) {
     let ourActiveBets = props.store.betReducer.activeBetReducer.filter(bet => bet.proposers_id === friendId || bet.acceptors_id === friendId);
     let ourCompletedBets = props.store.betReducer.completedBetReducer.filter(bet => bet.proposers_id === friendId || bet.acceptors_id === friendId);
     let overall = ourCompletedBets.reduce((sum, bet) => {return bet.winners_id === props.store.user.id ? sum += bet.wager : sum -= bet.wager}, 0)
+   
 
   return (
     <>

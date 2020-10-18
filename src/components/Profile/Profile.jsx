@@ -9,6 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { ThumbDownSharp } from '@material-ui/icons';
+import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 
@@ -26,27 +27,31 @@ const styles = theme => ({
         position: 'fixed',
         width: '100%',
         top: 0,
-        backgroundColor: '#424242',
+        backgroundColor: '#303030',
         height: '4.5em',
     },
     avatarLogo : {
         width: '4em',
         height: '4em',
-        position: 'relative',
+       position: 'relative',
          
     },
     container: {
         height: '50vh',
         position: 'fixed',
-        justifyContent: 'center'
     },
     info: {
         marginTop: '6.5em',
         paddingLeft: '1em',
         paddingTop: '3em',
-        display: 'flex',
-        zIndex: '-1',
+        
+        
         width: '100%' 
+    },
+    profilePicture: {
+       
+        paddingBottom: '3em',
+       
     },
 
     headingText: {
@@ -55,11 +60,29 @@ const styles = theme => ({
     button: {
         marginTop: '1em'
     },
+    cssLabel: {
+        color: 'white'
+      },
+    logOutButton: {
+        paddingTop: '10em'
+    },
     headingTextGroup: {
         paddingRight: '1em',
     },
+    multilineColor: {
+        color: '#01FF70',
+        borderColor: 'green !important'
+        
+      },
+      borderColor: {
+        color: 'white !important',
+        borderColor: 'white !important',
+      },
+      notchedOutline: {
+        borderWidth: '1px',
+        borderColor: 'white !important'
+      },
 });
-
 
 
 
@@ -68,6 +91,7 @@ class Profile extends Component {
   state = {
       open: false,
       image_url: '',
+      error: false
   }
 
 
@@ -78,11 +102,20 @@ class Profile extends Component {
   };
 
   handleClose = () => {
-    //asynchronous, needs to be fixed
-    this.props.dispatch({type: 'GET_IMAGE'});
+  let result = document.getElementById('urlfield').value;
+  if (result != ''){
     this.setState({
-        open: false
+        open: false,
+        image_url: '',
+        error: false
     });
+}
+else {
+    this.setState({
+        open: false,
+        error: false
+    });
+}
   };
 
   handleChange = (event) => {
@@ -104,22 +137,39 @@ class Profile extends Component {
   }
 
  
-//function that handles image upload
-//calls verifyImageURL to verify validity
-handleImageUpload = () => {
+// function that handles image upload
+// calls verifyImageURL to verify validity
+checkImageUpload = () => {
     let image=this.state.image_url
-    let id=this.props.store.user.id
-this.verifyImageURL(image, function (imageExists) {
+    let id=this.props.store.user.id;
+    var self=this
+this.verifyImageURL(image, async function (imageExists) {
         if (imageExists === true) {
             console.log('hi');
-            axios.put(`/api/user/imageupload`, {image_url: image, id: id})
+            await axios.put(`/api/user/imageupload`, {image_url: image, id: id})
+            .then((result) => {
+            self.props.dispatch({type: 'GET_IMAGE'});
+            self.setState({
+                open: false,
+                image_url: '',
+                error: false
+            });
+            })
         } else {
-            alert("Image does not Exist");
+            self.setState({
+                error: true,
+                image_url: 'true'
+            })
+            document.getElementById('urlfield').value = '';
         }
     })
+  };
+
+  handleUpload = () => {
+    this.props.dispatch({type: 'GET_IMAGE'})
     this.handleClose();
     
-  };
+  }
 
     componentDidMount() {
         window.scrollTo(0, 0);
@@ -136,56 +186,74 @@ this.verifyImageURL(image, function (imageExists) {
                    
                 </div>
                 <div className={classes.info}>
-                <Grid container>
-                    <Grid item xs={12}>
-                        <center>
+                <Grid container align = "center" justify = "center" alignItems = "center" >
+                    <div className={classes.profilePicture}>
+                    <Grid item xs={12}> 
                     <Avatar className={classes.avatarLogo} src={this.props.store.user.image_url}></Avatar>
-                    </center>
                     </Grid>
                     <Grid item xs={12}>
-                        <center>
                     <Button variant="contained" onClick={this.handleOpen} className={classes.button} color="primary">Change Profile Picture</Button>
-                    </center>
                     </Grid>
-                    <Grid item xs={6}>
-                        <Typography variant="h5" style={{color: 'white'}}>{this.props.store.user.first_name} {this.props.store.user.last_name}</Typography>
+                    </div>
+                    <Grid item xs={12}>
+                        <Typography variant="h5" style={{color: 'white'}}>Name: {this.props.store.user.first_name} {this.props.store.user.last_name}</Typography>
                     </Grid>
-                    <Grid item xs={6}>
-                        <Typography  variant="h5" style={{color: 'white'}}>{this.props.store.user.username}</Typography>
+                    <Grid item xs={12}>
+                        <Typography  variant="h5" style={{color: 'white'}}>Email: {this.props.store.user.username}</Typography>
                     </Grid>
                     
                 </Grid>
                 </div>
               
               
-                <center>
+               <center>
+                <div className={classes.logOutButton}>
                <LogoutButton/>
+               </div>
                </center>
 
 
               </div>
-              <Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
-              <DialogTitle id="form-dialog-title">Change Profile Picture</DialogTitle>
-              <DialogContent>
-                <DialogContentText>
-                  Enter Image URL
-                </DialogContentText>
+              <Dialog  
+              fullWidth={true}
+              
+              maxWidth={true} 
+              open={this.state.open} 
+              onClose={this.handleClose} 
+              aria-labelledby="form-dialog-title">
+              
+              <DialogContent style={{backgroundColor: '#303030'}}>
                 <TextField
                   autoFocus
                   margin="dense"
-                  id="name"
+                  id="urlfield"
                   defaultValue=''
                   onChange={this.handleChange}
                   label="Image URL"
                   type="url"
+                  helperText={this.state.error ? "Image URL is not valid" : ""}
+                  error={this.state.error}
                   fullWidth
+                  InputProps={{
+                    classes: {
+                      root: classes.notchedOutline,
+                      focused: classes.multilineColor,
+                      
+                    },
+                }}
+                InputLabelProps={{
+                    classes: {
+                      root: classes.cssLabel,
+                      focused: classes.borderColor,
+                    }
+                  }}
                 />
               </DialogContent>
-              <DialogActions>
-                <Button onClick={this.handleClose} color="primary">
+              <DialogActions style={{backgroundColor: '#303030'}}>
+                <Button style={{color: 'white'}} onClick={this.handleClose} color="primary">
                   Cancel
                 </Button>
-                <Button onClick={this.handleImageUpload} color="primary">
+                <Button style={{color: 'white'}} onClick={this.checkImageUpload} color="primary">
                   Upload
                 </Button>
               </DialogActions>
