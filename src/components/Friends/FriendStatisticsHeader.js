@@ -91,7 +91,8 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: '10px'
     },
     friendsBetsGrid: {
-      paddingBottom: '25px'
+      paddingBottom: '25px',
+      backgroundColor: '#151515'
     }
     
   }));
