@@ -51,11 +51,17 @@ class LoginForm extends Component {
     });
   };
 
-   //this is for invisible login button on hand logo
-   handleInvisibleButton = () => {
+   handleMattLogin = () => {
     this.setState ({
       username: 'matt@gmail.com',
       password: 'mattkraemer',
+    });
+  };
+
+  handleHansLogin = () => {
+    this.setState ({
+      username: 'hans@gmail.com',
+      password: 'hansaccola',
     });
   };
 
@@ -74,7 +80,7 @@ class LoginForm extends Component {
 
           )}
         </center>
-        <div onClick={this.handleInvisibleButton}>
+        <div onClick={this.handleMattLogin}>
           <center>
             <label htmlFor="username">
               <TextField
@@ -92,7 +98,7 @@ class LoginForm extends Component {
             </label>
           </center>
         </div>
-        <div>
+        <div onClick={this.handleHansLogin}>
           <center>
             <label htmlFor="password">
               <TextField
