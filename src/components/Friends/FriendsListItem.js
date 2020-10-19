@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '7em',
   },
   mainContainer: {
-    marginTop: '13.5em',
+    marginTop: '12em',
   },
 }));
 
@@ -50,7 +50,6 @@ function FriendsListItem(props) {
   return (
     <div className={classes.mainContainer}>
       <center>
-     <Typography variant='h5' style={{color: 'white'}}>Friends List ({props.store.friendsList.length})</Typography>
      </center>
       <div className={classes.root}>
         {props.store.friendsList[0]

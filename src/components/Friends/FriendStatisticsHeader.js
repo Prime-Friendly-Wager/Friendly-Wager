@@ -19,6 +19,12 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         
     },
+    statsText: {
+      fontSize: '24px'
+    },
+    statsHeader: {
+      borderBottom: '2px solid white',
+    },
     headingContainer: {
         display: 'flex',
         width: '100%',
@@ -48,16 +54,25 @@ const useStyles = makeStyles((theme) => ({
     margin: {
         margin: theme.spacing(1),
       },
-    backButton: {
-        fontSize: '3em',
-        position: 'relative',
-        marginLeft: '.25em',
-        marginRight: '1em',
-        color: 'white',
+    goBackButton: {
+      fontSize: '5em',
+      position: 'relative',
+      paddingLeft: '.25em',
+      paddingBottom: '.1em',
+      backgroundColor: '#151515'
     },
-    orange: {
+    icon: {
+      fontSize: '3em',
+      backgroundColor: '#151515'
+    },
+    goBackButton: {
+      backgroundColor: '#151515'
+    },
+    avatar: {
         color: theme.palette.getContrastText(deepOrange[500]),
         backgroundColor: deepOrange[500],
+        width: '4em',
+        height: '4em',
       },
     center: {
         justifyContent: 'center',
@@ -65,14 +80,15 @@ const useStyles = makeStyles((theme) => ({
     },
     boxItem: {
       backgroundColor:'#303030',
-      width: '100px',
+      width: '160px',
       borderRadius: '10px'
     },
     boxItemOverall: {
       backgroundColor:'#303030',
-      width: '100px',
-      height: '75px',
-      borderRadius: '10px'
+      width: '140px',
+      height: '60px',
+      borderRadius: '10px',
+      marginBottom: '10px'
     },
     friendsBetsGrid: {
       paddingBottom: '25px'
@@ -83,17 +99,20 @@ const useStyles = makeStyles((theme) => ({
 function FriendStatisticsHeader(props) {
     const classes = useStyles();
     let friendId = Number(props.match.params.id);
+    let imageRow = props.store.friendsList.filter(friend => friend.id === friendId)
     let friendOpenBets = props.store.betReducer.openBetReducer.filter(bet => bet.proposers_id === friendId);
     let ourActiveBets = props.store.betReducer.activeBetReducer.filter(bet => bet.proposers_id === friendId || bet.acceptors_id === friendId);
     let ourCompletedBets = props.store.betReducer.completedBetReducer.filter(bet => bet.proposers_id === friendId || bet.acceptors_id === friendId);
     let overall = ourCompletedBets.reduce((sum, bet) => {return bet.winners_id === props.store.user.id ? sum += bet.wager : sum -= bet.wager}, 0)
-   
+   console.log(imageRow);
 
+  
+  
   return (
     <>
-      <Button onClick={() => {props.history.push('/friends')}} >
-        <ArrowBackIcon className={classes.backButton} />
-      </Button>
+    <Button className={classes.goBackButton} onClick={() => props.history.goBack()}>
+                <ArrowBackIcon className={classes.icon} />
+              </Button>
       <div className={classes.headingContainer}>
         {props.store.friendsList.filter(friend => friend.id === friendId).map(friend => (
           <Typography key={friend.id} variant="h4" color="white">{friend.first_name} {friend.last_name}</Typography>
@@ -103,24 +122,25 @@ function FriendStatisticsHeader(props) {
       <Grid className={classes.historyContainer} container direction="row" justify="center" alignItems="center" >  
         <Grid item>
           <Container>
-            <Typography color="white" variant="h6">Total Bets</Typography>
+            <Typography color="white" className={classes.statsHeader} variant="h6">Total Bets</Typography>
             <br />
             <center>
-              <Typography color="white">{props.store.friendStatistics.length}</Typography>
+              <Typography className={classes.statsText} color="white">{props.store.friendStatistics.length}</Typography>
             </center>
             </Container>
         </Grid>
         <Grid item>
           <Container>
-            <Avatar className={classes.orange}></Avatar>
+            {/* Ternary on avatar source because if you refresh with friends list empty you get error */}
+            <Avatar src={(props.store.friendsList[0]) ? imageRow[0].image_url : null} className={classes.avatar}></Avatar>
           </Container>
         </Grid>
         <Grid item>
           <Container>
-            <Typography color="white" variant="h6">Open Bets</Typography>
+            <Typography color="white" className={classes.statsHeader} variant="h6">Open Bets</Typography>
             <br />
             <center>
-              <Typography color="white">{friendOpenBets.length}</Typography>
+              <Typography className={classes.statsText} color="white">{friendOpenBets.length}</Typography>
             </center>
           </Container>
         </Grid>
@@ -135,9 +155,19 @@ function FriendStatisticsHeader(props) {
       </div>
 
       <Grid className={classes.friendsBetsGrid} container direction="row" justify="center" alignItems="center" >  
+      <Grid item xs={12}>
+          <Container>
+            <center>
+              <Box item className={classes.boxItemOverall}>
+                <Typography variant="h6">Overall +/-</Typography>
+                <Typography color="textPrimary">{overall}</Typography>
+              </Box>
+            </center>
+          </Container>
+        </Grid> 
         <Grid item xs={6}>
           <center>
-            <Box className={classes.boxItem}>
+            <Box item className={classes.boxItem}>
               <Typography color="white"  variant="h6">Completed Bets</Typography>
               <Typography color="white">{ourCompletedBets.length}</Typography>
             </Box>
@@ -145,22 +175,13 @@ function FriendStatisticsHeader(props) {
         </Grid> 
         <Grid item xs={6}>
           <center>
-            <Box className={classes.boxItem}>
-              <Typography variant="h6">Active Bets</Typography>
-              <Typography color="textPrimary">{ourActiveBets.length}</Typography>  
+            <Box item className={classes.boxItem}>
+              <Typography color="white" variant="h6">Active Bets</Typography>
+              <Typography color="white">{ourActiveBets.length}</Typography>  
             </Box>            
           </center>
         </Grid>
-        <Grid item xs={12}>
-          <Container>
-            <center>
-              <Box className={classes.boxItemOverall}>
-                <Typography variant="h6">Overall +/-</Typography>
-                <Typography color="textPrimary">{overall}</Typography>
-              </Box>
-            </center>
-          </Container>
-        </Grid> 
+        
       </Grid>
 
       <hr></hr>
