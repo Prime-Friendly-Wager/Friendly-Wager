@@ -22,7 +22,6 @@ const useStyles = makeStyles({
   },
 });
 
-
 function BottomNavBar(props) {
 
   const classes = useStyles();
