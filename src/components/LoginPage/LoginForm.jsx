@@ -22,15 +22,12 @@ const styles = theme => ({
   },
 });
 
-
-
 class LoginForm extends Component {
   state = {
     username: '',
     password: '',
   };
 
-  
   login = (event) => {
     event.preventDefault();
     if (this.state.username && this.state.password) {
@@ -42,7 +39,7 @@ class LoginForm extends Component {
         },
       });
       this.props.history.push('/the-board')
-    } 
+    }
     else {
       this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }
@@ -51,6 +48,14 @@ class LoginForm extends Component {
   handleInputChangeFor = (propertyName) => (event) => {
     this.setState({
       [propertyName]: event.target.value,
+    });
+  };
+
+   //this is for invisible login button on hand logo
+   handleInvisibleButton = () => {
+    this.setState ({
+      username: 'matt@gmail.com',
+      password: 'mattkraemer',
     });
   };
 
@@ -69,10 +74,11 @@ class LoginForm extends Component {
 
           )}
         </center>
-        <div>
+        <div onClick={this.handleInvisibleButton}>
           <center>
             <label htmlFor="username">
               <TextField
+                color="secondary"
                 size="small"
                 className={classes.textField}
                 type="text"
@@ -90,6 +96,7 @@ class LoginForm extends Component {
           <center>
             <label htmlFor="password">
               <TextField
+                color="secondary"
                 className={classes.textField}
                 placeholder="password"
                 size="small"
@@ -122,7 +129,7 @@ class LoginForm extends Component {
                 onClick={() => {
                   this.props.history.push('/create-account');
                 }}
-                >
+              >
                 Register
               </Button>
             </div>

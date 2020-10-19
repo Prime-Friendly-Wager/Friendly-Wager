@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
-import { Button, TextField, Typography, Switch, Grid, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions} from '@material-ui/core';
+import { Button, TextField, Typography, Switch, Grid, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -64,7 +64,7 @@ function CreateBetForm(props) {
     }
 
     //handles the toggle switch
-    const [ modeSwitch, toggleSwitch ] = useState({
+    const [modeSwitch, toggleSwitch] = useState({
         spread_mode: true,
     });
     const handleSwitchClick = (event) => {
@@ -78,14 +78,14 @@ function CreateBetForm(props) {
 
     //handling input change for state hook
     const handleInputChange = (property, event) => {
-            //if block fixes default to 0 and app crash
-            if (event.target.value == ''){
-                setBet({
-                    ...bet,
-                    wager: ''
-                })
-            }
-            else {
+        //if block fixes default to 0 and app crash
+        if (event.target.value == '') {
+            setBet({
+                ...bet,
+                wager: ''
+            })
+        }
+        else {
             setBet({
                 ...bet,
                 [property]: Number(event.target.value)
@@ -111,7 +111,7 @@ function CreateBetForm(props) {
         }
 
         props.dispatch({ type: 'POST_BET', payload: bet });
-        
+
         setBet({
             ...bet,
             wager: '',
@@ -134,98 +134,99 @@ function CreateBetForm(props) {
                 </Grid>
                 <Grid item>Spread</Grid>
                 <Grid item xs={12}>
-            {modeSwitch.spread_mode ? 
-                <>
-                <RadioGroup row aria-label="position" name="position" onChange={(event) => handleInputChange('proposers_team_id', event)}>
-                    <FormControlLabel
-                        value={game.away_team_id}
-                        control={<Radio />}
-                        label={game.away_team + ' ' + game.away_team_spread}
-                        labelPlacement="bottom"
-                        checked={bet.proposers_team_id === game.away_team_id}
-                        className={classes.formControlLabel}
-                    />
-                    <FormControlLabel
-                        value={game.home_team_id}
-                        control={<Radio />}
-                        label={game.home_team + ' ' + game.home_team_spread}
-                        labelPlacement="bottom"
-                        checked={bet.proposers_team_id === game.home_team_id}
-                        className={classes.formControlLabel}
-                    />               
-                </RadioGroup>
-                <Dialog open={open} onClose={handleCreateBet} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-                    <DialogTitle id="alert-dialog-title">Confirm Bet</DialogTitle>
-                    <DialogContent>
-                        {bet.proposers_team_id === game.home_team_id ?
-                            <DialogContentText>Bet will be placed on {game.home_team} {game.home_team_spread} for {bet.wager} units.</DialogContentText>
+                    {modeSwitch.spread_mode ?
+                        <>
+                            <RadioGroup row aria-label="position" name="position" onChange={(event) => handleInputChange('proposers_team_id', event)}>
+                                <FormControlLabel
+                                    value={game.away_team_id}
+                                    control={<Radio />}
+                                    label={game.away_team + ' ' + game.away_team_spread}
+                                    labelPlacement="bottom"
+                                    checked={bet.proposers_team_id === game.away_team_id}
+                                    className={classes.formControlLabel}
+                                />
+                                <FormControlLabel
+                                    value={game.home_team_id}
+                                    control={<Radio />}
+                                    label={game.home_team + ' ' + game.home_team_spread}
+                                    labelPlacement="bottom"
+                                    checked={bet.proposers_team_id === game.home_team_id}
+                                    className={classes.formControlLabel}
+                                />
+                            </RadioGroup>
+                            <Dialog open={open} onClose={handleCreateBet} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+                                <DialogTitle id="alert-dialog-title">Confirm Bet</DialogTitle>
+                                <DialogContent>
+                                    {bet.proposers_team_id === game.home_team_id ?
+                                        <DialogContentText>Bet will be placed on {game.home_team} {game.home_team_spread} for {bet.wager} units.</DialogContentText>
+                                        :
+                                        <DialogContentText>Bet will be placed on {game.away_team} {game.away_team_spread} for {bet.wager} units.</DialogContentText>
+                                    }
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={cancelBet}>Cancel</Button>
+                                    <Button onClick={handleCreateBet}>Confirm</Button>
+                                </DialogActions>
+                            </Dialog>
+                        </>
                         :
-                            <DialogContentText>Bet will be placed on {game.away_team} {game.away_team_spread} for {bet.wager} units.</DialogContentText>
-                        }
-                    </DialogContent>
-                    <DialogActions>
-                            <Button onClick={cancelBet}>Cancel</Button>
-                            <Button onClick={handleCreateBet}>Confirm</Button>
-                    </DialogActions>
-                </Dialog>
-                </>
-            :
-                <>
-                <RadioGroup row aria-label="position" name="position" onChange={(event) => handleOverUnderChange( event )}>
-                    <FormControlLabel
-                        value={true}
-                        control={<Radio />}
-                        label={'Over ' + game.over_under}
-                        labelPlacement="bottom"
-                        checked={bet.proposers_bet_is_over === "true"}
-                        className={classes.formControlLabel}
+                        <>
+                            <RadioGroup row aria-label="position" name="position" onChange={(event) => handleOverUnderChange(event)}>
+                                <FormControlLabel
+                                    value={true}
+                                    control={<Radio />}
+                                    label={'Over ' + game.over_under}
+                                    labelPlacement="bottom"
+                                    checked={bet.proposers_bet_is_over === "true"}
+                                    className={classes.formControlLabel}
+                                />
+                                <FormControlLabel
+                                    value={false}
+                                    control={<Radio />}
+                                    label={'Under ' + game.over_under}
+                                    labelPlacement="bottom"
+                                    checked={bet.proposers_bet_is_over === "false"}
+                                    className={classes.formControlLabel}
+                                />
+                            </RadioGroup>
+                            <Dialog open={open} onClose={handleCreateBet} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+                                <DialogTitle id="alert-dialog-title">Confirm Bet</DialogTitle>
+                                <DialogContent>
+                                    {bet.proposers_bet_is_over === "true" ?
+                                        <DialogContentText>Bet will be placed on <b>OVER</b> {game.over_under} for {bet.wager} units.</DialogContentText>
+                                        :
+                                        <DialogContentText>Bet will be placed on <b>UNDER</b> {game.over_under} for {bet.wager} units.</DialogContentText>}
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={cancelBet}>Cancel</Button>
+                                    <Button onClick={handleCreateBet}>Confirm</Button>
+                                </DialogActions>
+                            </Dialog>
+                        </>
+
+                    }
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        color="secondary"
+                        type="number"
+                        value={bet.wager}
+                        placeholder="wager"
+                        variant="outlined"
+                        onChange={(event) => handleInputChange('wager', event)}
+                        className={classes.unitsInput}
                     />
-                    <FormControlLabel
-                        value={false}
-                        control={<Radio />}
-                        label={'Under ' + game.over_under}
-                        labelPlacement="bottom"
-                        checked={bet.proposers_bet_is_over === "false"}
-                        className={classes.formControlLabel}
-                    />
-                </RadioGroup>
-                <Dialog open={open} onClose={handleCreateBet} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-                    <DialogTitle id="alert-dialog-title">Confirm Bet</DialogTitle>
-                    <DialogContent>
-                        {bet.proposers_bet_is_over === "true" ?
-                            <DialogContentText>Bet will be placed on <b>OVER</b> {game.over_under} for {bet.wager} units.</DialogContentText>
-                        :
-                            <DialogContentText>Bet will be placed on <b>UNDER</b> {game.over_under} for {bet.wager} units.</DialogContentText>}
-                    </DialogContent>
-                    <DialogActions>
-                            <Button onClick={cancelBet}>Cancel</Button>
-                            <Button onClick={handleCreateBet}>Confirm</Button>
-                    </DialogActions>
-                </Dialog>
-                </>
-                
-            }
-            </Grid>
-            <Grid item xs={12}>
-            <TextField 
-                type="number" 
-                value={bet.wager} 
-                placeholder="wager" 
-                variant="outlined" 
-                onChange={(event) => handleInputChange('wager', event)}
-                className={classes.unitsInput}
-            />
-            <Typography color="textPrimary" className={classes.text}>Units</Typography>
-            </Grid>
-            <Button
-                variant="contained"
-                color="primary"
-                className={classes.createBetBtn}
-                onClick={handleClickOpen}
-            >
-                Create Bet
+                    <Typography color="textPrimary" className={classes.text}>Units</Typography>
+                </Grid>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.createBetBtn}
+                    onClick={handleClickOpen}
+                >
+                    Create Bet
       </Button>
-      </Grid>
+            </Grid>
 
         </FormControl>
     );

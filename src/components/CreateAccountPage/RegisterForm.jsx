@@ -22,13 +22,13 @@ const styles = theme => ({
   cancelBtn: {
     marginTop: '1em',
     width: '140px',
-  },  
+  },
 });
 
-function emailValidation (email)  {
+function emailValidation(email) {
   let emailIsValid = false;
-  for(let i = 0; i < email.length; i++){
-    if (email[i] === '@'){
+  for (let i = 0; i < email.length; i++) {
+    if (email[i] === '@') {
       emailIsValid = true;
     }
   }
@@ -61,8 +61,8 @@ class RegisterForm extends Component {
         },
       })
     }
-    else if (!checkEmail){
-      this.props.dispatch({type: 'EMAIL_IS_INVALID'})
+    else if (!checkEmail) {
+      this.props.dispatch({ type: 'EMAIL_IS_INVALID' })
     }
     else {
       this.props.dispatch({ type: 'CONFIRM_PASSWORD_ERROR' });
@@ -91,6 +91,7 @@ class RegisterForm extends Component {
           <Grid item xs={12}>
             <label htmlFor="first_name">
               <TextField
+                color="secondary"
                 placeholder="first name"
                 size="small"
                 className={classes.textField}
@@ -106,6 +107,7 @@ class RegisterForm extends Component {
           <Grid item xs={12}>
             <label htmlFor="last_name">
               <TextField
+                color="secondary"
                 placeholder="last name"
                 size="small"
                 className={classes.textField}
@@ -121,6 +123,7 @@ class RegisterForm extends Component {
           <Grid item xs={12}>
             <label htmlFor="username">
               <TextField
+                color="secondary"
                 placeholder="email"
                 size="small"
                 className={classes.textField}
@@ -136,6 +139,7 @@ class RegisterForm extends Component {
           <Grid item xs={12}>
             <label htmlFor="password">
               <TextField
+                color="secondary"
                 placeholder="password"
                 size="small"
                 className={classes.textField}
@@ -151,6 +155,7 @@ class RegisterForm extends Component {
           <Grid item xs={12}>
             <label htmlFor="password">
               <TextField
+                color="secondary"
                 placeholder="confirm password"
                 size="small"
                 className={classes.textField}
@@ -166,18 +171,18 @@ class RegisterForm extends Component {
 
         </Grid>
         <div>
-          <Button 
+          <Button
             className={classes.registerBtn}
             variant="contained"
             color="primary"
-            type="submit" 
-            name="submit" 
+            type="submit"
+            name="submit"
             value="Register">
             Register
           </Button>
         </div>
         <div>
-        <Button
+          <Button
             color="primary"
             className={classes.cancelBtn}
             variant="contained"
