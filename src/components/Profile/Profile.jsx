@@ -49,7 +49,6 @@ const styles = theme => ({
         width: '100%' 
     },
     profilePicture: {
-       
         paddingBottom: '3em',
        
     },

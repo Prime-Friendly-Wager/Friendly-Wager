@@ -141,7 +141,7 @@ const getGamesFromNfl = async (req, res) => {
 
         //gets current nfl week number
         const weekNumber = await convertDate();
-
+ 
         //builds query using access token
         const params = `s={"$query":{"week.season":2020,"week.seasonType":"REG","week.week":${weekNumber}}}&fs={week{season,seasonType,week},id,gameTime,gameStatus,homeTeam{id,abbr},visitorTeam{id,abbr},homeTeamScore,visitorTeamScore}`
         const url = encodeURI(`${base}${params}`)
@@ -221,8 +221,10 @@ const updateOdds = async (req, res) => {
             OR  (((SELECT id FROM teams WHERE $2 = "odds_api_ref") = "games".home_team_id) AND ((SELECT id FROM teams WHERE $1 = "odds_api_ref") = "games".away_team_id)))
             AND games.week = $5 AND games.home_team_spread IS NULL AND games.away_team_spread IS NULL;
             `
-        let queryValues = [game.teams[0], game.teams[1], Number(game.sites[0].odds.spreads.points[0]), Number(game.sites[0].odds.spreads.points[1]), currentWeek]
-        pool.query(queryText, queryValues)
+        if ( game.sites[0] ) {
+            let queryValues = [game.teams[0], game.teams[1], Number(game.sites[0].odds.spreads.points[0]), Number(game.sites[0].odds.spreads.points[1]), currentWeek]
+            pool.query(queryText, queryValues)
+        }
         });
 
         //this api query gets over unders for the games
@@ -240,8 +242,10 @@ const updateOdds = async (req, res) => {
                 OR  (((SELECT id FROM teams WHERE $2 = "odds_api_ref") = "games".home_team_id) AND ((SELECT id FROM teams WHERE $1 = "odds_api_ref") = "games".away_team_id)))
                 AND games.week = $4 AND games.over_under IS NULL;
                 `
-            let queryValues = [game.teams[0], game.teams[1], Number(game.sites[0].odds.totals.points[0]), currentWeek]
-            pool.query(queryText, queryValues)
+            if ( game.sites[0] ) {
+                let queryValues = [game.teams[0], game.teams[1], Number(game.sites[0].odds.totals.points[0]), currentWeek]
+                pool.query(queryText, queryValues)
+                }
             });
             
         return true;

@@ -1,5 +1,5 @@
 const cron = require('node-cron');
-const { getGamesFromNfl, updateOdds, closeBets, updateNflScores } = require('../modules/theJudge');
+const { getGamesFromNfl, updateOdds, closeBets, updateNflScores, theJudge } = require('../modules/theJudge');
 
 //holds all the cron automation
 function automationFunction(){
@@ -11,7 +11,7 @@ function automationFunction(){
     });
     
     //gets NFL scores for the previous week
-    //schedule to run once at 1:05am Tuesday
+    //scheduled to run once at 1:05am Tuesday
     //this also judicates outstanding bets
     cron.schedule('5 1 * * 2', function(){
         updateNflScores();
@@ -24,10 +24,16 @@ function automationFunction(){
     });
 
     //deletes unaccepted bets if game has started
-    //scheduled to run every 30 minutes between 10am and 9pm Monday, Tuesday, Thursday, and Sunday
-    // cron.schedule('0,30 23 * * 1,2,4,7', function(){
-    //     closeBets();
-    // });
+    //scheduled to run every 15 minutes between 10am and 9pm Monday, Tuesday, Thursday, and Sunday
+    cron.schedule('0,15,30,45 10-18 * * 1,2,4,7', function(){
+        closeBets();
+    });
+
+    //runs the judge to ensure bets have been adjudicated
+    //scheduled to run once at 1:10am Tuesday
+    cron.schedule('10 1 * * 2', function(){
+        theJudge();
+    });
 
 };
 
