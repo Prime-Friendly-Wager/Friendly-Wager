@@ -132,6 +132,9 @@ class App extends Component {
     const currentWeek = convertDate();
     this.props.dispatch({ type: 'FETCH_GAMES', payload: currentWeek });
     this.props.dispatch({ type: 'FETCH_BETS' })
+    if (!this.props.store.friendsList.length) {
+      this.props.dispatch({ type: 'GET_FRIENDS'})
+    }
   };
 
   render() {

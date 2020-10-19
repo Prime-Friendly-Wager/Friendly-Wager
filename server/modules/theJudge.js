@@ -25,7 +25,7 @@ const updateNflScores = async (req, res) => {
         const base = 'https://api.nfl.com/v1/games?';
 
         //gets the previous NFL week number
-        const lastWeekNumber = await (convertDate()) - 1;
+        const lastWeekNumber = await (convertDate() - 1);
         console.log('Pulling games for last week', lastWeekNumber);
 
         //builds query using access token
@@ -252,4 +252,4 @@ const updateOdds = async (req, res) => {
 };
 
 
-module.exports = { getGamesFromNfl, updateOdds, closeBets, updateNflScores };
+module.exports = { getGamesFromNfl, updateOdds, closeBets, updateNflScores, theJudge };

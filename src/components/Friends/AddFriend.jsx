@@ -155,7 +155,7 @@ class AddFriend extends Component {
               <center>
             <TextField
             ref={'textForm'}
-          className={classes.searchfield}
+            className={classes.searchfield}
             id="friendSearch"
             onChange={this.handleSearch}
             style={{color: '#01FF70'}}
