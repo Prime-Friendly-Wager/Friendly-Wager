@@ -22,7 +22,9 @@ import axios from 'axios';
 
 const styles = theme => ({
     heading: {
-        padding: '1em',
+        // padding: '1em',
+        paddingTop: '1em',
+        paddingBottom: '1em',
         textAlign: 'center',
         position: 'fixed',
         width: '100%',
@@ -42,20 +44,17 @@ const styles = theme => ({
     },
     info: {
         marginTop: '6.5em',
-        paddingLeft: '1em',
+        // paddingLeft: '1em',
         paddingTop: '3em',
-        
-        
         width: '100%' 
     },
     profilePicture: {
-       
         paddingBottom: '3em',
        
     },
 
     headingText: {
-        marginTop: '.2em',
+        marginTop: '.5em',
     },
     button: {
         marginTop: '1em'

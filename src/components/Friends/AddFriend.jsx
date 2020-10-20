@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { withStyles, TextField, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton, Button, Typography } from '@material-ui/core';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
 import { deepOrange } from '@material-ui/core/colors';
@@ -155,7 +155,7 @@ class AddFriend extends Component {
               <center>
             <TextField
             ref={'textForm'}
-          className={classes.searchfield}
+            className={classes.searchfield}
             id="friendSearch"
             onChange={this.handleSearch}
             style={{color: '#01FF70'}}

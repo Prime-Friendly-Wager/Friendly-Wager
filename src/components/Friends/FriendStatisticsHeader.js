@@ -161,7 +161,7 @@ function FriendStatisticsHeader(props) {
             <center>
               <Box item className={classes.boxItemOverall}>
                 <Typography variant="h6">Overall +/-</Typography>
-                <Typography color="textPrimary">{overall}</Typography>
+                <Typography color="textPrimary">{overall} Units</Typography>
               </Box>
             </center>
           </Container>

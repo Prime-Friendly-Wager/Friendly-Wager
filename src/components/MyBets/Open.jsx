@@ -96,12 +96,12 @@ function Open(props) {
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                   >
-                    <DialogTitle style={{backgroundColor: '#303030'}}id="alert-dialog-title">{`Delete open bet?`}</DialogTitle>
+                    <DialogTitle style={{backgroundColor: '#303030'}}id="alert-dialog-title">{`Delete open bet ${bet.home_team_name} vs ${bet.away_team_name}? ${bet.id}`}</DialogTitle>
                     <DialogActions style={{backgroundColor: '#303030'}}>
                       <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={handleClose} color="primary">
                         Cancel
                           </Button>
-                      <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={() => handleDelete(bet.id)} color="primary" autoFocus>
+                      <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={() => handleDelete(bet.id)} color="primary">
                         Yes
                         </Button>
                     </DialogActions>
