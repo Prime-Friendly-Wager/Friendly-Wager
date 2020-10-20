@@ -32,7 +32,8 @@ function* searchFriends(action){
 function* addFriend(action){
     try{
         yield axios.post(`/api/friend`, action.payload);
-        yield put({type: "GET_MEMBERS", payload: {search: 'All'}})
+        yield put({ type: "GET_MEMBERS", payload: {search: 'All'} })
+        yield put({ type: "FETCH_BETS" })
     }catch(error){
         console.log('ERROR IN ADD FRIEND SAGA: ', error)
     }
