@@ -32,15 +32,27 @@ Create a new database in postgreSQL called 'friendly_wager'. Once this is comple
 
 If you would like to name your database something else, you will need to change 'friendly_wager' to the name of your new database name in 'server/modules/pool.js'.
 
+## Creating the .ENV file
+
+Create a `.env` file at the root of the project and paste this line into the file:
+ ```
+SERVER_SESSION_SECRET=**********************
+CLIENT_ID=***********************
+CLIENT_SECRET=**********************
+ODDS_KEY=***********************
+```
+First you will need to establish a SERVER_SESSION_SECRET to keep your application secure. Here's a site that can help you generate a secret: https://passwordsgenerator.net/. NOTE This secret should be more than 8 characters. Having a secret key that is less than 8 characters or leaving it as "superDuperSecret" will result in a warning from the app.
+  
+DeWitt's instructions to obtaining NFL and odds keys.
+
 ## Installation
 
-- Run `npm install`
-- Create a `.env` file at the root of the project and paste this line into the file:
-  ```
-  SERVER_SESSION_SECRET=superDuperSecret
-  ```
-  While you're in your new `.env` file, take the time to replace `superDuperSecret` with some long random string like `25POUbVtx6RKVNWszd9ERB9Bb6` to keep your application secure. Here's a site that can help you: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). If you don't do this step, create a secret with less than eight characters, or leave it as `superDuperSecret`, you will get a warning.
-- Start postgres if not running already by using `brew services start postgresql`
-- Run `npm run server`
-- Run `npm run client`
-- Navigate to `localhost:3000`
+1. Run npm install
+2. Start Postgres using brew services start postgresql
+   (only required if PG is not already running)
+3. Run npm run server
+4. Run npm run client
+5. Navigate to localhost:3000
+
+## How to use Friendly Wager
+
