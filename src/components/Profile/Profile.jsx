@@ -6,23 +6,10 @@ import { Typography, withStyles, Grid, Button, Avatar, TextField} from '@materia
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { ThumbDownSharp } from '@material-ui/icons';
-import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
-
-
-
-
-// Basic class component structure for React with default state
-// value setup. When making a new component be sure to replace
-// the component name FriendsList with the name for the new
-// component.
 
 const styles = theme => ({
     heading: {
-        // padding: '1em',
         paddingTop: '1em',
         paddingBottom: '1em',
         textAlign: 'center',
@@ -36,7 +23,6 @@ const styles = theme => ({
         width: '4em',
         height: '4em',
        position: 'relative',
-         
     },
     container: {
         height: '50vh',
@@ -44,15 +30,12 @@ const styles = theme => ({
     },
     info: {
         marginTop: '6.5em',
-        // paddingLeft: '1em',
         paddingTop: '3em',
         width: '100%' 
     },
     profilePicture: {
         paddingBottom: '3em',
-       
     },
-
     headingText: {
         marginTop: '.5em',
     },
@@ -71,7 +54,6 @@ const styles = theme => ({
     multilineColor: {
         color: '#01FF70',
         borderColor: 'green !important'
-        
       },
       borderColor: {
         color: 'white !important',
@@ -121,7 +103,6 @@ else {
     this.setState({
         image_url: event.target.value
     });
-    console.log(this.state.image_url)
   };
   //verifys image validity 
  verifyImageURL(url, callBack) {
@@ -144,7 +125,6 @@ checkImageUpload = () => {
     var self=this
 this.verifyImageURL(image, async function (imageExists) {
         if (imageExists === true) {
-            console.log('hi');
             await axios.put(`/api/user/imageupload`, {image_url: image, id: id})
             .then((result) => {
             self.props.dispatch({type: 'GET_IMAGE'});
@@ -167,7 +147,6 @@ this.verifyImageURL(image, async function (imageExists) {
   handleUpload = () => {
     this.props.dispatch({type: 'GET_IMAGE'})
     this.handleClose();
-    
   }
 
     componentDidMount() {
@@ -200,27 +179,20 @@ this.verifyImageURL(image, async function (imageExists) {
                     <Grid item xs={12}>
                         <Typography  variant="h5" style={{color: 'white'}}>Email: {this.props.store.user.username}</Typography>
                     </Grid>
-                    
                 </Grid>
-                </div>
-              
-              
+                </div>           
                <center>
                 <div className={classes.logOutButton}>
                <LogoutButton/>
                </div>
                </center>
-
-
               </div>
               <Dialog  
               fullWidth={true}
-              
-              maxWidth={true} 
+              maxWidth="lg" 
               open={this.state.open} 
               onClose={this.handleClose} 
               aria-labelledby="form-dialog-title">
-              
               <DialogContent style={{backgroundColor: '#303030'}}>
                 <TextField
                   autoFocus
@@ -237,7 +209,6 @@ this.verifyImageURL(image, async function (imageExists) {
                     classes: {
                       root: classes.notchedOutline,
                       focused: classes.multilineColor,
-                      
                     },
                 }}
                 InputLabelProps={{

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { withRouter } from 'react-router-dom';
-import { withStyles, Typography, TextField, Button } from '@material-ui/core'
+import { withStyles, TextField, Button } from '@material-ui/core'
 
 const styles = theme => ({
   textField: {

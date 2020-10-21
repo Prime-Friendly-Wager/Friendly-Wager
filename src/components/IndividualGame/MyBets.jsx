@@ -4,11 +4,20 @@ import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import CreateBetForm from './CreateBetForm';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Table, TableBody, TableCell, TableContainer, TableRow, Paper, Typography, Button, TableHead } from '@material-ui/core';
+import { Container, 
+  Dialog, 
+  DialogActions, 
+  DialogTitle, 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableContainer, 
+  TableRow, 
+  Paper, 
+  Typography, 
+  Button, 
+  TableHead } from '@material-ui/core';
 
 
 const useStyles = makeStyles({
@@ -57,7 +66,6 @@ function MyBets(props) {
 
   //deleting bet
   const handleDelete = (id) => {
-    console.log('deleting bet:', id);
     props.dispatch({ type: 'DELETE_BET', payload: id });
     handleClose();
   }

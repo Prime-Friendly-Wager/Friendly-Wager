@@ -1,8 +1,8 @@
 import moment from 'moment';
-//creates new date in mm-dd-yyyy format
+
+//creates new date
 function convertDate(){
     let convertedDate = moment().format(); 
-    // console.log(convertedDate)
     return getWeek(convertedDate) 
 }
 
@@ -10,10 +10,7 @@ function convertDate(){
 function getWeek(convertedDate){
   let currentWeek;
   let mm = Number(moment(convertedDate).month()) + 1
-  // console.log(mm)
   let dd = Number(moment(convertedDate).date())
-  // console.log(dd)
-  console.log(`Today's date is ${mm}/${dd}.`)
   if (mm === 9 && (dd >= 8 && dd < 15)){
     currentWeek = 1;
   }
@@ -69,32 +66,7 @@ function getWeek(convertedDate){
   else {
     currentWeek = 17;
   }
-  // console.log(currentWeek)
-  console.log(`That means it's week ${currentWeek} of the NFL.`)
   return currentWeek
-  // getSchedule(currentWeek)
-
 }
-
-//can use for loops to write logic for schedule for weeks outside of current week and
-//also for the current week
-// function getSchedule(currentWeek){
-//   // for (let i = currentWeek; i < 18; i++){
-//     // console.log('hi')
-//     //put logic of what we need in here for games
-//     //after current week
-//   // }
-//   // for (let i = currentWeek; i >0; i--){
-//     // console.log('hi')
-//     //put logic of what we need in here for games
-//     //before current week
-// //   }
-// // }
-
-//   console.log(currentWeek);
-//   return currentWeek
-// }
-
-// convertDate()
 
 export default convertDate;

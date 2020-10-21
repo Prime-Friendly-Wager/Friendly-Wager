@@ -1,11 +1,21 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
-import { Button, TextField, Typography, Switch, Grid, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
+import { 
+    Button, 
+    TextField, 
+    Typography, 
+    Switch, 
+    Grid, 
+    Dialog, 
+    DialogTitle, 
+    DialogContent, 
+    DialogContentText, 
+    DialogActions,
+    Radio,
+    RadioGroup,
+    FormControl,
+    FormControlLabel } from '@material-ui/core';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
 import { makeStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 
@@ -104,7 +114,6 @@ function CreateBetForm(props) {
     //sending packaged bet to saga
     //then emptying radio button and input
     const handleCreateBet = () => {
-        console.log('NEW BET IS:', bet);
         if (bet.wager === '' || (bet.proposers_team_id === '' && bet.proposers_bet_is_over === '')) {
             alert('Select a bet and enter how many units you\'d like to wager.');
             return;
