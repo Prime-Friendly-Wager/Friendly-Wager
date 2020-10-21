@@ -44,8 +44,6 @@ class RegisterForm extends Component {
     confirmPassword: '',
   };
 
-
-
   registerUser = (event) => {
     event.preventDefault();
     //check email will be returned as false if no @ symbol in username

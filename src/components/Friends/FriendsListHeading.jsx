@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography} from '@material-ui/core';
+import { Typography, TextField, InputAdornment } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import { withRouter } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
@@ -76,7 +74,6 @@ function FriendsListHeading(props) {
 
   const handleSearch = (event) => {
     let nameSearch = event.target.value;
-    console.log(nameSearch);
     if (nameSearch !== '') {
       props.dispatch({ type: "GET_FRIENDS_SEARCH", payload: { search: nameSearch, type: 'friend' } })
     }

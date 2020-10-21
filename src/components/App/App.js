@@ -192,16 +192,6 @@ class App extends Component {
                 authRedirect="/the-board"
               />
 
-              {/* <ProtectedRoute
-              // with authRedirect:
-              // - if logged in, redirects to "the-board"
-              // - else shows RegisterPage at "/registration"
-              exact
-              path="/create-account"
-              component={FriendsList}
-              authRedirect="/friends"
-            /> */}
-
               <ProtectedRoute
                 exact
                 path="/friends"
@@ -226,12 +216,11 @@ class App extends Component {
                 component={MyBets}
               />
 
-
-
               {/* If none of the other routes matched, we will show a 404. */}
               <Route render={() => <h1>404</h1>} />
             </Switch>
           </div>
+          {/* conditionally renders the bottom navbar to not show up on login or registration */}
           {this.props.store.nav && (
             <BottomNavBar />
           )}
