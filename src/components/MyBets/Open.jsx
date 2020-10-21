@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { makeStyles, Table, TableContainer, TableBody, TableCell, TableHead, TableRow, Paper, Typography, Button } from '@material-ui/core'
@@ -28,9 +28,11 @@ function Open(props) {
 
   const classes = useStyles();
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [betToDelete, changeBetToDelete] = useState('');
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (id) => {
+    changeBetToDelete(id);
     setOpen(true);
   };
 
@@ -88,9 +90,17 @@ function Open(props) {
                   }
                   <TableCell align="center">{bet.wager}u</TableCell>
                   <TableCell align="center">
-                    <DeleteIcon style={{color: '#662424'}} onClick={handleClickOpen} />
+                    <DeleteIcon style={{color: '#662424'}} onClick={() => handleClickOpen(bet.id)} />
                   </TableCell>
-                  <Dialog
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        :
+        <Typography color="textPrimary" className={classes.conditionalText}>You haven't opened any bets right now.</Typography>
+      }
+      <Dialog
                     open={open}
                     onClose={handleClose}
                     aria-labelledby="alert-dialog-title"
@@ -101,19 +111,11 @@ function Open(props) {
                       <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={handleClose} color="primary">
                         Cancel
                           </Button>
-                      <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={() => handleDelete(bet.id)} color="primary" autoFocus>
+                      <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={() => handleDelete(betToDelete)} color="primary" autoFocus>
                         Yes
                         </Button>
                     </DialogActions>
                   </Dialog>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        :
-        <Typography color="textPrimary" className={classes.conditionalText}>You haven't opened any bets right now.</Typography>
-      }
     </>
   );
 }
