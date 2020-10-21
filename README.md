@@ -14,8 +14,8 @@ The user also has the capability to see all of their own 'Open Bets', 'Active Be
 
 <div>
   <img src="public/Images/the-board.png" alt="The Board" width="300" height="500"/>
-  <img src="https://i.ibb.co/wNGY5M4/Screen-Shot-2020-10-21-at-2-22-57-PM.png" alt="Individual Game" width="300" height="500"/>
-  <img src="https://i.ibb.co/0MZb5f7/Screen-Shot-2020-10-21-at-1-48-26-PM.png" alt="My Bets" width="300" height="500"/>
+  <img src="public/Images/create-bet.png" alt="Individual Game" width="300" height="500"/>
+  <img src="public/Images/my-bets.png" alt="My Bets" width="300" height="500"/>
 </div>
 
 ## Prerequisites
