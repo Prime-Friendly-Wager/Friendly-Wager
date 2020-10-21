@@ -15,6 +15,12 @@ const useStyles = makeStyles({
     marginTop: '2.9em',
     backgroundColor: '#151515',
   },
+  conditionalText: {
+    padding: '24px',
+    paddingTop: '32px',
+    backgroundColor: '#151515',
+    textAlign: 'center'
+  },
 });
 
 function SimpleTable(props) {
@@ -63,7 +69,7 @@ function SimpleTable(props) {
           </Table>
         </TableContainer>
         :
-        <Typography color="textPrimary">There aren't any games to display.</Typography>
+        <Typography color="textPrimary" className={classes.conditionalText}>There aren't any games to display.</Typography>
       }
     </>
   );
