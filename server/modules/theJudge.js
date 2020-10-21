@@ -26,7 +26,6 @@ const updateNflScores = async (req, res) => {
 
         //gets the previous NFL week number
         const lastWeekNumber = await (convertDate() - 1);
-        console.log('Pulling games for last week', lastWeekNumber);
 
         //builds query using access token
         const params = `s={"$query":{"week.season":2020,"week.seasonType":"REG","week.week":${lastWeekNumber}}}&fs={week{season,seasonType,week},id,gameTime,gameStatus,homeTeam{id,abbr},visitorTeam{id,abbr},homeTeamScore,visitorTeamScore}`
@@ -75,7 +74,6 @@ const updateNflScores = async (req, res) => {
 
     } catch (error) {
         await client.query('ROLLBACK');
-        console.log('ERROR UPDATING NFL SCORES', error);
         //didn't work, whomp whomp
         return false;
     } finally {
@@ -106,13 +104,10 @@ const theJudge = () => {
 //deletes all unaccepted open bets from games that have already started 
 const closeBets = () => {
     try{
-        const timestamp = new Date()
-        console.log(`The time and date is ${timestamp}.  Deleting all open bets for games that have already started.`);
-        
+        const timestamp = new Date()        
         pool.query(`DELETE FROM "bets" USING "games" WHERE "bets".game_id = "games".id AND "accepted" = false AND "games".date <= $1;`, [timestamp]);
         return true;
     } catch (error) {
-        console.log('error deleting old bets', error);
         return false;
     }
 };
@@ -172,7 +167,6 @@ const getGamesFromNfl = async (req, res) => {
                     ON CONFLICT ("nfl_id") DO NOTHING;`
                 const postValues = [game.id, game.homeTeam.abbr, game.visitorTeam.abbr, game.gameTime, game.week.week];
                 await client.query(postQuery, postValues);
-                console.log(`Added game ${game.visitorTeam.abbr} @ ${game.homeTeam.abbr}.`);
         })
 
         //commits all inserts if no errors
@@ -181,7 +175,6 @@ const getGamesFromNfl = async (req, res) => {
 
     } catch (error) {
         await client.query('ROLLBACK');
-        console.log('ERROR NFL ROUTER', error);
         return false
     } finally {
         client.release();
@@ -250,7 +243,6 @@ const updateOdds = async (req, res) => {
             
         return true;
     } catch (error) {
-        console.log('error getting odds', error);
         return false;
     }
 };
