@@ -101,21 +101,21 @@ function Open(props) {
         <Typography color="textPrimary" className={classes.conditionalText}>You haven't opened any bets right now.</Typography>
       }
       <Dialog
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                  >
-                    <DialogTitle style={{backgroundColor: '#303030'}}id="alert-dialog-title">{`Delete open bet?`}</DialogTitle>
-                    <DialogActions style={{backgroundColor: '#303030'}}>
-                      <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={handleClose} color="primary">
-                        Cancel
-                          </Button>
-                      <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={() => handleDelete(betToDelete)} color="primary" autoFocus>
-                        Yes
-                        </Button>
-                    </DialogActions>
-                  </Dialog>
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle style={{backgroundColor: '#303030'}}id="alert-dialog-title">{`Delete open bet?`}</DialogTitle>
+        <DialogActions style={{backgroundColor: '#303030'}}>
+          <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={handleClose} color="primary">
+            Cancel
+              </Button>
+          <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={() => handleDelete(betToDelete)} color="primary" autoFocus>
+            Yes
+            </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

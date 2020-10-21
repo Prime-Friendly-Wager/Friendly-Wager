@@ -1,13 +1,18 @@
-# Prime Project
+# Friendly Wager
 
-This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
+_Project Duration: 2 Week Sprint_
 
-We **STRONGLY** recommend following these instructions carefully. It's a lot, and will take some time to set up, but your life will be much easier this way in the long run.
+'Friendly Wager' is an app that allows you to create and accept bets on NFL games between you and your friends. There are two types of bets that you can make or accept from your friends 1) the over/under and 2) the spread. This app uses two different API's to automatically display the games for the current week, the betting odds, and calculate the winner of these bets.
 
-## Use the Template for This Repository (Don't Clone) 
+Once logged in, the user is first brought to the main page, which we call "The Board". On The Board, the user will be able to see all of their friend's open bets (bets that have not been accepted by any users) and if they wish, accept any of these bets. If any open bet is accepted, this bet becomes an 'Active Bet', which cannot be accepted by any other users. The Board also displays all games for the current week and gives the user the ability to make a new open bet that can be accepted by any of their friends. 
 
-- Don't Fork or Clone. Instead, click the `Use this Template` button, and make a copy to your personal account.
+The app also features a friend's list feature where the user can see all of their current friends, as well as search for new friends by their name or email. Once the users are friends, they can access each other's 'statistics' page to see any open bets that user has as well as statistical information such as their total bets. In each individual user's profile, they are also able to add a profile picture.
 
+The user also has the capability to see all of their 'Open Bets', 'Active Bets', and historical information to which bets they have won and lost. The historical information is calculated at the end of each week.
+
+## Screenshots
+
+Screenshots go here.
 
 ## Prerequisites
 
@@ -19,15 +24,7 @@ Before you get started, make sure you have the following software installed on y
 
 ## Create database and table
 
-Create a new database called `prime_app` and create a `user` table:
-
-```SQL
-CREATE TABLE "user" (
-    "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
-);
-```
+Create a new database in postgreSQL called friendly_wager. Once this is complete, run all of the sql code in the database.sql file to build the initial structure of the database. This file includes tables for users, friends, games, teams, and bets.
 
 If you would like to name your database something else, you will need to change `prime_app` to the name of your new database name in `server/modules/pool.js`
 
