@@ -58,23 +58,23 @@ DeWitt's instructions to obtaining NFL and odds keys.
 
 A new user will first register for an account using their email. After registering, the user will be brought to ‘The Board’.
 
-### The Board
+   ### The Board
+
+  The user is initially brought to a page called the board. The Board consists of two tabs, ‘Open Bets’ and ‘Games’. In ‘Open Bets’ the user will be able to see all open bets from their friends that have not yet been accepted by any other user. The user then can click on that open bet and choose to accept the bet. Note that if the user just registered, they will not have any open bets displaying because you must be friends first.
+  The user can also navigate to the ‘Games’ tab. In the ‘Games’ tab there is displayed a list of all the games for the current NFL week as well as the scheduled time of the game and betting odds. If a User clicks on a specific game they will be taken to a page that shows all open bets from their friends but for only that specific game. They can click the corresponding tab to make a bet. To make a bet, you first choose the type of bet you would like to create (Over/Under or spread) and the amount of Units that you would like to wager. After confirming your bet, this bet will be displayed in ‘My Open Bets’ for that game and will be available for your friends to accept that bet.
+
+  ### My Bets
  
-The user is initially brought to a page called the board. The Board consists of two tabs, ‘Open Bets’ and ‘Games’. In ‘Open Bets’ the user will be able to see all open bets from their friends that have not yet been accepted by any other user. The user then can click on that open bet and choose to accept the bet. Note that if the user just registered, they will not have any open bets displaying because you must be friends first.
-The user can also navigate to the ‘Games’ tab. In the ‘Games’ tab there is displayed a list of all the games for the current NFL week as well as the scheduled time of the game and betting odds. If a User clicks on a specific game they will be taken to a page that shows all open bets from their friends but for only that specific game. They can click the corresponding tab to make a bet. To make a bet, you first choose the type of bet you would like to create (Over/Under or spread) and the amount of Units that you would like to wager. After confirming your bet, this bet will be displayed in ‘My Open Bets’ for that game and will be available for your friends to accept that bet.
+  Using the bottom navigation bar, the User can click the ‘My Bets’ tab. This will bring the User to a page where they can review their open bets, their active bets, and prior weeks history of whether they won or lost the bet. The information in ‘history’ will be automatically updated weekly after the games are complete.
 
-### My Bets
- 
-Using the bottom navigation bar, the User can click the ‘My Bets’ tab. This will bring the User to a page where they can review their open bets, their active bets, and prior weeks history of whether they won or lost the bet. The information in ‘history’ will be automatically updated weekly after the games are complete.
+  ### Friends
 
-### Friends
- 
-Using the bottom navigation bar, the User can click the ‘Friends’ tab to navigate to their friends list. Here, they can see all of their current friends with search functionality included. If a user would like to see more information about this friend, they can simply click on that friend and they will be brought to the ‘Friends Statistics’ page. In the ‘Friends Statistics’ page, you can see betting history between yourself and that friend. The ‘Friends Statistics’ page will also display any open bets that friend currently has available.
-If a user wants to add a friend, the user simply clicks the ‘+’ symbol on the top right of the friends list page. Here, the user is able to search for any User within Friendly wager to add that friend. If you click add, you will become friends and their open bets will be available immediately. Your open bets will also be available to that user as well.
+  Using the bottom navigation bar, the User can click the ‘Friends’ tab to navigate to their friends list. Here, they can see all of their current friends with search functionality included. If a user would like to see more information about this friend, they can simply click on that friend and they will be brought to the ‘Friends Statistics’ page. In the ‘Friends Statistics’ page, you can see betting history between yourself and that friend. The ‘Friends Statistics’ page will also display any open bets that friend currently has available.
+  If a user wants to add a friend, the user simply clicks the ‘+’ symbol on the top right of the friends list page. Here, the user is able to search for any User within Friendly wager to add that friend. If you click add, you will become friends and their open bets will be available immediately. Your open bets will also be available to that user as well.
 
-### Profile
+  ### Profile
 
-Lastly, using the navigation bar, the User can navigate to the Profile page. Here, it will display profile information as well as the option to switch your profile picture. To switch your profile picture, you simply click “Change Profile Picture” and submit a valid URL.
+  Lastly, using the navigation bar, the User can navigate to the Profile page. Here, it will display profile information as well as the option to switch your profile picture. To switch your profile picture, you simply click “Change Profile Picture” and submit a valid URL.
 
 ## Built With
 
