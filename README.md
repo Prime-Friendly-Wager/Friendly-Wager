@@ -13,7 +13,7 @@ The user also has the capability to see all of their own 'Open Bets', 'Active Be
 ## Screenshots
 
 Screenshots go here.
-![Login](https://i.ibb.co/0fHFVmh/Screen-Shot-2020-10-21-at-1-44-12-PM.png =250x250)
+![](https://i.ibb.co/0fHFVmh/Screen-Shot-2020-10-21-at-1-44-12-PM.png =250x250)
 
 ## Prerequisites
 
