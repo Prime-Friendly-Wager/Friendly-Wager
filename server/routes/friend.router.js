@@ -26,7 +26,6 @@ router.get('/:search/:type', rejectUnauthenticated, async (req, res) => {
         AND "id" != $2
         ORDER BY "first_name" ASC`;
         let members = await client.query(secondQuery, [req.params.search, req.user.id]);
-        console.log(members.rows)
         await client.query('COMMIT');
         nonFriendMembersList = members.rows.filter( (memberObj) => {
             return !friends.rows.find( (friendObj) => {
@@ -91,7 +90,6 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 router.get('/profile/statistics/:id', rejectUnauthenticated, (req, res) => {
     let queryText = `SELECT id FROM "bets"
     WHERE proposers_id = $1 OR acceptors_id = $1`
-    console.log('req id', req.params.id);
     
     pool.query(queryText, [req.params.id])
     .then(result => {
