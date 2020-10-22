@@ -1,14 +1,23 @@
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import CreateBetForm from './CreateBetForm';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Table, TableBody, TableCell, TableContainer, TableRow, Paper, Typography, Button, TableHead } from '@material-ui/core';
+import { Container, 
+  Dialog, 
+  DialogActions, 
+  DialogTitle, 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableContainer, 
+  TableRow, 
+  Paper, 
+  Typography, 
+  Button, 
+  TableHead } from '@material-ui/core';
 
 
 const useStyles = makeStyles({
@@ -43,9 +52,11 @@ function MyBets(props) {
   }, []);
 
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [betToDelete, changeBetToDelete] = useState('');
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (id) => {
+    changeBetToDelete(id);
     setOpen(true);
   };
 
@@ -55,7 +66,6 @@ function MyBets(props) {
 
   //deleting bet
   const handleDelete = (id) => {
-    console.log('deleting bet:', id);
     props.dispatch({ type: 'DELETE_BET', payload: id });
     handleClose();
   }
@@ -109,24 +119,8 @@ function MyBets(props) {
                         {bet.wager}u
                       </TableCell>
                       <TableCell align="center">
-                        <DeleteIcon style={{color: '#662424'}} onClick={handleClickOpen} />
+                        <DeleteIcon style={{color: '#662424'}} onClick={() => handleClickOpen(bet.id)} />
                       </TableCell>
-                      <Dialog
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                      >
-                        <DialogTitle style={{backgroundColor: '#303030'}}>{`Delete open bet?`}</DialogTitle>
-                        <DialogActions style={{backgroundColor: '#303030'}}>
-                          <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={handleClose} color="primary">
-                            Cancel
-                          </Button>
-                          <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={() => handleDelete(bet.id)} color="primary" autoFocus>
-                            Yes
-                        </Button>
-                        </DialogActions>
-                      </Dialog>
                     </TableRow>
                     ))}
               </TableBody>
@@ -135,6 +129,22 @@ function MyBets(props) {
           :
           <Typography color="textPrimary" className={classes.text}>You don't have any open bets for this game.</Typography>
         }
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle style={{backgroundColor: '#303030'}}>{`Delete open bet?`}</DialogTitle>
+          <DialogActions style={{backgroundColor: '#303030'}}>
+            <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button style={{backgroundColor: '#303030', color: 'white'}} onClick={() => handleDelete(betToDelete)} color="primary" autoFocus>
+              Yes
+          </Button>
+          </DialogActions>
+        </Dialog>
         <Container>
           <Typography variant="h5" color="textPrimary" style={{backgroundColor: '#151515'}}>My Active Bets</Typography>
         </Container>

@@ -52,11 +52,10 @@ router.get('/open', rejectUnauthenticated, (req, res) => {
 
     pool.query(queryText, [req.user.id])
         .then(response => {
-            console.log('Got open bets!');
             res.send(response.rows);
         })
         .catch(error => {
-            console.log('error in fetching open bets', error);
+            res.sendStatus(500);
         })
 
 });
@@ -97,11 +96,10 @@ router.get('/active', rejectUnauthenticated, (req, res) => {
 
     pool.query(queryText, [req.user.id])
         .then(response => {
-            console.log('Got active bets!');
             res.send(response.rows);
         })
         .catch(error => {
-            console.log('error in fetching all active bets', error);
+            res.sendStatus(500);
         })
 
 });
@@ -144,7 +142,6 @@ router.get('/my-bets/history', rejectUnauthenticated, (req, res) => {
         .then(response => {
             res.send(response.rows)
         }).catch(error => {
-            console.log('error getting your bet history', error); 
             res.sendStatus(500)
         })
         
@@ -159,22 +156,20 @@ router.post('/', rejectUnauthenticated, (req, res) => {
                             VALUES ($1, $2, $3, $4);`
         pool.query(queryText, [proposers_id, wager, game_id, proposers_team_id])
         .then(() => {
-            console.log('BET CREATED')
             res.sendStatus(201); //created status
         })
         .catch((error) => {
-            console.log('ERROR CREATING BET', error);
+            res.sendStatus(500);
         })
     } else {
         let queryText = `INSERT INTO "bets" ("proposers_id", "wager", "game_id", "proposers_bet_is_over")
                             VALUES ($1, $2, $3, $4);`
         pool.query(queryText, [proposers_id, wager, game_id, proposers_bet_is_over])
         .then(() => {
-            console.log('BET CREATED')
             res.sendStatus(201); //created status
         })
         .catch((error) => {
-            console.log('ERROR CREATING BET', error);
+            res.sendStatus(500);
         })
     }
     
@@ -191,22 +186,20 @@ router.put('/accept', rejectUnauthenticated, (req, res) => {
         
         pool.query(queryText, [acceptors_id, bet_id])
             .then(() => {
-                console.log('BET ACCEPTED')
                 res.sendStatus(200);
             })
             .catch((error) => {
-                console.log('ERROR ACCEPTING BET', error);
+                res.sendStatus(500);
             })
     } else {
         const queryText = `UPDATE "bets" SET "accepted" = true, "acceptors_id" = $1, acceptors_team_id = $2 WHERE "bets".id = $3;`
         
         pool.query(queryText, [acceptors_id, acceptors_team_id, bet_id])
             .then(() => {
-                console.log('BET ACCEPTED')
                 res.sendStatus(200);
             })
             .catch((error) => {
-                console.log('ERROR ACCEPTING BET', error);
+                res.sendStatus(500);
             })
     }
 });
@@ -218,11 +211,10 @@ router.delete('/delete/:id', rejectUnauthenticated, (req, res) => {
     
     pool.query(queryText, [id])
         .then(() => {
-            console.log('BET DELETED:', id);
             res.sendStatus(202); //accepted status
         })
         .catch((error) => {
-            console.log('ERROR DELETING BET', error);
+            res.sendStatus(500);
         })
 });
 

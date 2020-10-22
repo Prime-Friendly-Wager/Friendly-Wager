@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { withRouter } from 'react-router-dom';
-import { withStyles, Typography, TextField, Button } from '@material-ui/core'
+import { withStyles, TextField, Button } from '@material-ui/core'
 
 const styles = theme => ({
   textField: {
@@ -51,20 +51,6 @@ class LoginForm extends Component {
     });
   };
 
-   handleMattLogin = () => {
-    this.setState ({
-      username: 'matt@gmail.com',
-      password: 'mattkraemer',
-    });
-  };
-
-  handleHansLogin = () => {
-    this.setState ({
-      username: 'hans@gmail.com',
-      password: 'hansaccola',
-    });
-  };
-
   render() {
 
     const { classes } = this.props;
@@ -80,7 +66,6 @@ class LoginForm extends Component {
 
           )}
         </center>
-        <div onClick={this.handleMattLogin}>
           <center>
             <label htmlFor="username">
               <TextField
@@ -97,8 +82,6 @@ class LoginForm extends Component {
               />
             </label>
           </center>
-        </div>
-        <div onClick={this.handleHansLogin}>
           <center>
             <label htmlFor="password">
               <TextField
@@ -115,7 +98,6 @@ class LoginForm extends Component {
               />
             </label>
           </center>
-        </div>
         <center>
           <div>
             <Button

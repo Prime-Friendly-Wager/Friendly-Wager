@@ -1,31 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import { Typography } from '@material-ui/core';
-import { Button, TableCell, TableRow, Paper } from '@material-ui/core';
-
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.action.hover,
-    height: 5
-
-  },
-  rowHover: {
-    "&:hover": {
-      cursor: "pointer",
-      backgroundColor: "rgba(87, 197, 111, 0.13) !important"
-    }
-  }
-}))(TableRow);
+import { makeStyles } from '@material-ui/core/styles';
+import { Button, TableCell, TableRow, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 
 const useStyles = makeStyles({
   table: {
@@ -74,7 +50,7 @@ function OpenBetRow(props) {
 
   return (
     <>
-      <TableRow hover classes={{ hover: classes.rowHover }} onClick={handleClickOpen}>
+      <TableRow onClick={handleClickOpen}>
         {/* Friend */}
         <TableCell style={{color: 'white'}} align="left">{props.bet.proposers_first_name} {props.bet.proposers_last_name}</TableCell>
         {/* Game */}
