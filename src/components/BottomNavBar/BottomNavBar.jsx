@@ -40,7 +40,6 @@ function BottomNavBar(props) {
       profileColor: 'white',
       [newValue]: '#01FF70'
     })
-    console.log(newValue)
   };
 
   useEffect(() => {
