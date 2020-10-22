@@ -43,7 +43,8 @@ ODDS_KEY=***********************
 ```
 First you will need to establish a SERVER_SESSION_SECRET to keep your application secure. Here's a site that can help you generate a secret: https://passwordsgenerator.net/. NOTE This secret should be more than 8 characters. Having a secret key that is less than 8 characters or leaving it as "superDuperSecret" will result in a warning from the app.
   
-DeWitt's instructions to obtaining NFL and odds keys.
+The NFL client id and client secret must be requested from the NFL and they are quite restrictive on usage. Email them at fantasy.football@nfl.com.
+The Odds Api key can be request from [the Odds Api](https://the-odds-api.com/).  There is a free option available with 500 uses per month.
 
 ## Installation
 
@@ -88,13 +89,13 @@ A new user will first register for an account using their email. After registeri
 * Express
 * PostgreSQL
 * NFL API
-* Sports Betting Odds API
+* the Odds API
 
 (A full list of dependencies can be found in package.json)
 
 ## Acknowledgements
 
-* First off, our team would like to thank Paul Kelley, our client. He is the one who came up with the idea for 'Friendly Wager' and inspired us to impliment features that surpass any other sports betting app out there.
+* First off, our team would like to thank Paul Kelley, our client. He is the one who came up with the idea for 'Friendly Wager' and inspired us to implement features that surpass any other sports betting app out there.
 * We Would also like to thank [Prime Digital Academy](https://www.primeacademy.io) for connecting us with Paul Kelley and preparing us technically to create 'Friendly Wager'
 * Last and definitely not least, we'd like to thank our cohort Rabin for being the most supportive group we could've imagined. And a HUGE shoutout to our instructors, Dane Smith and Kris Szafranski for teaching us how to code.
 
