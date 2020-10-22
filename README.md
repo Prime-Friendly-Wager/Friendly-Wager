@@ -44,7 +44,7 @@ ODDS_KEY=***********************
 First you will need to establish a SERVER_SESSION_SECRET to keep your application secure. Here's a site that can help you generate a secret: https://passwordsgenerator.net/. NOTE This secret should be more than 8 characters. Having a secret key that is less than 8 characters or leaving it as "superDuperSecret" will result in a warning from the app.
   
 The NFL client id and client secret must be requested from the NFL and they are quite restrictive on usage. Email them at fantasy.football@nfl.com.
-The Odds Api key can be request from [the Odds Api](https://the-odds-api.com/).  There is a free option available with 500 uses per month.
+The Odds Api key can be requested from [the Odds Api](https://the-odds-api.com/).  There is a free option available with 500 uses per month.
 
 ## Installation
 
