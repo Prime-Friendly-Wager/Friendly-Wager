@@ -1,13 +1,22 @@
-# Prime Project
+# Friendly Wager
 
-This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
+_Project Duration: 2 Week Sprint_
 
-We **STRONGLY** recommend following these instructions carefully. It's a lot, and will take some time to set up, but your life will be much easier this way in the long run.
+'Friendly Wager' is a mobile app that allows you to create and accept bets on NFL games between you and your friends. There are two types of bets that you can make or accept from your friends - 1) the over/under and 2) the spread. This app uses two different APIs to automatically display the games for the current week, the betting odds, and calculate the winner of these bets.
 
-## Use the Template for This Repository (Don't Clone) 
+Once logged in, the user is first brought to the main page, which we call 'The Board'. On 'The Board', the user will be able to see all of their friend's open bets (bets that have not been accepted by any users) and if they wish, accept any of these bets. If any open bet is accepted, this bet becomes an 'Active Bet', which cannot be accepted by any other users. 'The Board' also displays all games for the current week and gives the user the ability to make a new open bet that can be accepted by any of their friends.
 
-- Don't Fork or Clone. Instead, click the `Use this Template` button, and make a copy to your personal account.
+The app also features a friends list feature where the user can see all of their current friends, as well as search for new friends by their name or email. Once the users are friends, they can access each other's 'Statistics' page to see any open bets that user has as well as statistical information such as their total bets. In each individual user's profile, they are also able to add a profile picture.
 
+The user also has the capability to see all of their own 'Open Bets', 'Active Bets', and 'Historical Information' of bets they have won and lost. The historical information is calculated at the end of each week.
+
+## Screenshots
+
+<div>
+  <img src="public/Images/the-board.png" alt="The Board" width="300" height="500"/>
+  <img src="public/Images/create-bet.png" alt="Individual Game" width="300" height="500"/>
+  <img src="public/Images/my-bets.png" alt="My Bets" width="300" height="500"/>
+</div>
 
 ## Prerequisites
 
@@ -19,103 +28,82 @@ Before you get started, make sure you have the following software installed on y
 
 ## Create database and table
 
-Create a new database called `prime_app` and create a `user` table:
+Create a new database in postgreSQL called 'friendly_wager'. Once this is complete, run all the sql code in the database.sql file to build the initial structure of the database. This file includes tables for users, friends, games, teams, and bets.
 
-```SQL
-CREATE TABLE "user" (
-    "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
-);
+If you would like to name your database something else, you will need to change 'friendly_wager' to the name of your new database name in 'server/modules/pool.js'.
+
+## Creating the .ENV file
+
+Create a `.env` file at the root of the project and paste this line into the file:
+ ```
+SERVER_SESSION_SECRET=**********************
+CLIENT_ID=***********************
+CLIENT_SECRET=**********************
+ODDS_KEY=***********************
 ```
+First you will need to establish a SERVER_SESSION_SECRET to keep your application secure. Here's a site that can help you generate a secret: https://passwordsgenerator.net/. NOTE This secret should be more than 8 characters. Having a secret key that is less than 8 characters or leaving it as "superDuperSecret" will result in a warning from the app.
+  
+The NFL client id and client secret must be requested from the NFL and they are quite restrictive on usage. Email them at fantasy.football@nfl.com.
+The Odds Api key can be request from [the Odds Api](https://the-odds-api.com/).  There is a free option available with 500 uses per month.
 
-If you would like to name your database something else, you will need to change `prime_app` to the name of your new database name in `server/modules/pool.js`
+## Installation
 
-## Development Setup Instructions
+1. Run npm install
+2. Start Postgres using brew services start postgresql
+   (only required if PG is not already running)
+3. Run npm run server
+4. Run npm run client
+5. Navigate to localhost:3000
 
-- Run `npm install`
-- Create a `.env` file at the root of the project and paste this line into the file:
-  ```
-  SERVER_SESSION_SECRET=superDuperSecret
-  ```
-  While you're in your new `.env` file, take the time to replace `superDuperSecret` with some long random string like `25POUbVtx6RKVNWszd9ERB9Bb6` to keep your application secure. Here's a site that can help you: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). If you don't do this step, create a secret with less than eight characters, or leave it as `superDuperSecret`, you will get a warning.
-- Start postgres if not running already by using `brew services start postgresql`
-- Run `npm run server`
-- Run `npm run client`
-- Navigate to `localhost:3000`
+## How to use Friendly Wager
 
-## Debugging
+A new user will first register for an account using their email. After registering, the user will be brought to ‘The Board’.
 
-To debug, you will need to run the client-side separately from the server. Start the client by running the command `npm run client`. Start the debugging server by selecting the Debug button.
+   ### The Board
 
-![VSCode Toolbar](documentation/images/vscode-toolbar.png)
+  The user is initially brought to a page called the board. The Board consists of two tabs, ‘Open Bets’ and ‘Games’. In ‘Open Bets’ the user will be able to see all open bets from their friends that have not yet been accepted by any other user. The user then can click on that open bet and choose to accept the bet. Note that if the user just registered, they will not have any open bets displaying because you must be friends first.
+  The user can also navigate to the ‘Games’ tab. In the ‘Games’ tab there is displayed a list of all the games for the current NFL week as well as the scheduled time of the game and betting odds. If a User clicks on a specific game they will be taken to a page that shows all open bets from their friends but for only that specific game. They can click the corresponding tab to make a bet. To make a bet, you first choose the type of bet you would like to create (Over/Under or spread) and the amount of Units that you would like to wager. After confirming your bet, this bet will be displayed in ‘My Open Bets’ for that game and will be available for your friends to accept that bet.
 
-Then make sure `Launch Program` is selected from the dropdown, then click the green play arrow.
+  ### My Bets
+ 
+  Using the bottom navigation bar, the User can click the ‘My Bets’ tab. This will bring the User to a page where they can review their open bets, their active bets, and prior weeks history of whether they won or lost the bet. The information in ‘history’ will be automatically updated weekly after the games are complete.
 
-![VSCode Debug Bar](documentation/images/vscode-debug-bar.png)
+  ### Friends
 
-## Testing Routes with Postman
+  Using the bottom navigation bar, the User can click the ‘Friends’ tab to navigate to their friends list. Here, they can see all of their current friends with search functionality included. If a user would like to see more information about this friend, they can simply click on that friend and they will be brought to the ‘Friends Statistics’ page. In the ‘Friends Statistics’ page, you can see betting history between yourself and that friend. The ‘Friends Statistics’ page will also display any open bets that friend currently has available.
+  If a user wants to add a friend, the user simply clicks the ‘+’ symbol on the top right of the friends list page. Here, the user is able to search for any User within Friendly wager to add that friend. If you click add, you will become friends and their open bets will be available immediately. Your open bets will also be available to that user as well.
 
-To use Postman with this repo, you will need to set up requests in Postman to register a user and login a user at a minimum.
+  ### Profile
 
-Keep in mind that once you using the login route, Postman will manage your session cookie for you just like a browser, ensuring it is sent with each subsequent request. If you delete the `localhost` cookie in Postman, it will effectively log you out.
+  Lastly, using the navigation bar, the User can navigate to the Profile page. Here, it will display profile information as well as the option to switch your profile picture. To switch your profile picture, you simply click “Change Profile Picture” and submit a valid URL.
 
-1. Start the server - `npm run server`
-2. [Import the sample routes JSON file](./PostmanPrimeSoloRoutes.json) by clicking `Import` in Postman. Select the file.
-3. Click `Collections` and `Send` the following three calls in order:
-   1. `POST /api/user/register` registers a new user, see body to change username/password
-   2. `POST /api/user/login` will login a user, see body to change username/password
-   3. `GET /api/user` will get user information, by default it's not very much
+## Built With
 
-After running the login route above, you can try any other route you've created that requires a logged in user!
+* React.js
+* Redux-Sagas
+* Material UI
+* CSS
+* Moment.js
+* Node.js
+* Node-cron
+* Express
+* PostgreSQL
+* NFL API
+* the Odds API
 
-## Production Build
+(A full list of dependencies can be found in package.json)
 
-Before pushing to Heroku, run `npm run build` in terminal. This will create a build folder that contains the code Heroku will be pointed at. You can test this build by typing `npm start`. Keep in mind that `npm start` will let you preview the production build but will **not** auto update.
+## Acknowledgements
 
-- Start postgres if not running already by using `brew services start postgresql`
-- Run `npm start`
-- Navigate to `localhost:5000`
+* First off, our team would like to thank Paul Kelley, our client. He is the one who came up with the idea for 'Friendly Wager' and inspired us to implement features that surpass any other sports betting app out there.
+* We Would also like to thank [Prime Digital Academy](https://www.primeacademy.io) for connecting us with Paul Kelley and preparing us technically to create 'Friendly Wager'
+* Last and definitely not least, we'd like to thank our cohort Rabin for being the most supportive group we could've imagined. And a HUGE shoutout to our instructors, Dane Smith and Kris Szafranski for teaching us how to code.
 
-## Lay of the Land
+## Support 
 
-There are a few videos linked below that show a walkthrough the client and sever setup to help acclimatize to the boilerplate. Please take some time to watch the videos in order to get a better understanding of what the boilerplate is like.
+For any questions, concerns, or suggestions, feel free to contact any of us at: 
 
-- [Initial Set](https://vimeo.com/453297271)
-- [Server Walkthrough](https://vimeo.com/453297212)
-- [Client Walkthrough](https://vimeo.com/453297124)
-
-Directory Structure:
-
-- `src/` contains the React application
-- `public/` contains static assets for the client-side
-- `build/` after you build the project, contains the transpiled code from `src/` and `public/` that will be viewed on the production site
-- `server/` contains the Express App
-
-This code is also heavily commented. We recommend reading through the comments, getting a lay of the land, and becoming comfortable with how the code works before you start making too many changes. If you're wondering where to start, consider reading through component file comments in the following order:
-
-- src/components
-  - App/App
-  - Footer/Footer
-  - Nav/Nav
-  - AboutPage/AboutPage
-  - InfoPage/InfoPage
-  - UserPage/UserPage
-  - LoginPage/LoginPage
-  - RegisterPage/RegisterPage
-  - LogOutButton/LogOutButton
-  - ProtectedRoute/ProtectedRoute
-
-## Deployment
-
-1. Create a new Heroku project
-1. Link the Heroku project to the project GitHub Repo
-1. Create an Heroku Postgres database
-1. Connect to the Heroku Postgres database from Postico
-1. Create the necessary tables
-1. Add an environment variable for `SERVER_SESSION_SECRET` with a nice random string for security
-1. In the deploy section, select manual deploy
-
-## Update Documentation
-
-Customize this ReadMe and the code comments in this project to read less like a starter repo and more like a project. Here is an example: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+* Hans Accola - hansjaccola@gmail.com
+* Matt Kraemer - kraemermj1992@gmail.com
+* DeWitt Kane - dewitt.kane@gmail.com
+* Sam Maus - samueldmaus@gmail.com

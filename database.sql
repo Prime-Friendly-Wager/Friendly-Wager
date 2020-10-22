@@ -14,7 +14,6 @@ CREATE TABLE "user" (
 	"username" varchar(255) UNIQUE NOT NULL,
 	"first_name" varchar(30) NOT NULL,
 	"last_name" varchar(30) NOT NULL,
-	"is_admin" BOOLEAN NOT NULL DEFAULT 'false',
 	"password" VARCHAR (1000) NOT NULL,
 	"image_url" TEXT 
 );

@@ -3,7 +3,6 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 import React from 'react';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom';
-
 import { makeStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Grid } from '@material-ui/core';
 
@@ -14,6 +13,12 @@ const useStyles = makeStyles({
   tableContainer: {
     marginTop: '2.9em',
     backgroundColor: '#151515',
+  },
+  conditionalText: {
+    padding: '24px',
+    paddingTop: '32px',
+    backgroundColor: '#151515',
+    textAlign: 'center'
   },
 });
 
@@ -63,7 +68,7 @@ function SimpleTable(props) {
           </Table>
         </TableContainer>
         :
-        <Typography color="textPrimary">There aren't any games to display.</Typography>
+        <Typography color="textPrimary" className={classes.conditionalText}>There aren't any games to display.</Typography>
       }
     </>
   );

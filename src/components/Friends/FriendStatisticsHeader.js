@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
-import { makeStyles } from '@material-ui/core/styles';
-import {Button, Container,TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Box } from '@material-ui/core';
 import { withRouter } from "react-router";
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import Avatar from '@material-ui/core/Avatar';
-import Grid from '@material-ui/core/Grid';
-import { deepOrange } from '@material-ui/core/colors';
-import { Typography } from '@material-ui/core';
+import mapStoreToProps from '../../redux/mapStoreToProps';
 import OpenBetRow from '../TheBoard/OpenBetRow'
+import { makeStyles } from '@material-ui/core/styles';
+import { Avatar, Grid, Button, Container,TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Box, Typography } from '@material-ui/core';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { deepOrange } from '@material-ui/core/colors';
 
 
 const useStyles = makeStyles((theme) => ({

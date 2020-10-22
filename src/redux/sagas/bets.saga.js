@@ -3,35 +3,20 @@ import axios from 'axios';
 
 //sending bet to router
 function* postBet(action) {
-    try {
         yield axios.post('/api/bets', action.payload);
         yield fetchBets();
-
-    } catch (error) {
-        console.log('ERROR POSTING BET', error);
-    }
 };
 
 //accepting bet
 function* acceptBet(action) {
-    console.log('SAGA ACCEPT BET', action.payload);
-    try {
         yield axios.put('/api/bets/accept', action.payload);
         yield fetchBets();
-
-    } catch (error) {
-        console.log('ERROR ACCEPTING BET', error);
-    }
 };
 
 //deleting bet
 function* deleteBet(action) {
-    try {
         yield axios.delete(`/api/bets/delete/${action.payload}`);
         yield fetchBets();
-    } catch (error) {
-        console.log('ERROR DELETING BET', error);
-    }
 };
 
 //requests all bets

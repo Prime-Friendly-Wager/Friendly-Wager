@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import LoginForm from './LoginForm';
-import { withStyles, Container, Grid, Button, Typography } from '@material-ui/core'
+import { withStyles, Container, Grid, Typography } from '@material-ui/core'
 
 const styles = theme => ({
   //not using

@@ -1,14 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import { withStyles, TextField, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton, Button, Typography } from '@material-ui/core';
+import { 
+  withStyles, 
+  TextField, 
+  List, 
+  ListItem, 
+  ListItemAvatar, 
+  Avatar, 
+  ListItemText, 
+  ListItemSecondaryAction, 
+  IconButton, 
+  Button, 
+  Typography,
+  Snackbar,
+  InputAdornment 
+} from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
-import { deepOrange } from '@material-ui/core/colors';
-import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
-import InputAdornment from '@material-ui/core/InputAdornment';
 
 const styles = theme => ({
   rootContainer: {
@@ -91,12 +102,10 @@ class AddFriend extends Component {
     open: false
   }
 
-
   handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-
     this.setState({
       open: false
     })
@@ -113,14 +122,12 @@ class AddFriend extends Component {
   // function to handle searching for a member by name
   handleSearch = () => {
     let nameSearch = document.getElementById('friendSearch').value;
-    console.log(nameSearch);
     if (nameSearch !== '') {
       this.props.dispatch({ type: "GET_MEMBERS", payload: { search: nameSearch, type: 'members' } })
     }
     if (nameSearch === '') {
       this.props.dispatch({ type: "UNSET_MEMBERS"})
     }
-    
   }
 
   // function to add a friend
@@ -135,7 +142,6 @@ class AddFriend extends Component {
 
   render() {
     const { classes } = this.props;
-    const item = this.props.store.memberReducer;
     return (
       <>
         <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }}open={this.state.open} autoHideDuration={3000} onClose={this.handleClose}>

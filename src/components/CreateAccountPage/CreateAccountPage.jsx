@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import './CreateAccountPage.css'
 import RegisterForm from './RegisterForm';
 import { withStyles} from '@material-ui/core';
 
